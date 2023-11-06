@@ -93,7 +93,7 @@ const SignUpWithId = () => {
         
         <button
           
-          className="bg-slate-700 flex items-center justify-center gap-2 text-white p-2
+          className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
         >
@@ -115,5 +115,3 @@ const SignUpWithId = () => {
 }
 
 export default SignUpWithId
-
-// mt-auto my-28 ml-28
