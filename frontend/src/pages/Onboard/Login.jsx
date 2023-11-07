@@ -62,7 +62,7 @@ const Login = () => {
           id="companyId"
           onChange={handleChange}
         />
-          </div>
+        </div>
         </div>
         
         <button
