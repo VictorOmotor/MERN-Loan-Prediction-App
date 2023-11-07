@@ -43,7 +43,7 @@ const ResetPassword = () => {
           <label className='text-[#5F6D7E] font-semibold' htmlFor="password">New Password</label>
           <div>
           <input
-          type="email"
+          type="password"
           placeholder="********"
           className="border border-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
           id="email"
