@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Thread = () => {
-  return (
-    <div>Thread</div>
-  )
-}
+  return <div>Thread</div>;
+};
 
-export default Thread
+export default Thread;

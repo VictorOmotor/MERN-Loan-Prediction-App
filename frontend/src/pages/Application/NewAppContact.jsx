@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const NewAppContact = () => {
-  return (
-    <div>NewAppContact</div>
-  )
-}
+  return <div>NewAppContact</div>;
+};
 
-export default NewAppContact
+export default NewAppContact;

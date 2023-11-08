@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ApprovedApplications = () => {
-  return (
-    <div>ApprovedApplications</div>
-  )
-}
+  return <div>ApprovedApplications</div>;
+};
 
-export default ApprovedApplications
+export default ApprovedApplications;

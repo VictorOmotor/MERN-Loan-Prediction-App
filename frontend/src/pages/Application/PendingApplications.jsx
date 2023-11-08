@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const PendingApplications = () => {
-  return (
-    <div>PendingApplications</div>
-  )
-}
+  return <div>PendingApplications</div>;
+};
 
-export default PendingApplications
+export default PendingApplications;

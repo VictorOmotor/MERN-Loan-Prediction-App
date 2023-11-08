@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Cashflow = () => {
-  return (
-    <div>Cashflow</div>
-  )
-}
+  return <div>Cashflow</div>;
+};
 
-export default Cashflow
+export default Cashflow;

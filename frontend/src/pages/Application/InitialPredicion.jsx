@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const InitialPredicion = () => {
-  return (
-    <div>InitialPredicion</div>
-  )
-}
+  return <div>InitialPredicion</div>;
+};
 
-export default InitialPredicion
+export default InitialPredicion;

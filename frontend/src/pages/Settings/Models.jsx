@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Models = () => {
-  return (
-    <div>Models</div>
-  )
-}
+  return <div>Models</div>;
+};
 
-export default Models
+export default Models;

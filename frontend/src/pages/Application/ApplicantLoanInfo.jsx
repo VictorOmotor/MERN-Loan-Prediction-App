@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ApplicantLoanInfo = () => {
-  return (
-    <div>ApplicantLoanInfo</div>
-  )
-}
+  return <div>ApplicantLoanInfo</div>;
+};
 
-export default ApplicantLoanInfo
+export default ApplicantLoanInfo;

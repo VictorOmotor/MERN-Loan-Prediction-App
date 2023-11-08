@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const RejectedApplications = () => {
-  return (
-    <div>RejectedApplications</div>
-  )
-}
+  return <div>RejectedApplications</div>;
+};
 
-export default RejectedApplications
+export default RejectedApplications;

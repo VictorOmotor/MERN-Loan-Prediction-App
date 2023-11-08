@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ApplicationDetails = () => {
-  return (
-    <div>ApplicationDetails</div>
-  )
-}
+  return <div>ApplicationDetails</div>;
+};
 
-export default ApplicationDetails
+export default ApplicationDetails;

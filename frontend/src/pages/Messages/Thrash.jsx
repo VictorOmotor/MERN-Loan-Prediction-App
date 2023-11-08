@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Thrash = () => {
-  return (
-    <div>Thrash</div>
-  )
-}
+  return <div>Thrash</div>;
+};
 
-export default Thrash
+export default Thrash;

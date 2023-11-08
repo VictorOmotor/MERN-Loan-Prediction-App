@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const IncAndExp = () => {
-  return (
-    <div>IncAndExp</div>
-  )
-}
+  return <div>IncAndExp</div>;
+};
 
-export default IncAndExp
+export default IncAndExp;

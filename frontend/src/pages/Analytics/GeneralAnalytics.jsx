@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const GeneralAnalytics = () => {
-  return (
-    <div>GeneralAnalytics</div>
-  )
-}
+  return <div>GeneralAnalytics</div>;
+};
 
-export default GeneralAnalytics
+export default GeneralAnalytics;
