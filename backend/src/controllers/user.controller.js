@@ -37,7 +37,7 @@ export default class UserController {
       signUpOtp,
     });
     await user.save();
-    // Set body of email
+    
     const message = `Hi,\n\n Your Otp is: ${signUpOtp}`;
 
     const mailSent = await sendEmail({
@@ -201,7 +201,7 @@ export default class UserController {
       'host',
     )}/api/user/resetpassword/verify/${resetToken}`;
     console.log(resetPasswordUrl);
-    const message = `Hello ${user.firstName},\n\nPlease click on the following link to reset your password: ${resetPasswordUrl}\n\nPlease ignore this message if this request did not emanate from you`;
+    const message = `Hello ${user.firstName},\n\nPlease click on the following link to reset your password: ${resetPasswordUrl}\n\nPlease ignore this message if this request did not emanate from you.\n\nThank you.`;
 
     const mailSent = await sendEmail({
       email: user.email,

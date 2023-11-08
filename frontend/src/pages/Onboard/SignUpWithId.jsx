@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import checkedIcon from '../../assets/images/checkedIcon.png';
 import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import {FaEyeSlash, FaEye } from 'react-icons/fa'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { validateEmail } from '../../utils';
+import Spinner from '../../components/Spinner/Spinner';
 
 const SignUpWithId = () => {
-  const handleChange = (e) => {};
+  const [email, setEmail] = useState('')
+  const [companyId, setCompanyId] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [showId, setShowId] = useState(false)
+  const [error, setError] = useState(false)
+  const url = '/api/user/signup'
+  const navigate = useNavigate()
+
+  const handleToggleVisiblity = (e) => {
+    setShowId(!showId)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    if (!email || !companyId) {
+      setError('Both fields are required!');
+      setLoading(false)
+    }
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email');
+      setLoading(false)
+    }
+    try {
+      setError(false)
+      const response = await axios.post(url, { email, companyId })
+      setLoading(false)
+      navigate('/signup/password-otp')
+    } catch (error) {
+      setLoading(false)
+
+      setError(error.response &&
+        error.response.data &&
+        error.response.data.message) ||
+        error.message ||
+        error.toString()
+    }
+  }
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -78,7 +120,7 @@ const SignUpWithId = () => {
           <h1 className="text-3xl text-center text-[#172233] font-semibold my-16">
             Sign Up
           </h1>
-          <form className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="">
               <label
                 className="self-stretch text-[#5F6D7E] font-semibold"
@@ -90,9 +132,9 @@ const SignUpWithId = () => {
                 <input
                   type="email"
                   placeholder="myworkemail@work.com"
-                  className="border border-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
+                  className="border border-[#5597e9] p-2 rounded-lg w-full focus:outline-none"
                   id="email"
-                  onChange={handleChange}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -104,23 +146,38 @@ const SignUpWithId = () => {
               >
                 Company ID
               </label>
-              <div>
+              <div className='relative'>
                 <input
-                  type="password"
-                  placeholder="123ABC"
+                  type={showId ? 'text' : 'password'}
+                  placeholder={showId ? '123ABC' : '********'}
                   className="border p-2 mb-2 border-[#5F6D7E] rounded-lg w-full focus:outline-none"
                   id="companyId"
-                  onChange={handleChange}
+                  onChange={(e) => setCompanyId(e.target.value)}
                 />
+                <div className='absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer'>
+                {showId ? (
+                <FaEyeSlash onClick={handleToggleVisiblity} className="text-[#5F6D7E] " />
+                ) : (
+                <FaEye onClick={handleToggleVisiblity} className="text-[#5F6D7E]" />
+                )}
+                </div>
+                
               </div>
             </div>
+            <p className='text-red-500 text-xs'>{error ? error : ''}</p>
 
             <button
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
-        rounded-lg hover:opacity-80
-        disabled:opacity-50"
+              rounded-lg hover:opacity-80
+              disabled:opacity-50" disabled={loading}
             >
-              Next <GoArrowRight />
+              {loading ? (
+                <Spinner />
+              ) : (
+                  <>
+                  Next <GoArrowRight/>
+                  </>
+              )} 
             </button>
           </form>
 
