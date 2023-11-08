@@ -6,48 +6,78 @@ import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+  resignUpIdStart,
+  resignUpIdSuccess,
+  resignUpIdFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
+import OtpInput from '../../components/Forms/OtpInput';
 
 const Otp = () => {
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const { currentUser, loading, error, reload, resendError, success } =
+    useSelector((state) => state.user);
+  const [signUpOtp, setSignUpOtp] = useState('');
+  const resendUrl = '/api/user/signup';
+  const otpUrl = '/api/user/verifyotp';
+  const navigate = useNavigate();
+  const email = currentUser?.user?.email;
+  const companyId = currentUser?.user?.companyId;
+  const dispatch = useDispatch();
 
-  const handleChange = (e, index) => {
-    const { value } = e.target;
-    if (value === '') {
-      setOtp((prevOtp) => {
-        const newOtp = [...prevOtp];
-        newOtp[index] = value;
-        if (index > 0) {
-          document.getElementById(`otp-input-${index - 1}`).focus();
-        }
-        return newOtp;
-      });
-    } else if (value.length === 1) {
-      setOtp((prevOtp) => {
-        const newOtp = [...prevOtp];
-        newOtp[index] = value;
-        if (index < 3) {
-          document.getElementById(`otp-input-${index + 1}`).focus();
-        }
-        return newOtp;
-      });
+  const handleOtpChange = (otpValue) => {
+    setSignUpOtp(otpValue);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(signUpIdStart());
+    if (signUpOtp.length < 4) {
+      dispatch(signUpIdFailure('Please pass in the 4-digit OTP'));
+    } else {
+      try {
+        const response = await axios.post(otpUrl, { signUpOtp });
+        dispatch(signUpIdSuccess(response.data));
+        navigate('/register');
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(signUpIdFailure(message));
+      }
     }
   };
 
-  const handlePaste = (e) => {
-    const pastedText = e.clipboardData.getData('text');
-    if (pastedText.length === 4) {
-      setOtp(pastedText.split(''));
-      document.getElementById('otp-input-3').focus();
-      e.preventDefault();
+  const handleResend = async (e) => {
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(resignUpIdStart());
+    try {
+      const response = await axios.post(resendUrl, { email, companyId });
+      dispatch(resignUpIdSuccess(response.data));
+      dispatch(resetAuth());
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch(resignUpIdFailure(message));
     }
   };
 
-  const handleKeyDown = (e, index) => {
-    if (e.key === 'Backspace' && index > 0 && otp[index] === '') {
-      document.getElementById(`otp-input-${index - 1}`).focus();
-    }
-  };
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -115,31 +145,35 @@ const Otp = () => {
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
           <div className="border bg-[#DFDEDE] p-10 mt-20">
-            <div className="otp-input flex space-x-4">
-              {otp.map((value, index) => (
-                <input
-                  key={index}
-                  id={`otp-input-${index}`}
-                  type="text"
-                  maxLength="1"
-                  value={value}
-                  onChange={(e) => handleChange(e, index)}
-                  onPaste={handlePaste}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="w-full p-2 text-3xl border border-[#169872] rounded focus:outline-none text-center"
-                />
-              ))}
-            </div>
+            <OtpInput value={signUpOtp} onChange={handleOtpChange} />
+            <p className="text-red-500 text-xs mt-2 text-center">
+              {error ? error : ''}
+            </p>
           </div>
           <div className="flex flex-col items-center my-7">
             <h2 className=" text-2xl font-black mb-3">Enter OTP</h2>
             <p className="text-xs">Enter the 4 digit OTP sent to your mail</p>
             <p className="text-xs">
               Click{' '}
-              <span className="font-bold cursor-pointer hover:underline">
+              <span
+                className="font-bold cursor-pointer hover:underline"
+                onClick={handleResend}
+              >
                 HERE
               </span>{' '}
-              to Resend OTP
+              to Resend OTP{' '}
+              {reload && (
+                <span className="flex justify-center mt-2">
+                  <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+                </span>
+              )}
+            </p>
+            {success && (
+              <p className="text-gray-500 text-xs mt-2">OTP resent!</p>
+            )}
+
+            <p className="text-red-500 text-xs mt-2">
+              {resendError ? resendError : ''}
             </p>
           </div>
 
@@ -147,8 +181,16 @@ const Otp = () => {
             className="bg-[#172233]  w-full flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+            onClick={handleSubmit}
+            disabled={loading}
           >
-            Sign up <GoArrowRight />
+            {loading ? (
+              <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+            ) : (
+              <>
+                Submit <GoArrowRight />
+              </>
+            )}
           </button>
 
           <div className="flex  justify-center gap-4 mt-16">

@@ -51,11 +51,13 @@ export default class UserController {
       );
     res.status(200).json({
       message: `An email has been sent to ${email}`,
+      user
     });
   }
 
   static async verifyOtp(req, res) {
     const { signUpOtp } = req.body;
+    console.log(signUpOtp)
     const user = await User.findOne({ signUpOtp });
     if (!user) throw new UnAuthorizedError('Invalid OTP');
     res.status(200).json({

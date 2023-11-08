@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const Spinner = () => {
-  return (
-    <div className=" w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]">
-        
-    </div>
-  )
-}
+const Spinner = ({ className }) => {
+  return <div className={className}></div>;
+};
 
-export default Spinner
+export default Spinner;

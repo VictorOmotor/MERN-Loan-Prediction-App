@@ -5,51 +5,54 @@ import checkedIcon from '../../assets/images/checkedIcon.png';
 import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
-import {FaEyeSlash, FaEye } from 'react-icons/fa'
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 import { validateEmail } from '../../utils';
 import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+} from '../../redux/user/userSlice';
 
 const SignUpWithId = () => {
-  const [email, setEmail] = useState('')
-  const [companyId, setCompanyId] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [showId, setShowId] = useState(false)
-  const [error, setError] = useState(false)
-  const url = '/api/user/signup'
-  const navigate = useNavigate()
+  const { loading, error } = useSelector((state) => state.user);
+  const [email, setEmail] = useState('');
+  const [companyId, setCompanyId] = useState('');
+  const [showId, setShowId] = useState(false);
+  const url = '/api/user/signup';
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleToggleVisiblity = (e) => {
-    setShowId(!showId)
-  }
+    setShowId(!showId);
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    dispatch(signUpIdStart());
     if (!email || !companyId) {
-      setError('Both fields are required!');
-      setLoading(false)
+      dispatch(signUpIdFailure('Both fields are required!'));
     }
     if (!validateEmail(email)) {
-      setError('Please enter a valid email');
-      setLoading(false)
+      dispatch(signUpIdFailure('Please enter a valid email'));
     }
     try {
-      setError(false)
-      const response = await axios.post(url, { email, companyId })
-      setLoading(false)
-      navigate('/signup/password-otp')
+      const response = await axios.post(url, { email, companyId });
+      dispatch(signUpIdSuccess(response.data));
+      navigate('/signup/password-otp');
     } catch (error) {
-      setLoading(false)
-
-      setError(error.response &&
-        error.response.data &&
-        error.response.data.message) ||
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
         error.message ||
-        error.toString()
+        error.toString();
+      dispatch(signUpIdFailure(message));
     }
-  }
+  };
 
   return (
     <div
@@ -146,7 +149,7 @@ const SignUpWithId = () => {
               >
                 Company ID
               </label>
-              <div className='relative'>
+              <div className="relative">
                 <input
                   type={showId ? 'text' : 'password'}
                   placeholder={showId ? '123ABC' : '********'}
@@ -154,30 +157,36 @@ const SignUpWithId = () => {
                   id="companyId"
                   onChange={(e) => setCompanyId(e.target.value)}
                 />
-                <div className='absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer'>
-                {showId ? (
-                <FaEyeSlash onClick={handleToggleVisiblity} className="text-[#5F6D7E] " />
-                ) : (
-                <FaEye onClick={handleToggleVisiblity} className="text-[#5F6D7E]" />
-                )}
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showId ? (
+                    <FaEyeSlash
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
                 </div>
-                
               </div>
             </div>
-            <p className='text-red-500 text-xs'>{error ? error : ''}</p>
+            <p className="text-red-500 text-xs">{error ? error : ''}</p>
 
             <button
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
               rounded-lg hover:opacity-80
-              disabled:opacity-50" disabled={loading}
+              disabled:opacity-50"
+              disabled={loading}
             >
               {loading ? (
-                <Spinner />
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
               ) : (
-                  <>
-                  Next <GoArrowRight/>
-                  </>
-              )} 
+                <>
+                  Next <GoArrowRight />
+                </>
+              )}
             </button>
           </form>
 
