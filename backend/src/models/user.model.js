@@ -46,6 +46,7 @@ const UserSchema = new Schema(
     securityAnswer: {
       type: String,
       trim: true,
+      lowercase: true,
     },
     accessToken: {
       type: String,

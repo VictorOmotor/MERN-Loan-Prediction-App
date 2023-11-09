@@ -1,12 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LaptopImg from '../../assets/images/Laptop.png';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
+import { ResetPasswordWidget } from '../../components/Widgets/Widgets';
 
 const ResetPassSecQues = () => {
-  const handleChange = (e) => {};
+  const [formData, setFormData] = useState({});
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const url = '/api/user/resetpassword/security-question';
+  const email = currentUser.email;
+
+  const handleClose = (e) => {
+    setIsVisible(!isVisible);
+  };
+
+  const handleContinue = (e) => {
+    navigate('/resetpassword');
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    const { securityQuestion, securityAnswer } = formData;
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(signUpIdStart());
+    if (!securityQuestion) {
+      dispatch(signUpIdFailure('Please select a security question'));
+    } else if (!securityAnswer) {
+      dispatch(signUpIdFailure('Please provide an answer'));
+    } else {
+      try {
+        const response = await axios.post(url, {
+          securityAnswer,
+          securityQuestion,
+          email,
+        });
+        dispatch(signUpIdSuccess(response.data));
+        setIsVisible(true);
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(signUpIdFailure(message));
+      }
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -34,7 +98,7 @@ const ResetPassSecQues = () => {
       </div>
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-44">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-44">
             <h1 className="text-xl text-[#172233] font-semibold">
               Reset Password
             </h1>
@@ -50,32 +114,59 @@ const ResetPassSecQues = () => {
                   type="text"
                   placeholder="First Name"
                   className="border border-[#5F6D7E] focus:text-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
-                  id="firstName"
+                  id="securityQuestion"
                   onChange={handleChange}
                 >
-                  <option
-                    className="text-[#5F6D7E] font-semibold"
-                    value="option1"
-                  >
-                    Option 1
+                  <option className="text-[#5F6D7E] font-semibold" value=" ">
+                    Please select a security question
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option2"
+                    value="Where did you meet your spouse"
                   >
-                    Option 2
+                    Where did you meet your spouse?
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option3"
+                    value="When is your next birthday"
                   >
-                    Option 3
+                    When is your next birthday?
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option4"
+                    value="In what city were you born"
                   >
-                    Option 4
+                    In what city were you born?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite color"
+                  >
+                    What is your favorite color?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite food"
+                  >
+                    What is your favorite food?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite childhood cartoon character"
+                  >
+                    What is your favorite childhood cartoon character?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is the name of your childhood best friend"
+                  >
+                    What is the name of your childhood best friend?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your mother's maiden name"
+                  >
+                    What is your mother's maiden name?
                   </option>
                 </select>
               </div>
@@ -98,14 +189,19 @@ const ResetPassSecQues = () => {
             </div>
 
             <button
-              className="bg-[#172233] items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+              disabled={loading}
             >
-              Reset
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>Reset</>
+              )}
             </button>
           </form>
-
+          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
           <div className="flex text-center justify-center text-[#000] gap-4 py-16">
             <span>Term of use </span>
             <Link to="/sign-in">
@@ -114,6 +210,14 @@ const ResetPassSecQues = () => {
           </div>
         </div>
       </div>
+      {isVisible && (
+        <ResetPasswordWidget
+          email={email}
+          onContinue={handleContinue}
+          onClose={handleClose}
+          isVisible={isVisible}
+        />
+      )}
     </div>
   );
 };

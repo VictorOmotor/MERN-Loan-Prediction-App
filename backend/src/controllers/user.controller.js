@@ -191,7 +191,7 @@ export default class UserController {
     if (!user) throw new NotFoundError('User Not Found!!!');
     res.status(200).json({
       status: 'Success',
-      user
+      email
     });
   }
 
@@ -227,6 +227,7 @@ export default class UserController {
       );
     res.status(200).json({
       message: `An password reset link has been sent to ${email}`,
+      email
     });
   }
 
@@ -237,10 +238,7 @@ export default class UserController {
       .digest('hex');
     const user = await User.findOne({ resetPasswordToken });
     if (!user) throw new BadUserRequestError('Invalid Reset Token');
-    res.status(200).json({
-      status: 'Success',
-      message: 'Verified',
-    });
+    res.redirect('http://localhost:5173/resetpassword')
   }
 
   static async resetPassword(req, res) {
