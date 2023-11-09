@@ -188,9 +188,10 @@ export default class UserController {
   static async forgotPassword(req, res) {
     const { email } = req.body;
     const user = await User.findOne({ email });
-    if (!user) throw new NotFoundError('User Not Found');
+    if (!user) throw new NotFoundError('User Not Found!!!');
     res.status(200).json({
       status: 'Success',
+      user
     });
   }
 
