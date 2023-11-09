@@ -1,13 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
 import { GoArrowRight } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LaptopImg from '../../assets/images/Laptop.png';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import axios from 'axios';
+import { validateEmail } from '../../utils';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loginInUserStart,
+  loginInUserSuccess,
+  loginInUserFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
 
 const Login = () => {
-  const handleChange = (e) => {};
+  const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const url = '/api/user/login';
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleToggleVisiblity = (e) => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    const { email, password } = formData;
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(loginInUserStart());
+    if (!email || !password) {
+      dispatch(loginInUserFailure('Both fields are required!'));
+    } else if (!validateEmail(email)) {
+      dispatch(loginInUserFailure('Please enter a valid email'));
+    } else {
+      try {
+        const response = await axios.post(url, {
+          email,
+          password,
+        });
+        dispatch(loginInUserSuccess(response.data));
+        navigate('/dashboard');
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(loginInUserFailure(message));
+      }
+    }
+  };
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -38,7 +96,7 @@ const Login = () => {
           <h1 className="text-3xl text-center text-[#172233] font-semibold pt-28 pb-8">
             Log in
           </h1>
-          <form className="flex flex-col gap-5">
+          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="">
               <label className="text-[#5F6D7E] font-semibold" htmlFor="email">
                 Email
@@ -50,6 +108,7 @@ const Login = () => {
                   className="border border-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
                   id="email"
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -61,14 +120,28 @@ const Login = () => {
               >
                 Password
               </label>
-              <div>
+              <div className="relative">
                 <input
-                  type="password"
-                  placeholder="********"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder={showPassword ? '123ABC' : '**********'}
                   className="border p-2 mb-2 border-[#5F6D7E] rounded-lg w-full focus:outline-none"
-                  id="companyId"
+                  id="password"
                   onChange={handleChange}
+                  required
                 />
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showPassword ? (
+                    <FaEyeSlash
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
@@ -77,11 +150,20 @@ const Login = () => {
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >
-              Log In <GoArrowRight />
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>
+                  Log in <GoArrowRight />
+                </>
+              )}
             </button>
           </form>
+          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
           <div className="flex text-center justify-center gap-8 mt-4 text-[#000]">
-            <span>Forgot Password?</span>
+            <Link to={'/forgotpassword'}>
+              <span>Forgot Password?</span>
+            </Link>
             <Link to="/sign-in">
               <span>Sign Up</span>
             </Link>
@@ -89,9 +171,8 @@ const Login = () => {
 
           <div className="flex text-center justify-center text-[#000] gap-4 pt-12">
             <span>Term of use </span>
-            <Link to="/sign-in">
-              <span>Privacy policy</span>
-            </Link>
+
+            <span>Privacy policy</span>
           </div>
         </div>
       </div>

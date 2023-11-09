@@ -53,29 +53,22 @@ const userSlice = createSlice({
       state.reload = false;
       state.success = false;
     },
-    updateUserStart: (state) => {
+
+    loginInUserStart: (state) => {
       state.loading = true;
+      state.error = null;
+      state.loggedIn = false;
     },
-    updateUserSuccess: (state, action) => {
+    loginInUserSuccess: (state, action) => {
       state.currentUser = action.payload;
       state.loading = false;
       state.error = null;
+      state.loggedIn = true;
     },
-    updateUserFailure: (state, action) => {
+    loginInUserFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
-    },
-    deleteUserStart: (state) => {
-      state.loading = true;
-    },
-    deleteUserSuccess: (state, action) => {
-      state.currentUser = null;
-      state.loading = false;
-      state.error = null;
-    },
-    deleteUserFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
+      state.success = false;
     },
     signOutStart: (state) => {
       state.loading = true;
@@ -100,6 +93,9 @@ export const {
   resignUpIdSuccess,
   resignUpIdFailure,
   resetAuth,
+  loginInUserStart,
+  loginInUserSuccess,
+  loginInUserFailure,
   // updateUserStart,
   // updateUserSuccess,
   // updateUserFailure,
