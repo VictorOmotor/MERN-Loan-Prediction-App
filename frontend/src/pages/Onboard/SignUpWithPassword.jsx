@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import checkedIcon from '../../assets/images/checkedIcon.png';
@@ -6,10 +6,83 @@ import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
 
 const SignUpWithPassword = () => {
-  const handleChange = (e) => {};
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+  const url = '/api/user/register';
+  const email = currentUser?.user?.email;
+
+  const handleToggleVisiblity = (e) => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleVerifyPasswordVisiblity = (e) => {
+    setShowVerifyPassword(!showVerifyPassword);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    const { firstName, surname, password, confirmPassword } = formData;
+    let hasNumber = /\d/.test(formData.password);
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(signUpIdStart());
+    if (!firstName || !surname || !password || !confirmPassword) {
+      dispatch(signUpIdFailure('All fields are required!'));
+    } else if (password.length < 6 || !hasNumber) {
+      dispatch(
+        signUpIdFailure(
+          'Password must be at least 6 characters long and must contain at least one number',
+        ),
+      );
+    } else if (password !== confirmPassword) {
+      dispatch(signUpIdFailure('Passwords do not match!'));
+    } else {
+      try {
+        const response = await axios.post(url, {
+          firstName,
+          surname,
+          password,
+          confirmPassword,
+          email,
+        });
+        dispatch(signUpIdSuccess(response.data));
+        navigate('/signup/security-question');
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(signUpIdFailure(message));
+      }
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -76,7 +149,7 @@ const SignUpWithPassword = () => {
       </div>
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-16">
+          <form className="flex flex-col gap-5 mt-16" onSubmit={handleSubmit}>
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"
@@ -116,14 +189,27 @@ const SignUpWithPassword = () => {
               >
                 Password
               </label>
-              <div>
+              <div className="relative">
                 <input
-                  type="password"
-                  placeholder="**********"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder={showPassword ? '123ABC' : '**********'}
                   className="border p-2 mb-2 border-[#5F6D7E] rounded-lg w-full focus:outline-none"
-                  id="companyId"
+                  id="password"
                   onChange={handleChange}
                 />
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showPassword ? (
+                    <FaEyeSlash
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
             <div>
@@ -133,14 +219,27 @@ const SignUpWithPassword = () => {
               >
                 Re-enter Password
               </label>
-              <div>
+              <div className="relative">
                 <input
-                  type="password"
-                  placeholder="**********"
+                  type={showVerifyPassword ? 'text' : 'password'}
+                  placeholder={showVerifyPassword ? '123ABC' : '**********'}
                   className="border p-2 mb-2 border-[#5F6D7E] rounded-lg w-full focus:outline-none"
                   id="confirmPassword"
                   onChange={handleChange}
                 />
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showVerifyPassword ? (
+                    <FaEyeSlash
+                      onClick={handleVerifyPasswordVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleVerifyPasswordVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
@@ -149,10 +248,16 @@ const SignUpWithPassword = () => {
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >
-              Sign up <GoArrowRight />
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>
+                  Sign up <GoArrowRight />
+                </>
+              )}
             </button>
           </form>
-
+          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
           <div className="flex  justify-center gap-4 mt-7">
             <p className="text-[#454E5C]">Term of use </p>
             <Link to="">

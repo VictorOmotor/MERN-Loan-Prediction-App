@@ -11,7 +11,7 @@ export const registerUserIdValidator = Joi.object({
 }).strict();
 
 export const registerUserValidator = Joi.object({
-  signUpOtp: Joi.string().required(),
+  email: Joi.string().required(),
   firstName: Joi.string().required(),
   surname: Joi.string().required(),
   password: Joi.string()
@@ -27,10 +27,13 @@ export const registerUserValidator = Joi.object({
     .valid(Joi.ref('password'))
     .required()
     .messages({ 'any.only': `Password does not match` }),
+}).strict();
+
+export const securityQuestionValidator = Joi.object({
+  email: Joi.string().required(),
   securityQuestion: Joi.string().required(),
   securityAnswer: Joi.string().required(),
 }).strict();
-
 export const loginUserValidator = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),

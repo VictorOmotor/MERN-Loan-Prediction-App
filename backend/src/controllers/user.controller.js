@@ -3,6 +3,7 @@ import {
   loginUserValidator,
   registerUserValidator,
   resetPasswordValidator,
+  securityQuestionValidator,
 } from '../validators/user.validator.js';
 import {
   BadUserRequestError,
@@ -37,7 +38,7 @@ export default class UserController {
       signUpOtp,
     });
     await user.save();
-    
+
     const message = `Hi,\n\n Your Otp is: ${signUpOtp}`;
 
     const mailSent = await sendEmail({
@@ -51,13 +52,12 @@ export default class UserController {
       );
     res.status(200).json({
       message: `An email has been sent to ${email}`,
-      user
+      user,
     });
   }
 
   static async verifyOtp(req, res) {
     const { signUpOtp } = req.body;
-    console.log(signUpOtp)
     const user = await User.findOne({ signUpOtp });
     if (!user) throw new UnAuthorizedError('Invalid OTP');
     res.status(200).json({
@@ -67,25 +67,35 @@ export default class UserController {
     });
   }
 
-  static async registerUser(req, res) {
+  static async registerUserDetails(req, res) {
     const { error } = registerUserValidator.validate(req.body);
     if (error) throw error;
-    const {
-      firstName,
-      surname,
-      password,
-      securityQuestion,
-      securityAnswer,
-      signUpOtp,
-    } = req.body;
-    const validUser = await User.findOne({ signUpOtp });
-    if (!validUser) throw new UnAuthorizedError('Invalid OTP');
+    const { firstName, surname, password, email } = req.body;
+    const validUser = await User.findOne({ email });
+    if (!validUser) throw new UnAuthorizedError('Invalid request!');
     const saltRounds = config.bycrypt_salt_round;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
     const token = generateToken(validUser);
     validUser.firstName = firstName;
     validUser.surname = surname;
     validUser.password = hashedPassword;
+    await validUser.save();
+    const user = validUser.toObject();
+    delete user.password;
+    res.status(200).json({
+      status: 'Success',
+      message: 'User details added',
+      user,
+    });
+  }
+
+  static async registerUser(req, res) {
+    const { error } = securityQuestionValidator.validate(req.body);
+    if (error) throw error;
+    const { email, securityQuestion, securityAnswer } = req.body;
+    const validUser = await User.findOne({ email });
+    if (!validUser) throw new UnAuthorizedError('Invalid request!');
+    const token = generateToken(validUser);
     validUser.signUpOtp = null;
     validUser.isVerified = true;
     validUser.accessToken = token;
