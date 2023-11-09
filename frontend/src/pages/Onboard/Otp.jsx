@@ -31,7 +31,7 @@ const Otp = () => {
   const email = currentUser?.user?.email;
   const companyId = currentUser?.user?.companyId;
   const dispatch = useDispatch();
-
+  console.log(success)
   const handleOtpChange = (otpValue) => {
     setSignUpOtp(otpValue);
   };
@@ -66,7 +66,7 @@ const Otp = () => {
     try {
       const response = await axios.post(resendUrl, { email, companyId });
       dispatch(resignUpIdSuccess(response.data));
-      dispatch(resetAuth());
+      // dispatch(resetAuth());
     } catch (error) {
       const message =
         (error.response &&
