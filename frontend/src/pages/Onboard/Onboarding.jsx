@@ -1,6 +1,7 @@
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import ellipseImg from '../../assets/images/Ellipse 3.png';
+import { Link } from 'react-router-dom';
 
 const Onboarding = () => {
   return (
@@ -14,8 +15,12 @@ const Onboarding = () => {
         className=" relative uppercase text-white font-[Inter]  
        font-semibold flex justify-end gap-6 pt-8 pr-16"
       >
-        <li className="cursor-pointer">Login</li>
-        <li className="cursor-pointer">Sign Up</li>
+        <Link to={'/login'}>
+          <li className="cursor-pointer">Login</li>
+        </Link>
+        <Link to={'/signup'}>
+          <li className="cursor-pointer">Sign Up</li>
+        </Link>
       </ul>
       <div className="absolute">
         <img src={ellipseImg} className="w-[25rem] ml-96 mt-9" alt="ellipse" />
@@ -38,13 +43,3 @@ const Onboarding = () => {
 };
 
 export default Onboarding;
-
-// color: #A2A7AD;
-
-// color: #A2A7AD;
-// font-family: Montserrat;
-// font-size: 1.5rem;
-// font-style: italic;
-// font-weight: 500;
-// line-height: 2.13125rem;
-// letter-spacing: -0.0015rem;

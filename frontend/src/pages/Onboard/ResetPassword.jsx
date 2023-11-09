@@ -37,6 +37,7 @@ const ResetPassword = () => {
 
   const handleClose = (e) => {
     setIsVisible(!isVisible);
+    navigate('/login');
   };
 
   const handleContinue = (e) => {

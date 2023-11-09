@@ -16,14 +16,27 @@ import {
   signUpIdFailure,
   resetAuth,
 } from '../../redux/user/userSlice';
+import { SignUpSuccessfulWidget } from '../../components/Widgets/Widgets';
+import Loader from '../../components/Loader/Loader';
 
 const SignUpSecurityQuestion = () => {
   const [formData, setFormData] = useState({});
   const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = '/api/user/signup/security-question';
   const email = currentUser?.user?.email;
+
+  const handleClose = (e) => {
+    setIsVisible(!isVisible);
+    navigate('/login');
+  };
+
+  const handleContinue = (e) => {
+    navigate('/login');
+  };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({
@@ -49,7 +62,7 @@ const SignUpSecurityQuestion = () => {
           email,
         });
         dispatch(signUpIdSuccess(response.data));
-        navigate('/dashboard');
+        setIsVisible(true);
         dispatch(resetAuth());
       } catch (error) {
         const message =
@@ -68,6 +81,14 @@ const SignUpSecurityQuestion = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
+      {loading && <Loader />}
+      {isVisible && (
+        <SignUpSuccessfulWidget
+          onContinue={handleContinue}
+          onClose={handleClose}
+          isVisible={isVisible}
+        />
+      )}
       <div className="h-screen flex flex-col w-1/2">
         <div className="flex mt-auto ">
           <div className="flex gap-1 mt-auto my-48 ml-28 ">
@@ -220,18 +241,19 @@ const SignUpSecurityQuestion = () => {
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
-              disabled={loading}
+              // disabled={loading}
             >
-              {loading ? (
+              Sign up <GoArrowRight />
+              {/* {loading ? (
                 <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
               ) : (
                 <>
                   Sign up <GoArrowRight />
                 </>
-              )}
+              )} */}
             </button>
           </form>
-          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
+          <p className="text-red-500 text-sm mt-2">{error ? error : ''}</p>
           <div className="flex  justify-center gap-4 mt-8">
             <p className="text-[#454E5C]">Term of use </p>
             <Link to="">

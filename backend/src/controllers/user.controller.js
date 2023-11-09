@@ -25,7 +25,7 @@ export default class UserController {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       if (existingUser.isVerified) {
-        throw new BadUserRequestError(`Account already exists. Please login`);
+        throw new BadUserRequestError(`Account already exists. Please login!`);
       } else {
         await User.deleteOne({ _id: existingUser._id });
       }
@@ -95,6 +95,10 @@ export default class UserController {
     const { email, securityQuestion, securityAnswer } = req.body;
     const validUser = await User.findOne({ email });
     if (!validUser) throw new UnAuthorizedError('Invalid request!');
+    if (validUser.isVerified)
+      throw new BadUserRequestError(
+        'You have been verified already. Please login.',
+      );
     const token = generateToken(validUser);
     validUser.signUpOtp = null;
     validUser.isVerified = true;
@@ -255,21 +259,7 @@ export default class UserController {
     validUser.accessToken = token;
     validUser.resetPasswordToken = null;
     await validUser.save();
-    const user = validUser.toObject();
-    delete user.password;
-    const maxAge = config.cookie_max_age;
-    res.cookie('access_token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge,
-    });
-
-    res.status(200).json({
-      status: 'Success',
-      message: 'Password reset successful',
-      user,
-    });
+    res.status(200);
   }
 
   // static async deleteAll(req, res) {

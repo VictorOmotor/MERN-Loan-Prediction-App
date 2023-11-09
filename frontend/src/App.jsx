@@ -40,6 +40,7 @@ import Models from './pages/Settings/Models';
 import NotificationSettings from './pages/Settings/NotificationSettings';
 import Security from './pages/Settings/Security';
 import InitialPredicion from './pages/Application/InitialPredicion';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return (
@@ -63,71 +64,79 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/analytics" element={<GeneralAnalytics />} />
-        <Route
-          path="/dashboard/application-details"
-          element={<ApplicationDetails />}
-        />
-        <Route path="/applications/all" element={<AllApplications />} />
-        <Route path="/applications/overview" element={<AppOverview />} />
-        <Route
-          path="/applications/approved"
-          element={<ApprovedApplications />}
-        />
-        <Route
-          path="/applications/rejected"
-          element={<RejectedApplications />}
-        />
-        <Route path="/applications/pending" element={<PendingApplications />} />
-        <Route
-          path="/applications/new-application/prediction"
-          element={<InitialPredicion />}
-        />
-        <Route
-          path="/applications/new-application/personalinfo"
-          element={<NewAppContact />}
-        />
-        <Route
-          path="/applications/new-application/loaninfo"
-          element={<NewAppLoanInfo />}
-        />
-        <Route
-          path="/applications/new-application/history"
-          element={<NewAppFinHistory />}
-        />
-        <Route
-          path="/applications/applicant/contact"
-          element={<ApplicantContactInfo />}
-        />
-        <Route
-          path="/applications/applicant/loan"
-          element={<ApplicantLoanInfo />}
-        />
-        <Route
-          path="/applications/applicant/prediction"
-          element={<ApplicantPredInfo />}
-        />
-        <Route path="/applications/applicant/cashflow" element={<Cashflow />} />
-        <Route
-          path="/applications/applicant/previousloans"
-          element={<PreviousLoans />}
-        />
-        <Route path="/applications/applicant/iexp" element={<IncAndExp />} />
-        <Route path="/messages/inbox" element={<Inbox />} />
-        <Route path="/messages/new" element={<NewMessage />} />
-        <Route path="/messages/thread" element={<Thread />} />
-        <Route path="/messages/thrash" element={<Thrash />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/recovery" element={<LoanRecovery />} />
-        <Route path="/settings/activity" element={<Activity />} />
-        <Route path="/settings/create-model" element={<CreateModel />} />
-        <Route path="/settings/models" element={<Models />} />
-        <Route
-          path="/settings/notification"
-          element={<NotificationSettings />}
-        />
-        <Route path="/settings/security" element={<Security />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/analytics" element={<GeneralAnalytics />} />
+          <Route
+            path="/dashboard/application-details"
+            element={<ApplicationDetails />}
+          />
+          <Route path="/applications/all" element={<AllApplications />} />
+          <Route path="/applications/overview" element={<AppOverview />} />
+          <Route
+            path="/applications/approved"
+            element={<ApprovedApplications />}
+          />
+          <Route
+            path="/applications/rejected"
+            element={<RejectedApplications />}
+          />
+          <Route
+            path="/applications/pending"
+            element={<PendingApplications />}
+          />
+          <Route
+            path="/applications/new-application/prediction"
+            element={<InitialPredicion />}
+          />
+          <Route
+            path="/applications/new-application/personalinfo"
+            element={<NewAppContact />}
+          />
+          <Route
+            path="/applications/new-application/loaninfo"
+            element={<NewAppLoanInfo />}
+          />
+          <Route
+            path="/applications/new-application/history"
+            element={<NewAppFinHistory />}
+          />
+          <Route
+            path="/applications/applicant/contact"
+            element={<ApplicantContactInfo />}
+          />
+          <Route
+            path="/applications/applicant/loan"
+            element={<ApplicantLoanInfo />}
+          />
+          <Route
+            path="/applications/applicant/prediction"
+            element={<ApplicantPredInfo />}
+          />
+          <Route
+            path="/applications/applicant/cashflow"
+            element={<Cashflow />}
+          />
+          <Route
+            path="/applications/applicant/previousloans"
+            element={<PreviousLoans />}
+          />
+          <Route path="/applications/applicant/iexp" element={<IncAndExp />} />
+          <Route path="/messages/inbox" element={<Inbox />} />
+          <Route path="/messages/new" element={<NewMessage />} />
+          <Route path="/messages/thread" element={<Thread />} />
+          <Route path="/messages/thrash" element={<Thrash />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/recovery" element={<LoanRecovery />} />
+          <Route path="/settings/activity" element={<Activity />} />
+          <Route path="/settings/create-model" element={<CreateModel />} />
+          <Route path="/settings/models" element={<Models />} />
+          <Route
+            path="/settings/notification"
+            element={<NotificationSettings />}
+          />
+          <Route path="/settings/security" element={<Security />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

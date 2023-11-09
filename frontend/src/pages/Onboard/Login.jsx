@@ -16,6 +16,7 @@ import {
   loginInUserFailure,
   resetAuth,
 } from '../../redux/user/userSlice';
+import Loader from '../../components/Loader/Loader';
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -71,6 +72,7 @@ const Login = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
+      {loading && <Loader />}
       <div className="h-screen flex flex-col w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
           <img src={LaptopImg} className=" w-72" alt="laptop" />
@@ -150,13 +152,7 @@ const Login = () => {
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >
-              {loading ? (
-                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
-              ) : (
-                <>
-                  Log in <GoArrowRight />
-                </>
-              )}
+              Log in <GoArrowRight />
             </button>
           </form>
           <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>

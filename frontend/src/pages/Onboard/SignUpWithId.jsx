@@ -16,6 +16,8 @@ import {
   signUpIdSuccess,
   signUpIdFailure,
 } from '../../redux/user/userSlice';
+import { EmailVerificationWidget } from '../../components/Widgets/Widgets';
+import Loader from '../../components/Loader/Loader';
 
 const SignUpWithId = () => {
   const { loading, error } = useSelector((state) => state.user);
@@ -25,11 +27,19 @@ const SignUpWithId = () => {
   const url = '/api/user/signup';
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleToggleVisiblity = (e) => {
     setShowId(!showId);
   };
+  const handleClose = (e) => {
+    setIsVisible(!isVisible);
+    navigate('/signup/password-otp');
+  };
 
+  const handleContinue = (e) => {
+    navigate('/signup/password-otp');
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(signUpIdStart());
@@ -42,7 +52,7 @@ const SignUpWithId = () => {
     try {
       const response = await axios.post(url, { email, companyId });
       dispatch(signUpIdSuccess(response.data));
-      navigate('/signup/password-otp');
+      setIsVisible(true);
     } catch (error) {
       const message =
         (error.response &&
@@ -59,6 +69,15 @@ const SignUpWithId = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
+      {loading && <Loader />}
+      {isVisible && (
+        <EmailVerificationWidget
+          onContinue={handleContinue}
+          onClose={handleClose}
+          isVisible={isVisible}
+          email={email}
+        />
+      )}
       <div className="h-screen flex flex-col w-1/2">
         <div className="flex mt-auto ">
           <div className="flex gap-1 mt-auto my-48 ml-28 ">
@@ -172,7 +191,6 @@ const SignUpWithId = () => {
                 </div>
               </div>
             </div>
-            <p className="text-red-500 text-xs">{error ? error : ''}</p>
 
             <button
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
@@ -180,15 +198,17 @@ const SignUpWithId = () => {
               disabled:opacity-50"
               disabled={loading}
             >
-              {loading ? (
+              Next <GoArrowRight />
+              {/* {loading ? (
                 <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
               ) : (
                 <>
                   Next <GoArrowRight />
                 </>
-              )}
+              )} */}
             </button>
           </form>
+          <p className="text-red-500 text-sm my-2">{error ? error : ''}</p>
 
           <div className="flex text-center justify-center gap-4 mt-20">
             <p className="text-[#454E5C]">Term of use </p>
