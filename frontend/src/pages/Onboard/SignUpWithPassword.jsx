@@ -247,6 +247,7 @@ const SignUpWithPassword = () => {
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+              disabled={loading}
             >
               {loading ? (
                 <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />

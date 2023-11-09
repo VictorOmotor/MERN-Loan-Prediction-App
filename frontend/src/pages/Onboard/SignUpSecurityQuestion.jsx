@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import checkedIcon from '../../assets/images/checkedIcon.png';
@@ -6,10 +6,63 @@ import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
 
 const SignUpSecurityQuestion = () => {
-  const handleChange = (e) => {};
+  const [formData, setFormData] = useState({});
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const url = '/api/user/signup/security-question';
+  const email = currentUser?.user?.email;
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    const { securityQuestion, securityAnswer } = formData;
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(signUpIdStart());
+    if (!securityQuestion) {
+      dispatch(signUpIdFailure('Please select a security question'));
+    } else if (!securityAnswer) {
+      dispatch(signUpIdFailure('Please provide an answer'));
+    } else {
+      try {
+        const response = await axios.post(url, {
+          securityAnswer,
+          securityQuestion,
+          email,
+        });
+        dispatch(signUpIdSuccess(response.data));
+        navigate('/dashboard');
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(signUpIdFailure(message));
+      }
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -76,7 +129,7 @@ const SignUpSecurityQuestion = () => {
       </div>
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-40">
+          <form className="flex flex-col gap-5 mt-40" onSubmit={handleSubmit}>
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"
@@ -89,32 +142,59 @@ const SignUpSecurityQuestion = () => {
                   type="text"
                   placeholder="First Name"
                   className="border border-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
-                  id="firstName"
+                  id="securityQuestion"
                   onChange={handleChange}
                 >
-                  <option
-                    className="text-[#5F6D7E] font-semibold"
-                    value="option1"
-                  >
-                    Option 1
+                  <option className="text-[#5F6D7E] font-semibold" value=" ">
+                    Please select a security question
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option2"
+                    value="Where did you meet your spouse"
                   >
-                    Option 2
+                    Where did you meet your spouse?
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option3"
+                    value="When is your next birthday"
                   >
-                    Option 3
+                    When is your next birthday?
                   </option>
                   <option
                     className="text-[#5F6D7E] font-semibold"
-                    value="option4"
+                    value="In what city were you born"
                   >
-                    Option 4
+                    In what city were you born?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite color"
+                  >
+                    What is your favorite color?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite food"
+                  >
+                    What is your favorite food?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your favorite childhood cartoon character"
+                  >
+                    What is your favorite childhood cartoon character?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is the name of your childhood best friend"
+                  >
+                    What is the name of your childhood best friend?
+                  </option>
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="What is your mother's maiden name"
+                  >
+                    What is your mother's maiden name?
                   </option>
                 </select>
               </div>
@@ -140,11 +220,18 @@ const SignUpSecurityQuestion = () => {
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+              disabled={loading}
             >
-              Sign up <GoArrowRight />
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>
+                  Sign up <GoArrowRight />
+                </>
+              )}
             </button>
           </form>
-
+          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
           <div className="flex  justify-center gap-4 mt-8">
             <p className="text-[#454E5C]">Term of use </p>
             <Link to="">
