@@ -1,12 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LaptopImg from '../../assets/images/Laptop.png';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signUpIdStart,
+  signUpIdSuccess,
+  signUpIdFailure,
+  resetAuth,
+} from '../../redux/user/userSlice';
+import { PasswordChangedWidget } from '../../components/Widgets/Widgets';
 
 const ResetPassword = () => {
-  const handleChange = (e) => {};
+  const [formData, setFormData] = useState({});
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const url = '/api/user/resetpassword';
+  const email = currentUser.email;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+
+  const handleToggleVisiblity = (e) => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleVerifyPasswordVisiblity = (e) => {
+    setShowVerifyPassword(!showVerifyPassword);
+  };
+
+  const handleClose = (e) => {
+    setIsVisible(!isVisible);
+  };
+
+  const handleContinue = (e) => {
+    navigate('/login');
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    let hasNumber = /\d/.test(formData.password);
+    const { password, confirmPassword } = formData;
+    e.preventDefault();
+    dispatch(resetAuth());
+    dispatch(signUpIdStart());
+    if (!password || !confirmPassword) {
+      dispatch(signUpIdFailure('Both fields are required'));
+    } else if (password.length < 6 || !hasNumber) {
+      dispatch(
+        signUpIdFailure(
+          'Password must be at least 6 characters long and must contain at least one number',
+        ),
+      );
+    } else if (password !== confirmPassword) {
+      dispatch(signUpIdFailure('Passwords do not match!'));
+    } else {
+      try {
+        const response = await axios.post(url, {
+          password,
+          confirmPassword,
+          email,
+        });
+        dispatch(signUpIdSuccess(response.data));
+        setIsVisible(true);
+        dispatch(resetAuth());
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(signUpIdFailure(message));
+      }
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex "
@@ -34,7 +116,7 @@ const ResetPassword = () => {
       </div>
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-44">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-44">
             <h1 className="text-xl text-[#172233] font-semibold">
               Reset Password
             </h1>
@@ -45,14 +127,28 @@ const ResetPassword = () => {
               >
                 New Password
               </label>
-              <div>
+              <div className="relative">
                 <input
-                  type="password"
-                  placeholder="********"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder={showPassword ? '123ABC' : '**********'}
                   className="border border-[#5F6D7E] p-2 rounded-lg w-full focus:outline-none"
-                  id="email"
+                  id="password"
                   onChange={handleChange}
+                  required
                 />
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showPassword ? (
+                    <FaEyeSlash
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleToggleVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
@@ -63,26 +159,45 @@ const ResetPassword = () => {
               >
                 Confirm New Password
               </label>
-              <div>
+              <div className="relative">
                 <input
-                  type="password"
-                  placeholder="********"
+                  type={showVerifyPassword ? 'text' : 'password'}
+                  placeholder={showVerifyPassword ? '123ABC' : '**********'}
                   className="border p-2 mb-2 border-[#5F6D7E] rounded-lg w-full focus:outline-none"
                   id="confirmPassword"
                   onChange={handleChange}
+                  required
                 />
+                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                  {showVerifyPassword ? (
+                    <FaEyeSlash
+                      onClick={handleVerifyPasswordVisiblity}
+                      className="text-[#5F6D7E] "
+                    />
+                  ) : (
+                    <FaEye
+                      onClick={handleVerifyPasswordVisiblity}
+                      className="text-[#5F6D7E]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
             <button
-              className="bg-[#172233] items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+              disabled={loading}
             >
-              Reset
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>Reset</>
+              )}
             </button>
           </form>
-
+          <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
           <div className="flex text-center justify-center text-[#000] gap-4 py-16">
             <span>Term of use </span>
             <Link to="/sign-in">
@@ -91,6 +206,13 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
+      {isVisible && (
+        <PasswordChangedWidget
+          onContinue={handleContinue}
+          onClose={handleClose}
+          isVisible={isVisible}
+        />
+      )}
     </div>
   );
 };

@@ -43,15 +43,19 @@ export const ResetPasswordWidget = ({
   );
 };
 
-export const PasswordChangedWidget = ({ isVisible, email }) => {
+export const PasswordChangedWidget = ({ isVisible, onContinue, onClose }) => {
   return (
-    <div className={`fixed top-0 left-0 right-0 bottom-0 z-50 visible`}>
+    <div
+      className={`fixed top-0 left-0 right-0 bottom-0 z-50 ${
+        isVisible ? 'block' : 'hidden'
+      }`}
+    >
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50" />
       <div className="flex items-center justify-center h-screen">
         <div className="flex flex-col w-1/3 h-44 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
           <FaTimes
             className="cursor-pointer absolute top-2 right-2"
-            onClick={() => console.log('Close widget')}
+            onClick={onClose}
           />
           <div className="flex flex-col items-center gap-1.5">
             <CiCircleCheck size={30} className="text-slate-500" />
@@ -62,7 +66,10 @@ export const PasswordChangedWidget = ({ isVisible, email }) => {
             Congratulations, your password has been successfully <br /> changed.
             You may now proceed to Log in.
           </p>
-          <button className="bg-[#5E74A2] px-2 font-extrabold text-[#FFF] py-1  rounded-md">
+          <button
+            onClick={onContinue}
+            className="bg-[#5E74A2] px-2 font-extrabold text-[#FFF] py-1  rounded-md"
+          >
             Continue
           </button>
         </div>
