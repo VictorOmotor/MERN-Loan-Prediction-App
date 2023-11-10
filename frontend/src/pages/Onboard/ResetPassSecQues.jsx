@@ -2,34 +2,30 @@ import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LaptopImg from '../../assets/images/Laptop.png';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 import { ResetPasswordWidget } from '../../components/Widgets/Widgets';
 
 const ResetPassSecQues = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({});
-  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const url = '/api/user/resetpassword/security-question';
-  const email = currentUser.email;
+  const location = useLocation();
+  const { state } = location;
+  const { email } = state;
+  const url = `/api/user/resetpassword/security-question`;
 
   const handleClose = (e) => {
     setIsVisible(!isVisible);
+    navigate('/login');
   };
 
   const handleContinue = (e) => {
-    navigate('/resetpassword');
+    navigate('/login');
   };
 
   const handleChange = (e) => {
@@ -43,12 +39,12 @@ const ResetPassSecQues = () => {
   const handleSubmit = async (e) => {
     const { securityQuestion, securityAnswer } = formData;
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setLoading(true);
+    setError(null);
     if (!securityQuestion) {
-      dispatch(signUpIdFailure('Please select a security question'));
+      setError('Please select a security question');
     } else if (!securityAnswer) {
-      dispatch(signUpIdFailure('Please provide an answer'));
+      setError('Please provide an answer');
     } else {
       try {
         const response = await axios.post(url, {
@@ -56,9 +52,8 @@ const ResetPassSecQues = () => {
           securityQuestion,
           email,
         });
-        dispatch(signUpIdSuccess(response.data));
+        setLoading(false);
         setIsVisible(true);
-        dispatch(resetAuth());
       } catch (error) {
         const message =
           (error.response &&
@@ -66,7 +61,8 @@ const ResetPassSecQues = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(signUpIdFailure(message));
+        setError(message);
+        setLoading(false);
       }
     }
   };

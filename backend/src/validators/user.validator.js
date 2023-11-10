@@ -23,16 +23,12 @@ export const registerUserValidator = Joi.object({
       'string.pattern.base':
         'Password must contain at least one number and at least 6 characters long',
     }),
-  confirmPassword: Joi.string()
-    .valid(Joi.ref('password'))
-    .required()
-    .messages({ 'any.only': `Password does not match` }),
+  securityQuestion: Joi.string().required(),
+  securityAnswer: Joi.string().required(),
 }).strict();
 
 export const securityQuestionValidator = Joi.object({
   email: Joi.string().required(),
-  securityQuestion: Joi.string().required(),
-  securityAnswer: Joi.string().required(),
 }).strict();
 export const loginUserValidator = Joi.object({
   email: Joi.string().required(),
@@ -40,7 +36,6 @@ export const loginUserValidator = Joi.object({
 }).strict();
 
 export const resetPasswordValidator = Joi.object({
-  email: Joi.string().required(),
   password: Joi.string()
     .regex(
       /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z0-9!@#$%^&*()~¥=_+}{":;'?/>.<,`\-\|\[\]]{6,50}$/,

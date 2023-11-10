@@ -6,75 +6,74 @@ import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resignUpIdStart,
-  resignUpIdSuccess,
-  resignUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 import OtpInput from '../../components/Forms/OtpInput';
 
 const Otp = () => {
-  const { currentUser, loading, error, reload, resendError, success } =
-    useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [reload, setReload] = useState(false);
+  const [resendError, setResendError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [signUpOtp, setSignUpOtp] = useState('');
   const resendUrl = '/api/user/signup';
   const otpUrl = '/api/user/verifyotp';
   const navigate = useNavigate();
-  const email = currentUser?.user?.email;
-  const companyId = currentUser?.user?.companyId;
-  const dispatch = useDispatch();
-  console.log(success)
+  const location = useLocation();
+  const { state } = location;
+  const { email, companyId } = state;
+
   const handleOtpChange = (otpValue) => {
     setSignUpOtp(otpValue);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setError(false);
+    setResendError(false);
+    setSuccess(false);
+    setLoading(true);
     if (signUpOtp.length < 4) {
-      dispatch(signUpIdFailure('Please pass in the 4-digit OTP'));
+      setError('Please pass in the 4-digit OTP');
     } else {
       try {
         const response = await axios.post(otpUrl, { signUpOtp });
-        dispatch(signUpIdSuccess(response.data));
-        navigate('/register');
-        dispatch(resetAuth());
+        setLoading(false);
+        navigate('/register', { state: { email } });
       } catch (error) {
+        setLoading(false);
         const message =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(signUpIdFailure(message));
+        setError(message);
       }
     }
   };
 
   const handleResend = async (e) => {
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(resignUpIdStart());
+    setResendError(null);
+    setLoading(false);
+    setReload(true);
+    setSuccess(false);
     try {
       const response = await axios.post(resendUrl, { email, companyId });
-      dispatch(resignUpIdSuccess(response.data));
-      // dispatch(resetAuth());
+      setReload(false);
+      setSuccess(true);
     } catch (error) {
+      setReload(false);
+      setSuccess(false);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      dispatch(resignUpIdFailure(message));
+      setResendError(message);
     }
   };
 

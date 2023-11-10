@@ -6,39 +6,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import ellipseImg from '../../assets/images/Ellipse 3.png';
 import Spinner from '../../components/Spinner/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 import { validateEmail } from '../../utils';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const { loading, error } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const url = '/api/user/forgotpassword';
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setError(null);
+    setLoading(true);
     if (!validateEmail(email)) {
-      dispatch(signUpIdFailure('Please enter a valid email'));
-    }
-    try {
-      const response = await axios.post(url, { email });
-      dispatch(signUpIdSuccess(response.data));
-      navigate('/resetpassword/security-question');
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      dispatch(signUpIdFailure(message));
+      setError('Please enter a valid email');
+    } else {
+      try {
+        const response = await axios.post(url, { email });
+        setLoading(false);
+        navigate('/resetpassword/security-question', { state: { email } });
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(message);
+      }
     }
   };
   return (

@@ -6,27 +6,22 @@ import uncheckedIcon from '../../assets/images/uncheckedIcon.png';
 import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 import { SignUpSuccessfulWidget } from '../../components/Widgets/Widgets';
 import Loader from '../../components/Loader/Loader';
 
 const SignUpSecurityQuestion = () => {
   const [formData, setFormData] = useState({});
-  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const { state } = location;
+  const { email, firstName, surname, password } = state;
   const url = '/api/user/signup/security-question';
-  const email = currentUser?.user?.email;
 
   const handleClose = (e) => {
     setIsVisible(!isVisible);
@@ -48,30 +43,33 @@ const SignUpSecurityQuestion = () => {
   const handleSubmit = async (e) => {
     const { securityQuestion, securityAnswer } = formData;
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setLoading(true);
+    setError(null);
     if (!securityQuestion) {
-      dispatch(signUpIdFailure('Please select a security question'));
+      setError('Please select a security question');
     } else if (!securityAnswer) {
-      dispatch(signUpIdFailure('Please provide an answer'));
+      setError('Please provide an answer');
     } else {
       try {
         const response = await axios.post(url, {
           securityAnswer,
           securityQuestion,
           email,
+          firstName,
+          surname,
+          password,
         });
-        dispatch(signUpIdSuccess(response.data));
         setIsVisible(true);
-        dispatch(resetAuth());
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         const message =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(signUpIdFailure(message));
+        setError(message);
       }
     }
   };

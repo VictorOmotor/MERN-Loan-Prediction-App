@@ -3,7 +3,6 @@ import {
   loginUserValidator,
   registerUserValidator,
   resetPasswordValidator,
-  securityQuestionValidator,
 } from '../validators/user.validator.js';
 import {
   BadUserRequestError,
@@ -39,7 +38,7 @@ export default class UserController {
     });
     await user.save();
 
-    const message = `Hi,\n\n Your Otp is: ${signUpOtp}`;
+    const message = `Hi,\n\n Your OTP is: ${signUpOtp}\n\nPlease ignore this message if this request did not emanate from you.\n\nThank you.`;
 
     const mailSent = await sendEmail({
       email: user.email,
@@ -50,61 +49,44 @@ export default class UserController {
       throw new NotFoundError(
         `${email} cannot be reached. Please provide a valid email address`,
       );
-    res.status(200).json({
-      message: `An email has been sent to ${email}`,
-      user,
-    });
+    res.status(200).json();
   }
 
   static async verifyOtp(req, res) {
     const { signUpOtp } = req.body;
     const user = await User.findOne({ signUpOtp });
     if (!user) throw new UnAuthorizedError('Invalid OTP');
-    res.status(200).json({
-      status: 'Success',
-      message: 'OTP Verified',
-      user,
-    });
-  }
-
-  static async registerUserDetails(req, res) {
-    const { error } = registerUserValidator.validate(req.body);
-    if (error) throw error;
-    const { firstName, surname, password, email } = req.body;
-    const validUser = await User.findOne({ email });
-    if (!validUser) throw new UnAuthorizedError('Invalid request!');
-    const saltRounds = config.bycrypt_salt_round;
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
-    const token = generateToken(validUser);
-    validUser.firstName = firstName;
-    validUser.surname = surname;
-    validUser.password = hashedPassword;
-    await validUser.save();
-    const user = validUser.toObject();
-    delete user.password;
-    res.status(200).json({
-      status: 'Success',
-      message: 'User details added',
-      user,
-    });
+    res.status(200).json();
   }
 
   static async registerUser(req, res) {
-    const { error } = securityQuestionValidator.validate(req.body);
+    const {
+      email,
+      securityQuestion,
+      securityAnswer,
+      firstName,
+      surname,
+      password,
+    } = req.body;
+    const { error } = registerUserValidator.validate(req.body);
     if (error) throw error;
-    const { email, securityQuestion, securityAnswer } = req.body;
     const validUser = await User.findOne({ email });
     if (!validUser) throw new UnAuthorizedError('Invalid request!');
     if (validUser.isVerified)
       throw new BadUserRequestError(
         'You have been verified already. Please login.',
       );
+    const saltRounds = config.bycrypt_salt_round;
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
     const token = generateToken(validUser);
     validUser.signUpOtp = null;
     validUser.isVerified = true;
     validUser.accessToken = token;
     validUser.securityQuestion = securityQuestion;
     validUser.securityAnswer = securityAnswer;
+    validUser.firstName = firstName;
+    validUser.surname = surname;
+    validUser.password = hashedPassword;
     await validUser.save();
     const user = validUser.toObject();
     delete user.password;
@@ -115,11 +97,7 @@ export default class UserController {
       sameSite: 'none',
       maxAge,
     });
-    res.status(201).json({
-      status: 'Success',
-      message: 'User created successfully',
-      user,
-    });
+    res.status(201).json();
   }
 
   static async loginUser(req, res) {
@@ -128,6 +106,8 @@ export default class UserController {
     const { email, password } = req.body;
     const validUser = await User.findOne({ email }).select('+password');
     if (!validUser) throw new UnAuthorizedError('Invalid login details');
+    if (!validUser.isVerified)
+      throw new UnAuthorizedError('Invalid login details');
     const isMatch = bcrypt.compareSync(password, validUser.password);
     if (!isMatch) throw new UnAuthorizedError('Invalid login details');
     const token = generateToken(validUser);
@@ -193,19 +173,17 @@ export default class UserController {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) throw new NotFoundError('User Not Found!!!');
-    res.status(200).json({
-      status: 'Success',
-      email,
-    });
+    if (!user.isVerified) throw new NotFoundError('User Not Found!!!');
+    res.status(200).json();
   }
 
   static async resetPasswordQuestion(req, res) {
-    const { email, securityQuestion, securityAnswer } = req.body;
+    const { securityQuestion, securityAnswer, email } = req.body;
     const user = await User.findOne({ email });
     if (!user) throw new NotFoundError('User Not Found');
     if (
       securityQuestion !== user.securityQuestion ||
-      securityAnswer !== user.securityAnswer
+      securityAnswer.toLowerCase() !== user.securityAnswer
     )
       throw new UnAuthorizedError('Wrong Security Details');
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -216,7 +194,7 @@ export default class UserController {
     await user.save();
     const resetPasswordUrl = `${req.protocol}://${req.get(
       'host',
-    )}/api/user/resetpassword/verify/${resetToken}`;
+    )}/resetpassword/verify/${resetToken}`;
     console.log(resetPasswordUrl);
     const message = `Hello ${user.firstName},\n\nPlease click on the following link to reset your password: ${resetPasswordUrl}\n\nPlease ignore this message if this request did not emanate from you.\n\nThank you.`;
 
@@ -229,45 +207,33 @@ export default class UserController {
       throw new NotFoundError(
         `${email} cannot be reached. Please provide a valid email address`,
       );
-    res.status(200).json({
-      message: `An password reset link has been sent to ${email}`,
-      email,
-    });
-  }
-
-  static async verifyResetPasswordToken(req, res) {
-    const resetPasswordToken = crypto
-      .createHash('sha256')
-      .update(req.params.resetToken)
-      .digest('hex');
-    const user = await User.findOne({ resetPasswordToken });
-    if (!user) throw new BadUserRequestError('Invalid Reset Token');
-    res.redirect('http://localhost:5173/resetpassword');
-    res.json(user);
+    res.status(200).json();
   }
 
   static async resetPassword(req, res) {
+    const resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(req.params.resetPasswordToken)
+      .digest('hex');
+    const { password } = req.body;
     const { error } = resetPasswordValidator.validate(req.body);
     if (error) throw error;
-    const { email, password } = req.body;
-    const validUser = await User.findOne({ email });
+    const validUser = await User.findOne({ resetPasswordToken });
     if (!validUser) throw new NotFoundError('User Not Found');
     const saltRounds = config.bycrypt_salt_round;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
-    const token = generateToken(validUser);
     validUser.password = hashedPassword;
-    validUser.accessToken = token;
     validUser.resetPasswordToken = null;
     await validUser.save();
-    res.status(200);
+    res.status(200).json();
   }
 
-  // static async deleteAll(req, res) {
-  //   const users =  await User.find()
-  //   if(users.length < 1) throw new NotFoundError('No user found')
-  //   const deleteUsers = await User.deleteMany()
-  //   res.status(200).json({
-  //     status: "All users delete successfully",
-  //   })
-  // }
+  static async deleteAll(req, res) {
+    const users = await User.find();
+    if (users.length < 1) throw new NotFoundError('No user found');
+    const deleteUsers = await User.deleteMany();
+    res.status(200).json({
+      status: 'All users deleted successfully',
+    });
+  }
 }

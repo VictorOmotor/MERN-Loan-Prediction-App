@@ -62,7 +62,10 @@ const App = () => {
           element={<ResetPassSecQues />}
         />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route
+          path="/resetpassword/verify/:resetPasswordToken"
+          element={<ResetPassword />}
+        />
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

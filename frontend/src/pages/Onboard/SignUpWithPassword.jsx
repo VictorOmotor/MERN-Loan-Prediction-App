@@ -7,27 +7,21 @@ import vectorLine from '../../assets/images/Line.png';
 import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 
 const SignUpWithPassword = () => {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
   const url = '/api/user/register';
-  const email = currentUser?.user?.email;
-
+  const location = useLocation();
+  const { state } = location;
+  const { email } = state;
   const handleToggleVisiblity = (e) => {
     setShowPassword(!showPassword);
   };
@@ -47,30 +41,22 @@ const SignUpWithPassword = () => {
     const { firstName, surname, password, confirmPassword } = formData;
     let hasNumber = /\d/.test(formData.password);
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setError(null);
     if (!firstName || !surname || !password || !confirmPassword) {
-      dispatch(signUpIdFailure('All fields are required!'));
+      setError('All fields are required!');
     } else if (password.length < 6 || !hasNumber) {
-      dispatch(
-        signUpIdFailure(
-          'Password must be at least 6 characters long and must contain at least one number',
-        ),
+      setError(
+        'Password must be at least 6 characters long and must contain at least one number',
       );
     } else if (password !== confirmPassword) {
-      dispatch(signUpIdFailure('Passwords do not match!'));
+      setError('Passwords do not match!');
     } else {
       try {
-        const response = await axios.post(url, {
-          firstName,
-          surname,
-          password,
-          confirmPassword,
-          email,
+        await setLoading(false);
+        await setError(null);
+        navigate('/signup/security-question', {
+          state: { email, firstName, surname, password, confirmPassword },
         });
-        dispatch(signUpIdSuccess(response.data));
-        navigate('/signup/security-question');
-        dispatch(resetAuth());
       } catch (error) {
         const message =
           (error.response &&
@@ -78,7 +64,8 @@ const SignUpWithPassword = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(signUpIdFailure(message));
+        setError(message);
+        setLoading(false);
       }
     }
   };

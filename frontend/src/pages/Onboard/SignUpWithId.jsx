@@ -10,23 +10,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { validateEmail } from '../../utils';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-} from '../../redux/user/userSlice';
 import { EmailVerificationWidget } from '../../components/Widgets/Widgets';
 import Loader from '../../components/Loader/Loader';
 
 const SignUpWithId = () => {
-  const { loading, error } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [email, setEmail] = useState('');
   const [companyId, setCompanyId] = useState('');
   const [showId, setShowId] = useState(false);
   const url = '/api/user/signup';
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
 
   const handleToggleVisiblity = (e) => {
@@ -34,33 +28,35 @@ const SignUpWithId = () => {
   };
   const handleClose = (e) => {
     setIsVisible(!isVisible);
-    navigate('/signup/password-otp');
+    navigate('/signup/password-otp', { state: { email } });
   };
 
   const handleContinue = (e) => {
-    navigate('/signup/password-otp');
+    navigate('/signup/password-otp', { state: { email } });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signUpIdStart());
+    setLoading(true);
+    setError(null);
     if (!email || !companyId) {
-      dispatch(signUpIdFailure('Both fields are required!'));
+      setError('Both fields are required!');
     }
     if (!validateEmail(email)) {
-      dispatch(signUpIdFailure('Please enter a valid email'));
+      setError('Please enter a valid email');
     }
     try {
       const response = await axios.post(url, { email, companyId });
-      dispatch(signUpIdSuccess(response.data));
+      setLoading(false);
       setIsVisible(true);
     } catch (error) {
+      setLoading(false);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      dispatch(signUpIdFailure(message));
+      setError(message);
     }
   };
 

@@ -26,7 +26,6 @@ const userSlice = createSlice({
       state.error = null;
     },
     signUpIdSuccess: (state, action) => {
-      state.currentUser = action.payload;
       state.loading = false;
       state.error = null;
       state.loggedIn = false;
@@ -42,7 +41,6 @@ const userSlice = createSlice({
       state.success = false;
     },
     resignUpIdSuccess: (state, action) => {
-      state.currentUser = action.payload;
       state.reload = false;
       state.resendError = null;
       state.success = true;

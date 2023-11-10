@@ -10,17 +10,13 @@ import axios from 'axios';
 import { validateEmail } from '../../utils';
 import Spinner from '../../components/Spinner/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  loginInUserStart,
-  loginInUserSuccess,
-  loginInUserFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
+import { loginInUserSuccess } from '../../redux/user/userSlice';
 import Loader from '../../components/Loader/Loader';
 
 const Login = () => {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = '/api/user/login';
@@ -41,12 +37,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     const { email, password } = formData;
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(loginInUserStart());
+    setLoading(true);
+    setError(null);
     if (!email || !password) {
-      dispatch(loginInUserFailure('Both fields are required!'));
+      setError('Both fields are required!');
     } else if (!validateEmail(email)) {
-      dispatch(loginInUserFailure('Please enter a valid email'));
+      setError('Please enter a valid email');
     } else {
       try {
         const response = await axios.post(url, {
@@ -54,8 +50,8 @@ const Login = () => {
           password,
         });
         dispatch(loginInUserSuccess(response.data));
+        setLoading(false);
         navigate('/dashboard');
-        dispatch(resetAuth());
       } catch (error) {
         const message =
           (error.response &&
@@ -63,7 +59,8 @@ const Login = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(loginInUserFailure(message));
+        setError(message);
+        setLoading(false);
       }
     }
   };

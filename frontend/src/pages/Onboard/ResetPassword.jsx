@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BgImg from '../../assets/images/BgImg.png';
 import LogoImg from '../../assets/images/LogoImg.png';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import LaptopImg from '../../assets/images/Laptop.png';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import axios from 'axios';
@@ -18,14 +18,14 @@ import { PasswordChangedWidget } from '../../components/Widgets/Widgets';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({});
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const url = '/api/user/resetpassword';
-  const email = currentUser.email;
   const [showPassword, setShowPassword] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+  const params = useParams();
+  const url = `/api/user/resetpassword/reset/${params.resetPasswordToken}`;
 
   const handleToggleVisiblity = (e) => {
     setShowPassword(!showPassword);
@@ -73,9 +73,8 @@ const ResetPassword = () => {
         const response = await axios.post(url, {
           password,
           confirmPassword,
-          email,
         });
-        dispatch(signUpIdSuccess(response.data));
+        dispatch(signUpIdSuccess());
         setIsVisible(true);
         dispatch(resetAuth());
       } catch (error) {
