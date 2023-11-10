@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OTPInput from 'react-otp-input';
 
-const OtpInput = ({ value, onChange }) => {
+const OtpInput = ({ value, onChange, error }) => {
   return (
     <div>
       <div>
@@ -13,7 +13,9 @@ const OtpInput = ({ value, onChange }) => {
           shouldAutoFocus={true}
           renderSeparator={<span className="mx-auto" />}
           containerStyle="border bg-[#DFDEDE] flex justify-center"
-          inputStyle="p-2 text-3xl border border-[#169872] rounded focus:outline-none text-center"
+          inputStyle={`p-2 text-3xl border ${
+            error ? 'border-red-500' : 'border-[#169872]'
+          } rounded focus:outline-none text-center`}
           renderInput={(props) => <input {...props} />}
         />
       </div>

@@ -144,7 +144,11 @@ const Otp = () => {
       <div className="w-1/2 bg-white">
         <div className="p-3 w-3/5 mx-auto font-[Inter]">
           <div className="border bg-[#DFDEDE] p-10 mt-20">
-            <OtpInput value={signUpOtp} onChange={handleOtpChange} />
+            <OtpInput
+              value={signUpOtp}
+              onChange={handleOtpChange}
+              error={error}
+            />
             <p className="text-red-500 text-xs mt-2 text-center">
               {error ? error : ''}
             </p>
