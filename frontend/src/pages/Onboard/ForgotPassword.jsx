@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import ellipseImg from '../../assets/images/Ellipse 3.png';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
 import { validateEmail } from '../../utils';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -13,19 +12,20 @@ const ForgotPassword = () => {
   const [error, setError] = useState(null);
   const url = '/api/user/forgotpassword';
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     if (!validateEmail(email)) {
       setError('Please enter a valid email');
+      setLoading(false);
     } else {
       try {
         const response = await axios.post(url, { email });
         setLoading(false);
         navigate('/resetpassword/security-question', { state: { email } });
       } catch (error) {
+        setLoading(false);
         const message =
           (error.response &&
             error.response.data &&

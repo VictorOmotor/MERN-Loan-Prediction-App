@@ -40,9 +40,11 @@ const SignUpWithId = () => {
     setError(null);
     if (!email || !companyId) {
       setError('Both fields are required!');
+      setLoading(false);
     }
     if (!validateEmail(email)) {
       setError('Please enter a valid email');
+      setLoading(false);
     }
     try {
       const response = await axios.post(url, { email, companyId });

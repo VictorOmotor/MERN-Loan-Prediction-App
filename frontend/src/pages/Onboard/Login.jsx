@@ -41,8 +41,10 @@ const Login = () => {
     setError(null);
     if (!email || !password) {
       setError('Both fields are required!');
+      setLoading(false);
     } else if (!validateEmail(email)) {
       setError('Please enter a valid email');
+      setLoading(false);
     } else {
       try {
         const response = await axios.post(url, {

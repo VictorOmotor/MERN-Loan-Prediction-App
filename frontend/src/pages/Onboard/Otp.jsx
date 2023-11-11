@@ -36,13 +36,14 @@ const Otp = () => {
     setLoading(true);
     if (signUpOtp.length < 4) {
       setError('Please pass in the 4-digit OTP');
+      setLoading(false);
     } else {
       try {
         const response = await axios.post(otpUrl, { signUpOtp });
+        console.log(response);
         setLoading(false);
         navigate('/register', { state: { email } });
       } catch (error) {
-        setLoading(false);
         const message =
           (error.response &&
             error.response.data &&
@@ -50,6 +51,7 @@ const Otp = () => {
           error.message ||
           error.toString();
         setError(message);
+        setLoading(false);
       }
     }
   };

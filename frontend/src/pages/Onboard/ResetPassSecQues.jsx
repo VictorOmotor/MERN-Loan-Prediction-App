@@ -43,8 +43,10 @@ const ResetPassSecQues = () => {
     setError(null);
     if (!securityQuestion) {
       setError('Please select a security question');
+      setLoading(false);
     } else if (!securityAnswer) {
       setError('Please provide an answer');
+      setLoading(false);
     } else {
       try {
         const response = await axios.post(url, {

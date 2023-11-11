@@ -7,25 +7,18 @@ import LaptopImg from '../../assets/images/Laptop.png';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  signUpIdStart,
-  signUpIdSuccess,
-  signUpIdFailure,
-  resetAuth,
-} from '../../redux/user/userSlice';
 import { PasswordChangedWidget } from '../../components/Widgets/Widgets';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
-  const params = useParams();
-  const url = `/api/user/resetpassword/reset/${params.resetPasswordToken}`;
+  const { resetPasswordToken } = useParams();
+  const url = `/api/user/resetpassword/reset/${resetPasswordToken}`;
 
   const handleToggleVisiblity = (e) => {
     setShowPassword(!showPassword);
@@ -56,27 +49,27 @@ const ResetPassword = () => {
     let hasNumber = /\d/.test(formData.password);
     const { password, confirmPassword } = formData;
     e.preventDefault();
-    dispatch(resetAuth());
-    dispatch(signUpIdStart());
+    setLoading(true);
+    setError(null);
     if (!password || !confirmPassword) {
-      dispatch(signUpIdFailure('Both fields are required'));
+      setError('Both fields are required');
+      setLoading(true);
     } else if (password.length < 6 || !hasNumber) {
-      dispatch(
-        signUpIdFailure(
-          'Password must be at least 6 characters long and must contain at least one number',
-        ),
+      setError(
+        'Password must be at least 6 characters long and must contain at least one number',
       );
+      setLoading(false);
     } else if (password !== confirmPassword) {
-      dispatch(signUpIdFailure('Passwords do not match!'));
+      setError('Passwords do not match!');
+      setLoading(false);
     } else {
       try {
         const response = await axios.post(url, {
           password,
           confirmPassword,
         });
-        dispatch(signUpIdSuccess());
+        setLoading(false);
         setIsVisible(true);
-        dispatch(resetAuth());
       } catch (error) {
         const message =
           (error.response &&
@@ -84,7 +77,8 @@ const ResetPassword = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        dispatch(signUpIdFailure(message));
+        setError(message);
+        setLoading(false);
       }
     }
   };

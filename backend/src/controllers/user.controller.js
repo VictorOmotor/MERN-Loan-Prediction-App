@@ -219,7 +219,7 @@ export default class UserController {
     const { error } = resetPasswordValidator.validate(req.body);
     if (error) throw error;
     const validUser = await User.findOne({ resetPasswordToken });
-    if (!validUser) throw new NotFoundError('User Not Found');
+    if (!validUser) throw new BadUserRequestError('Invalid Request!!!');
     const saltRounds = config.bycrypt_salt_round;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
     validUser.password = hashedPassword;
