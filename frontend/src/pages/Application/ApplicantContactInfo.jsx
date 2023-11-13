@@ -1,8 +1,6 @@
 import React from 'react';
-import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft, BsDownload, BsArrowRight } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
-import { GoArrowRight } from 'react-icons/go';
 import { LiaPrintSolid } from 'react-icons/lia';
 
 const ApplicantContactInfo = () => {
@@ -19,9 +17,6 @@ const ApplicantContactInfo = () => {
             <HiOutlineChevronRight size={12} />
           </span>
           <span className="text-xs">Contact Info</span>{' '}
-          <span>
-            <HiOutlineChevronRight size={12} />
-          </span>
         </div>
         <div className="flex gap-1 items-center">
           <BsArrowLeft />
