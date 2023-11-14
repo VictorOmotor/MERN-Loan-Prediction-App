@@ -1,14 +1,12 @@
 import React from 'react';
-import { AiOutlineCheckCircle, AiOutlineEllipsis } from 'react-icons/ai';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 import {
   BsArrowDownShort,
   BsArrowLeft,
   BsArrowRight,
   BsDownload,
 } from 'react-icons/bs';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaUserCircle } from 'react-icons/fa';
-import { GoXCircle } from 'react-icons/go';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import {
   ApprovedButton,
@@ -67,7 +65,7 @@ const AllApplications = () => {
 
         <div className="flex bg-[#F7F7F7] items-center font-bold text-xs border-b p-2 border-b-[#D1D9E2]">
           <div className="w-1/3">
-            <p>Product</p>
+            <p>Applicant's Info</p>
           </div>
           <div className="flex items-center gap-1 w-1/6">
             <p>Date</p> <BsArrowDownShort />
