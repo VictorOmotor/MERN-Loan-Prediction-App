@@ -9,6 +9,8 @@ import {
   ApprovedButton,
   PendingButton,
   RejectedButton,
+  NewButton,
+  GreyButton,
 } from '../../utils/Buttons';
 
 const Dashboard = () => {
@@ -29,12 +31,8 @@ const Dashboard = () => {
               </h1>
             </div>
             <div className="flex gap-2">
-              <button className="bg-[#E6E9EC] px-2 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
-                Existing
-              </button>
-              <button className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md">
-                New
-              </button>
+              <GreyButton text="Existing" />
+              <NewButton />
             </div>
           </div>
           <p className="text-sm">

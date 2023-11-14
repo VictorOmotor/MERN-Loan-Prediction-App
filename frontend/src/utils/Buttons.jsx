@@ -32,3 +32,17 @@ export const PendingButton = () => {
     </div>
   );
 };
+export const NewButton = () => {
+  return (
+    <button className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md">
+      New
+    </button>
+  );
+};
+export const GreyButton = ({ text }) => {
+  return (
+    <button className="bg-[#E6E9EC] px-2 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
+      {text}
+    </button>
+  );
+};
