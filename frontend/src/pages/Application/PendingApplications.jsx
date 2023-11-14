@@ -19,7 +19,7 @@ const PendingApplications = () => {
           <span>
             <HiOutlineChevronRight size={12} />
           </span>
-          <span className="text-xs">Approved</span>{' '}
+          <span className="text-xs">Pending</span>{' '}
         </div>
         <div className="flex gap-1 items-center">
           <BsArrowLeft />
