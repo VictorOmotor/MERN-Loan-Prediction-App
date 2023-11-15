@@ -6,6 +6,11 @@ const Landing = () => {
   return (
     <div>
       <LandingHeader />
+      <section></section>
+      <section></section>
+      <section></section>
+      <section></section>
+      <section></section>
       <LandingFooter />
     </div>
   );
