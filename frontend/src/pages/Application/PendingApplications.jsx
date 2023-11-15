@@ -8,7 +8,7 @@ import {
 } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiOutlineChevronRight } from 'react-icons/hi';
-import { ApprovedButton } from '../../utils/Buttons';
+import { PendingButton } from '../../utils/Buttons';
 
 const PendingApplications = () => {
   return (
@@ -77,7 +77,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -102,7 +102,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -127,7 +127,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -152,7 +152,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -176,7 +176,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -200,7 +200,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>
@@ -224,7 +224,7 @@ const PendingApplications = () => {
             <p>02/04/23</p>
           </div>
           <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
+            <PendingButton />
           </div>
           <div className="flex items-center text-xs w-1/6 px-2.5">
             <p>810</p>

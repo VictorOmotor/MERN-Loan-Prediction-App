@@ -12,6 +12,7 @@ export default {
         neutral100: '#F8F9FB',
         gray500: '#2E3646',
         secondaryGreen: '#169872',
+        fair: '#C0F5F9',
       },
       fontFamily: {
         body: ['Arial', 'sans-serif'],
