@@ -1,11 +1,6 @@
 import React from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
-import {
-  HiArrowTrendingDown,
-  HiArrowTrendingUp,
-  HiOutlineHandThumbUp,
-} from 'react-icons/hi2';
-import { MdOutlineDataExploration } from 'react-icons/md';
+import { HiArrowTrendingDown, HiArrowTrendingUp } from 'react-icons/hi2';
 import { PiSortAscendingLight } from 'react-icons/pi';
 import { BsArrowDownShort, BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
@@ -79,15 +74,15 @@ const PreviousLoans = () => {
       <div className="flex gap-3 items-center  bg-[#F7F7F7] rounded-lg p-4">
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
-            <p>Credit - Debit Ratio</p>
+            <p>Most Recent</p>
             <div className="bg-[#454E5C] p-2 text-white rounded-md">
               <RiArrowUpDownLine />
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">62.5%</span>
+            <span className="font-bold">Jan '22</span>
             <div className="flex gap-2 text-xs items-center">
-              <p>&gt; 55%</p>
+              <p>&lt; 3 Months</p>
               <GreenButton text="Good" />
             </div>
           </div>
@@ -97,15 +92,15 @@ const PreviousLoans = () => {
 
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
-            <p>Total Credit Turnover</p>
+            <p>Last Loan Amount</p>
             <div className="bg-[#454E5C] p-2 text-white rounded-md">
               <HiArrowTrendingUp />
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">N80,000.00</span>
+            <span className="font-bold">N50,000.00</span>
             <div className="flex gap-2 text-xs items-center">
-              <p>&gt; TBT</p>
+              <p>(&gt; 5%)</p>
               <GreenButton text="Good" />
             </div>
           </div>
@@ -115,16 +110,34 @@ const PreviousLoans = () => {
 
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
-            <p>Total Debit Turnover</p>
+            <p>Current Loan </p>
             <div className="bg-[#454E5C] p-2 text-white rounded-md">
               <HiArrowTrendingDown />
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">N0.00</span>
+            <span className="font-bold">N5,000.00</span>
             <div className="flex gap-2 text-xs items-center">
-              <p>&lt;20% Previous Debt</p>
-              <GreenButton text="Excellent" />
+              <p>(&gt; 5%)</p>
+              <GreenButton text="Good" />
+            </div>
+          </div>
+        </div>
+
+        <div className="border-r border-r-[#5F6D7E] py-2 h-full"></div>
+
+        <div className="flex flex-col w-1/3">
+          <div className="flex items-center justify-between">
+            <p>Total Loan Default</p>
+            <div className="bg-[#454E5C] p-2 text-white rounded-md">
+              <PiSortAscendingLight />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold">None</span>
+            <div className="flex gap-2 text-xs items-center">
+              <p>&lt; 1</p>
+              <GreenButton text="Good" />
             </div>
           </div>
         </div>
@@ -149,7 +162,7 @@ const PreviousLoans = () => {
           <div className=" flex justify-between items-center border-b p-2 border-b-[#D1D9E2]">
             <div className="flex flex-col">
               <p className="text-[#2E3646] font-bold">Previous Loans</p>
-              <p className="text-sm">Subtitle</p>
+              <p className="text-sm">Most Recent</p>
             </div>
             <AiOutlineEllipsis />
           </div>
