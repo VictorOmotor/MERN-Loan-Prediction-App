@@ -3,12 +3,7 @@ import { AiOutlineEllipsis } from 'react-icons/ai';
 import { HiOutlineHandThumbUp } from 'react-icons/hi2';
 import { MdOutlineDataExploration } from 'react-icons/md';
 import { PiSortAscendingLight } from 'react-icons/pi';
-import {
-  BsArrowDownShort,
-  BsArrowLeft,
-  BsArrowRight,
-  BsDownload,
-} from 'react-icons/bs';
+import { BsArrowDownShort, BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import {
