@@ -12,7 +12,7 @@ import {
   ApprovedButton,
   PendingButton,
   RejectedButton,
-  NewButton,
+  BlueButton,
   GreyButton,
 } from '../../utils/Buttons';
 
@@ -36,7 +36,7 @@ const AllApplications = () => {
             </div>
             <div className="flex gap-2">
               <GreyButton text="Analytics" />
-              <NewButton />
+              <BlueButton text="New" />
             </div>
           </div>
           <p className="text-sm">View all loan applications</p>

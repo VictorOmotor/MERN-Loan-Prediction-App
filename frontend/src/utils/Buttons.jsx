@@ -32,10 +32,10 @@ export const PendingButton = () => {
     </div>
   );
 };
-export const NewButton = () => {
+export const BlueButton = ({ text }) => {
   return (
     <button className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md">
-      New
+      {text}
     </button>
   );
 };
