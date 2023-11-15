@@ -66,3 +66,17 @@ export const GreyButton = ({ text }) => {
     </button>
   );
 };
+export const HomeLogin = () => {
+  return (
+    <button className="bg-loginButtonBackground px-3 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
+      Login
+    </button>
+  );
+};
+export const HomeSignUp = () => {
+  return (
+    <button className="bg-[#1436D9] px-3 font-semibold text-[#FFF] py-1 text-xs rounded-md">
+      Sign Up
+    </button>
+  );
+};

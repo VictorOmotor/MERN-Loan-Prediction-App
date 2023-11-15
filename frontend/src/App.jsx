@@ -18,7 +18,6 @@ import ApprovedApplications from './pages/Application/ApprovedApplications';
 import RejectedApplications from './pages/Application/RejectedApplications';
 import PendingApplications from './pages/Application/PendingApplications';
 import ApplicantContactInfo from './pages/Application/ApplicantContactInfo';
-import ApplicantLoanInfo from './pages/Application/ApplicantLoanInfo';
 import NewAppFinHistory from './pages/Application/NewAppFinHistory';
 import NewAppLoanInfo from './pages/Application/NewAppLoanInfo';
 import NewAppContact from './pages/Application/NewAppContact';
