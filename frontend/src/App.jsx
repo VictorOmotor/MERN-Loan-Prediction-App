@@ -41,6 +41,7 @@ import NotificationSettings from './pages/Settings/NotificationSettings';
 import Security from './pages/Settings/Security';
 import InitialPredicion from './pages/Application/InitialPredicion';
 import PrivateRoute from './components/PrivateRoute';
+import ApplicantsAnalytics from './pages/Analytics/ApplicantsAnalytics';
 
 const App = () => {
   return (
@@ -73,6 +74,10 @@ const App = () => {
           <Route
             path="/dashboard/application-details"
             element={<ApplicationDetails />}
+          />
+          <Route
+            path="/dashboard/applicants-analytics"
+            element={<ApplicantsAnalytics />}
           />
           <Route path="/applications/all" element={<AllApplications />} />
           <Route path="/applications/overview" element={<AppOverview />} />
