@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
-import { HiOutlineHandThumbUp } from 'react-icons/hi2';
+import { HiArrowTrendingUp, HiOutlineHandThumbUp } from 'react-icons/hi2';
 import { MdOutlineDataExploration } from 'react-icons/md';
 import { PiSortAscendingLight } from 'react-icons/pi';
 import { BsArrowDownShort, BsArrowLeft, BsArrowRight } from 'react-icons/bs';
@@ -72,7 +72,7 @@ const ApplicationDetails = () => {
           <div className="flex items-center justify-between">
             <p>Credit Utilization</p>
             <div className="bg-[#454E5C] p-2 text-white rounded-md">
-              <MdOutlineDataExploration />
+              <HiArrowTrendingUp />
             </div>
           </div>
           <div className="flex flex-col">
