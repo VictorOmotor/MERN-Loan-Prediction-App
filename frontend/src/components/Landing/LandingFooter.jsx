@@ -17,7 +17,7 @@ const LandingFooter = () => {
             </div>
           </Link>
           <div className="">
-            <p>Copyright &copy; 2023 Cash2g0 Ltd</p>
+            <p>Copyright &copy; 2023 Cash2go Ltd</p>
             <p>All rights reserved</p>
           </div>
           <div className="flex items-center gap-4">
@@ -46,7 +46,7 @@ const LandingFooter = () => {
           </div>
           <div className="flex flex-col gap-3">
             <h1 className="text-base text-white font-bold">Stay Up to date</h1>
-            <div className="flex items-center bg-[#666f7b] p-2 rounded-md">
+            <div className="flex items-center gap-2 bg-[#666f7b] p-2 rounded-md">
               <input
                 type="text"
                 placeholder="Your email address"

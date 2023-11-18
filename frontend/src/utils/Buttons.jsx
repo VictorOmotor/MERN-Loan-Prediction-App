@@ -52,9 +52,12 @@ export const FairButton = ({ text }) => {
     </div>
   );
 };
-export const BlueButton = ({ text }) => {
+export const BlueButton = ({ text, onClick }) => {
   return (
-    <button className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md">
+    <button
+      onClick={onClick}
+      className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md"
+    >
       {text}
     </button>
   );

@@ -7,12 +7,16 @@ const router = Router();
 
 router.post('/signup', tryCatchHandler(UserController.registerUserWithId));
 router.post('/verifyotp', tryCatchHandler(UserController.verifyOtp));
-router.post('/register', tryCatchHandler(UserController.registerUserDetails));
 router.post(
   '/signup/security-question',
   tryCatchHandler(UserController.registerUser),
 );
 router.post('/login', tryCatchHandler(UserController.loginUser));
+router.get(
+  '/logout',
+  userAuthMiddleWare,
+  tryCatchHandler(UserController.logout),
+);
 
 router.post('/forgotpassword', tryCatchHandler(UserController.forgotPassword));
 router.post(

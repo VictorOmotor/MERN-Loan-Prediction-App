@@ -12,8 +12,24 @@ import {
   MdOutlineHelpOutline,
   MdOutlinePowerSettingsNew,
 } from 'react-icons/md';
+import { logOutStart, logOutSuccess } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const SideNav = () => {
+  const dispatch = useDispatch();
+  const url = '/api/user/logout';
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logOutStart());
+      const response = await axios.get(url);
+      dispatch(logOutSuccess(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="h-screen w-1/6 bg-[#172233] border-r border-r-[#D1D9E2] bg-fixed">
       <div className="flex flex-col gap-4 font-[Inter] text-[#A2A7AD]">
@@ -25,7 +41,7 @@ const SideNav = () => {
         </Link>
         <nav>
           <ul className="flex flex-col gap-5 px-6">
-            <li className="flex gap-3 items-center">
+            <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
               <RiDashboardFill />
               <span>Dashboard</span>
             </li>
@@ -60,7 +76,10 @@ const SideNav = () => {
               <MdOutlineHelpOutline />
               <span>Help Center</span>
             </li>
-            <li className="flex gap-3 items-center my-14">
+            <li
+              onClick={handleLogout}
+              className="flex gap-3 cursor-pointer items-center my-14"
+            >
               <MdOutlinePowerSettingsNew />
               <span>Log out</span>
             </li>

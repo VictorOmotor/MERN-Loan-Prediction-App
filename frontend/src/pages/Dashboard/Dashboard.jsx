@@ -12,8 +12,10 @@ import {
   BlueButton,
   GreyButton,
 } from '../../utils/Buttons';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex flex-col gap-3.5">
@@ -31,8 +33,15 @@ const Dashboard = () => {
               </h1>
             </div>
             <div className="flex gap-2">
-              <GreyButton text="Existing" />
-              <BlueButton text="New" />
+              <Link to={'/applications/all'}>
+                <GreyButton text="Existing" />
+              </Link>
+              <BlueButton
+                text="New"
+                onClick={() =>
+                  navigate('/applications/new-application/prediction')
+                }
+              />
             </div>
           </div>
           <p className="text-sm">

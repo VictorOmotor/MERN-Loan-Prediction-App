@@ -51,7 +51,6 @@ const userSlice = createSlice({
       state.reload = false;
       state.success = false;
     },
-
     loginInUserStart: (state) => {
       state.loading = true;
       state.error = null;
@@ -68,17 +67,18 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = false;
     },
-    signOutStart: (state) => {
+    logOutStart: (state) => {
       state.loading = true;
+      state.error = null;
     },
-    signOutSuccess: (state, action) => {
+    logOutSuccess: (state) => {
       state.currentUser = null;
       state.loading = false;
       state.error = null;
-    },
-    signOutFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
+      state.loggedIn = false;
+      state.success = false;
+      state.reload = false;
+      state.resendError = null;
     },
   },
 });
@@ -94,6 +94,8 @@ export const {
   loginInUserStart,
   loginInUserSuccess,
   loginInUserFailure,
+  logOutStart,
+  logOutSuccess,
   // updateUserStart,
   // updateUserSuccess,
   // updateUserFailure,

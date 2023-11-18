@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import { GoArrowRight } from 'react-icons/go';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const NewAppContact = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({});
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { state } = location;
+  const { mode } = state;
+  const companyId = currentUser.user.companyId;
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const selectedDate = new Date(formData.dob);
+    const eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+    const { phone, nextOfKinPhone, bvn } = formData;
+    const pattern = /^\d{11}$/;
+    if (!pattern.test(phone)) {
+      setError('Invalid phone number!');
+    } else if (!pattern.test(nextOfKinPhone)) {
+      setError('Invalid next of kin phone number!');
+    } else if (bvn.length !== 11 && bvn.length !== 12) {
+      setError('Invalid bvn!');
+    } else if (selectedDate > eighteenYearsAgo) {
+      setError('Must be 18 years or older!');
+    } else {
+      setError(null);
+      navigate('/applications/new-application/loaninfo', {
+        state: { mode, formData },
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex items-center justify-between">
@@ -17,12 +58,16 @@ const NewAppContact = () => {
           <span>
             <HiOutlineChevronRight size={12} />
           </span>
-          <span className="text-xs">Prediction Info</span>{' '}
+          <span className="text-xs">Personal Info</span>{' '}
           <span>
             <HiOutlineChevronRight size={12} />
           </span>
         </div>
-        <div className="flex gap-1 items-center">
+        <div
+          role="button"
+          onClick={() => navigate(-1)}
+          className="flex gap-1 items-center"
+        >
           <BsArrowLeft />
           <span className="text-xs">Back</span>
         </div>
@@ -47,48 +92,26 @@ const NewAppContact = () => {
           <AiOutlineEllipsis />
         </div>
         <div className="p-2">
-          <form className="px-2">
+          <form onSubmit={handleSubmit} className="px-2">
             <div className="flex gap-6 justify-between">
               <div className="flex flex-col gap-2 w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
-                    htmlFor="creditDebitRatio"
+                    htmlFor="companyId"
                   >
                     ID Number
                   </label>
                   <div>
-                    <select
+                    <input
                       type="text"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
-                      id="creditDebitRatio"
+                      id="companyId"
                       required
-                    >
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value=" "
-                      >
-                        Please select your ID Number
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="203349123"
-                      >
-                        ID 203349123
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value=" 3.4"
-                      >
-                        3.4%
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="5 "
-                      >
-                        5%
-                      </option>
-                    </select>
+                      defaultValue={companyId}
+                      value={formData.companyId}
+                      disabled
+                    />
                   </div>
                 </div>
                 <div className="">
@@ -103,7 +126,9 @@ const NewAppContact = () => {
                       type="text"
                       placeholder="First Name Last Name"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
-                      id="name"
+                      id="applicantName"
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -113,10 +138,12 @@ const NewAppContact = () => {
                   </label>
                   <div>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="1234567890"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="bvn"
+                      required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -131,7 +158,9 @@ const NewAppContact = () => {
                     <select
                       type="text"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
-                      id="salaryEarner"
+                      id="gender"
+                      onChange={handleChange}
+                      required
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select your gender
@@ -160,6 +189,8 @@ const NewAppContact = () => {
                       type="date"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none uppercase"
                       id="dob"
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -177,6 +208,8 @@ const NewAppContact = () => {
                       type="text"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="stateOfOrigin"
+                      onChange={handleChange}
+                      required
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select
@@ -192,6 +225,12 @@ const NewAppContact = () => {
                         value="adamawa"
                       >
                         Adamawa
+                      </option>
+                      <option
+                        className="text-[#5F6D7E] font-semibold"
+                        value="akwaIbom"
+                      >
+                        Akwa Ibom
                       </option>
                     </select>
                   </div>
@@ -209,6 +248,8 @@ const NewAppContact = () => {
                       placeholder="Contact Address"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="contactAddress"
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -225,6 +266,7 @@ const NewAppContact = () => {
                       placeholder="Employee's Address"
                       className="border border-[#5F6D7E] p-2 rounded-lg w-full h-8 text-xs mt-1 focus:outline-none"
                       id="workAddress"
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -241,15 +283,17 @@ const NewAppContact = () => {
                       placeholder="08012345678"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="phone"
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
-                    htmlFor="nextOfKinPhone"
+                    htmlFor="nextOfKin"
                   >
-                    Next of Kin Phone Number
+                    Next of Kin Number
                   </label>
                   <div>
                     <input
@@ -257,19 +301,22 @@ const NewAppContact = () => {
                       placeholder="08012345678"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="nextOfKinPhone"
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
               </div>
             </div>
             <button
-              className="bg-[#172233] w-1/3 h-8 mt-4 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-1/3 h-8 mt-1 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >
               Next <GoArrowRight />
             </button>
           </form>
+          {error && <p className="text-red-500 text-sm my-2">{error}</p>}
         </div>
       </div>
     </div>

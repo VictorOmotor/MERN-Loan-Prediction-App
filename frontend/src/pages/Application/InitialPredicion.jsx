@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { GoArrowRight } from 'react-icons/go';
 import { HiOutlineChevronRight } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 const InitialPredicion = () => {
+  const [mode, setMode] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (mode !== 'manual') {
+      setError('That option is not available at the moment!');
+    } else {
+      setError(null);
+      navigate('/applications/new-application/personalinfo', {
+        state: { mode },
+      });
+    }
+  };
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex items-center justify-between">
@@ -33,7 +48,7 @@ const InitialPredicion = () => {
           <AiOutlineEllipsis />
         </div>
         <div className="p-3 mb-32">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="">
               <label className="text-[#5F6D7E] font-semibold" htmlFor="mode">
                 Mode
@@ -44,18 +59,25 @@ const InitialPredicion = () => {
                   className="border border-[#5F6D7E] p-2 rounded-lg w-1/3 h-10 mt-1 focus:outline-none"
                   id="mode"
                   required
+                  onChange={(e) => setMode(e.target.value)}
                 >
                   <option className="text-[#5F6D7E] font-semibold" value=" ">
                     Select option
                   </option>
-                  <option className="text-[#5F6D7E] font-semibold" value="1.6 ">
-                    1.6%
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="manual"
+                  >
+                    Manual Input
                   </option>
-                  <option className="text-[#5F6D7E] font-semibold" value=" 3.4">
-                    3.4%
+                  <option className="text-[#5F6D7E] font-semibold" value="bvn">
+                    Use BVN
                   </option>
-                  <option className="text-[#5F6D7E] font-semibold" value="5 ">
-                    5%
+                  <option
+                    className="text-[#5F6D7E] font-semibold"
+                    value="bankStatement "
+                  >
+                    Use Bank Statement
                   </option>
                 </select>
                 <button
@@ -66,6 +88,7 @@ const InitialPredicion = () => {
                   Next <GoArrowRight />
                 </button>
               </div>
+              <p className="text-red-500 text-sm my-2">{error ? error : ''}</p>
             </div>
           </form>
         </div>

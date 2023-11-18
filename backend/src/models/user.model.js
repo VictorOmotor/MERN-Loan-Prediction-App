@@ -32,16 +32,16 @@ const UserSchema = new Schema(
     securityQuestion: {
       type: String,
       trim: true,
-      enum: [
-        'Where did you meet your spouse',
-        'When is your next birthday',
-        "What is your mother's maiden name",
-        'What is the name of your childhood best friend',
-        'What is your favorite childhood cartoon character',
-        'What is your favorite food',
-        'What is your favorite color',
-        'In what city were you born',
-      ],
+      // enum: [
+      //   'Where did you meet your spouse',
+      //   'When is your next birthday',
+      //   "What is your mother's maiden name",
+      //   'What is the name of your childhood best friend',
+      //   'What is your favorite childhood cartoon character',
+      //   'What is your favorite food',
+      //   'What is your favorite color',
+      //   'In what city were you born',
+      // ],
     },
     securityAnswer: {
       type: String,

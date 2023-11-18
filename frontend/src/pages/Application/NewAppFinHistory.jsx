@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const NewAppFinHistory = () => {
+  const [error, setError] = useState(null);
+  const [historyFormData, setHistoryFormData] = useState({});
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { state } = location;
+  const { mode, formData, LoanFormData } = state;
+  
+  const handleChange = (e) => {
+    setHistoryFormData({
+      ...historyFormData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      setError(null);
+      navigate('/applications/overview');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex items-center justify-between">
@@ -21,7 +45,11 @@ const NewAppFinHistory = () => {
             <HiOutlineChevronRight size={12} />
           </span>
         </div>
-        <div className="flex gap-1 items-center">
+        <div
+          role="button"
+          onClick={() => navigate(-1)}
+          className="flex gap-1 items-center"
+        >
           <BsArrowLeft />
           <span className="text-xs">Back</span>
         </div>
@@ -46,9 +74,9 @@ const NewAppFinHistory = () => {
           <AiOutlineEllipsis />
         </div>
         <div className="p-2">
-          <form className="p-2">
+          <form onSubmit={handleSubmit} className="p-2">
             <div className="flex gap-6 justify-between">
-              <div className="flex flex-col gap-4 w-1/2">
+              <div className="flex flex-col gap-3 w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -58,10 +86,11 @@ const NewAppFinHistory = () => {
                   </label>
                   <div>
                     <input
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="creditScore"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -73,37 +102,13 @@ const NewAppFinHistory = () => {
                     Credit - Debit Ratio
                   </label>
                   <div>
-                    <select
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                    <input
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="creditDebitRatio"
                       required
-                    >
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value=" "
-                      >
-                        Please select a ratio
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="1.6 "
-                      >
-                        1.6%
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value=" 3.4"
-                      >
-                        3.4%
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="5 "
-                      >
-                        5%
-                      </option>
-                    </select>
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div className="">
@@ -116,22 +121,23 @@ const NewAppFinHistory = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="salaryEarner"
                       required
+                      onChange={handleChange}
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select an answer
                       </option>
                       <option
                         className="text-[#5F6D7E] font-semibold"
-                        value="Yes "
+                        value="true"
                       >
                         Yes
                       </option>
                       <option
                         className="text-[#5F6D7E] font-semibold"
-                        value="No "
+                        value="false"
                       >
                         No
                       </option>
@@ -146,38 +152,17 @@ const NewAppFinHistory = () => {
                     Last Loan Amount
                   </label>
                   <div>
-                    <select
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                    <input
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="lastLoanAmount"
                       required
-                    >
-                      <option className="text-[#5F6D7E] font-semibold" value="">
-                        Please select an answer
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="40000"
-                      >
-                        40,000.00
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="100000"
-                      >
-                        100,000.00
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="500000"
-                      >
-                        500,000.00
-                      </option>
-                    </select>
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 w-1/2">
+              <div className="flex flex-col gap-3 w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -187,10 +172,11 @@ const NewAppFinHistory = () => {
                   </label>
                   <div>
                     <input
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="creditBalance"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -203,10 +189,11 @@ const NewAppFinHistory = () => {
                   </label>
                   <div>
                     <input
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="applicantIncome"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -219,10 +206,11 @@ const NewAppFinHistory = () => {
                   </label>
                   <div>
                     <input
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                      type="number"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="coApplicantIncome"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -234,40 +222,18 @@ const NewAppFinHistory = () => {
                     Last Loan Date
                   </label>
                   <div>
-                    <select
-                      type="text"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-10 mt-1 focus:outline-none"
+                    <input
+                      type="date"
+                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="lastLoanDate"
-                      required
-                    >
-                      <option className="text-[#5F6D7E] font-semibold" value="">
-                        Please select an answer
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="below6Months"
-                      >
-                        &lt; 6 Months
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="above6Months"
-                      >
-                        &gt; 6 Months
-                      </option>
-                      <option
-                        className="text-[#5F6D7E] font-semibold"
-                        value="above18Months"
-                      >
-                        &gt; 18 Months
-                      </option>
-                    </select>
+                      onChange={handleChange}
+                    ></input>
                   </div>
                 </div>
               </div>
             </div>
             <button
-              className="bg-[#172233] w-1/3 mt-4 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-1/4 h-8 mt-4 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >
