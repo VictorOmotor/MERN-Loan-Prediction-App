@@ -1,5 +1,6 @@
 import { Schema, model, Types } from 'mongoose';
-const ApplicantSchema = new Schema(
+
+const ApplicationSchema = new Schema(
   {
     creditScore: {
       type: Number,
@@ -14,7 +15,7 @@ const ApplicantSchema = new Schema(
       required: true,
     },
     salaryEarner: {
-      type: Booloean,
+      type: Boolean,
       required: true,
     },
     applicantIncome: {
@@ -24,6 +25,9 @@ const ApplicantSchema = new Schema(
     coApplicantIncome: {
       type: Number,
       required: true,
+    },
+    lastLoanAmount: {
+      type: Number,
     },
     lastLoanDate: {
       type: Date,
@@ -46,11 +50,11 @@ const ApplicantSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['accepted', 'rejected', 'pending'],
+      enum: ['approved', 'rejected', 'pending'],
     },
     dependents: Number,
     selfEmployed: {
-      type: Booloean,
+      type: Boolean,
       required: true,
     },
     maritalStatus: {
@@ -73,7 +77,7 @@ const ApplicantSchema = new Schema(
       type: String,
       required: true,
     },
-    DOB: {
+    dob: {
       type: Date,
       required: true,
     },
@@ -105,13 +109,18 @@ const ApplicantSchema = new Schema(
       min: 100000000,
       max: 999999999,
     },
+    user: {
+      type: Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   {
     timestamps: true,
   },
 );
-ApplicantSchema.pre('save', function (next) {
+ApplicationSchema.pre('save', function (next) {
   this.applicationId = Math.floor(Math.random() * 900000000 + 100000000);
   next();
 });
-export default model('Applicant', ApplicantSchema);
+export default model('Application', ApplicationSchema);

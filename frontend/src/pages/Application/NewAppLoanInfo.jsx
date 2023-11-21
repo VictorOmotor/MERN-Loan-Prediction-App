@@ -3,35 +3,35 @@ import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { GoArrowRight } from 'react-icons/go';
 import { HiOutlineChevronRight } from 'react-icons/hi';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { setLoanFormData } from '../../redux/form/formSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NewAppLoanInfo = () => {
   const [error, setError] = useState(null);
-  const [LoanFormData, setLoanFormData] = useState({});
-  const location = useLocation();
+  const { loanFormData } = useSelector((state) => state.form);
   const navigate = useNavigate();
-  const { state } = location;
-  const { mode, formData } = state;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setLoanFormData({
-      ...LoanFormData,
+    const updatedFormData = {
+      ...loanFormData,
       [e.target.id]: e.target.value,
-    });
+    };
+
+    dispatch(setLoanFormData(updatedFormData));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { loanDuration } = LoanFormData;
+    const { loanDuration } = loanFormData;
     const selectedDate = new Date(loanDuration);
     if (selectedDate <= new Date()) {
       setError('Please select any date after today.');
     } else {
       try {
         setError(null);
-        navigate('/applications/new-application/history', {
-          state: { mode, formData, LoanFormData },
-        });
+        navigate('/applications/new-application/history');
       } catch (error) {
         console.log(error);
       }
@@ -67,15 +67,21 @@ const NewAppLoanInfo = () => {
         <h1 className="font-bold text-2xl text-[#2E3646]">New Application</h1>
       </div>
       <div className="flex gap-3 items-center text-xs border-t border-t-[#D1D9E2]">
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Contact Info</h3>
-        </div>
-        <div className=" border-b-[2px] border-b-[#2E3646] py-3">
-          <h3>Loan Info</h3>
-        </div>
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Financial History</h3>
-        </div>
+        <Link to={'/applications/new-application/personalinfo'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Contact Info</h3>
+          </div>
+        </Link>
+        <Link to={'#'}>
+          <div className=" border-b-[2px] border-b-[#2E3646] py-3">
+            <h3>Loan Info</h3>
+          </div>
+        </Link>
+        <Link to={'/applications/new-application/history'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Financial History</h3>
+          </div>
+        </Link>
       </div>
       <div className="flex flex-col bg-[#F8F9FB]">
         <div className="p-3 flex justify-between items-center border-b border-b-[#D1D9E2]">
@@ -100,6 +106,7 @@ const NewAppLoanInfo = () => {
                       id="dependents"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.dependents || ''}
                     />
                   </div>
                 </div>
@@ -117,6 +124,7 @@ const NewAppLoanInfo = () => {
                       id="selfEmployed"
                       required
                       onChange={handleChange}
+                      value={loanFormData?.selfEmployed || ''}
                     >
                       <option
                         className="text-[#5F6D7E] font-semibold"
@@ -153,6 +161,7 @@ const NewAppLoanInfo = () => {
                       id="maritalStatus"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.maritalStatus || ''}
                     >
                       <option
                         className="text-[#5F6D7E] font-semibold"
@@ -189,6 +198,7 @@ const NewAppLoanInfo = () => {
                       id="education"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.education || ''}
                     >
                       <option
                         className="text-[#5F6D7E] font-semibold"
@@ -233,6 +243,7 @@ const NewAppLoanInfo = () => {
                       id="loanAmount"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.loanAmount || ''}
                     />
                   </div>
                 </div>
@@ -246,10 +257,11 @@ const NewAppLoanInfo = () => {
                   <div>
                     <input
                       type="Date"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 uppercase rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="loanDuration"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.loanDuration || ''}
                     />
                   </div>
                 </div>
@@ -261,13 +273,39 @@ const NewAppLoanInfo = () => {
                     Loan Type
                   </label>
                   <div>
-                    <input
+                    <select
                       type="text"
                       className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="loanType"
                       onChange={handleChange}
                       required
-                    />
+                      value={loanFormData?.loanType || ''}
+                    >
+                      <option
+                        className="text-[#5F6D7E] font-semibold"
+                        value=" "
+                      >
+                        Please select
+                      </option>
+                      <option
+                        className="text-[#5F6D7E] font-semibold"
+                        value="shortTerm"
+                      >
+                        Short Term
+                      </option>
+                      <option
+                        className="text-[#5F6D7E] font-semibold"
+                        value="mediumTerm"
+                      >
+                        Medium Term
+                      </option>
+                      <option
+                        className="text-[#5F6D7E] font-semibold"
+                        value="longTerm"
+                      >
+                        LongTerm
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div className="">
@@ -284,6 +322,7 @@ const NewAppLoanInfo = () => {
                       id="creditHistory"
                       onChange={handleChange}
                       required
+                      value={loanFormData?.creditHistory || ''}
                     />
                   </div>
                 </div>

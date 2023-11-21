@@ -3,32 +3,33 @@ import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import { GoArrowRight } from 'react-icons/go';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setContactFormData } from '../../redux/form/formSlice';
 
 const NewAppContact = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { contactFormData } = useSelector((state) => state.form);
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({});
-  const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { state } = location;
-  const { mode } = state;
   const companyId = currentUser.user.companyId;
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    const updatedFormData = {
+      ...contactFormData,
       [e.target.id]: e.target.value,
-    });
+    };
+
+    dispatch(setContactFormData(updatedFormData));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedDate = new Date(formData.dob);
+    const selectedDate = new Date(contactFormData.dob);
     const eighteenYearsAgo = new Date();
     eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-    const { phone, nextOfKinPhone, bvn } = formData;
+    const { phone, nextOfKinPhone, bvn } = contactFormData;
     const pattern = /^\d{11}$/;
     if (!pattern.test(phone)) {
       setError('Invalid phone number!');
@@ -40,9 +41,7 @@ const NewAppContact = () => {
       setError('Must be 18 years or older!');
     } else {
       setError(null);
-      navigate('/applications/new-application/loaninfo', {
-        state: { mode, formData },
-      });
+      navigate('/applications/new-application/loaninfo');
     }
   };
 
@@ -76,15 +75,21 @@ const NewAppContact = () => {
         <h1 className="font-bold text-2xl text-[#2E3646]">New Application</h1>
       </div>
       <div className="flex gap-3 items-center text-xs border-t border-t-[#D1D9E2]">
-        <div className=" border-b-[2px] border-b-[#2E3646] py-3">
-          <h3>Contact Info</h3>
-        </div>
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Loan Info</h3>
-        </div>
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Financial History</h3>
-        </div>
+        <Link to={'#'}>
+          <div className=" border-b-[2px] border-b-[#2E3646] py-3">
+            <h3>Contact Info</h3>
+          </div>
+        </Link>
+        <Link to={'/applications/new-application/loaninfo'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Loan Info</h3>
+          </div>
+        </Link>
+        <Link to={'/applications/new-application/history'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Financial History</h3>
+          </div>
+        </Link>
       </div>
       <div className="flex flex-col bg-[#F8F9FB]">
         <div className="p-3 flex justify-between items-center border-b border-b-[#D1D9E2]">
@@ -109,7 +114,6 @@ const NewAppContact = () => {
                       id="companyId"
                       required
                       defaultValue={companyId}
-                      value={formData.companyId}
                       disabled
                     />
                   </div>
@@ -129,6 +133,7 @@ const NewAppContact = () => {
                       id="applicantName"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.applicantName || ''}
                     />
                   </div>
                 </div>
@@ -144,6 +149,7 @@ const NewAppContact = () => {
                       id="bvn"
                       required
                       onChange={handleChange}
+                      value={contactFormData?.bvn || ''}
                     />
                   </div>
                 </div>
@@ -161,6 +167,7 @@ const NewAppContact = () => {
                       id="gender"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.gender || ''}
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select your gender
@@ -191,6 +198,7 @@ const NewAppContact = () => {
                       id="dob"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.dob || ''}
                     />
                   </div>
                 </div>
@@ -210,6 +218,7 @@ const NewAppContact = () => {
                       id="stateOfOrigin"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.stateOfOrigin || ''}
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select
@@ -250,6 +259,7 @@ const NewAppContact = () => {
                       id="contactAddress"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.contactAddress || ''}
                     />
                   </div>
                 </div>
@@ -267,6 +277,7 @@ const NewAppContact = () => {
                       className="border border-[#5F6D7E] p-2 rounded-lg w-full h-8 text-xs mt-1 focus:outline-none"
                       id="workAddress"
                       onChange={handleChange}
+                      value={contactFormData?.workAddress || ''}
                     />
                   </div>
                 </div>
@@ -285,6 +296,7 @@ const NewAppContact = () => {
                       id="phone"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.phone || ''}
                     />
                   </div>
                 </div>
@@ -303,6 +315,7 @@ const NewAppContact = () => {
                       id="nextOfKinPhone"
                       onChange={handleChange}
                       required
+                      value={contactFormData?.nextOfKinPhone || ''}
                     />
                   </div>
                 </div>

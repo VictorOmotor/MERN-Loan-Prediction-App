@@ -2,30 +2,69 @@ import React, { useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { resetForm, setHistoryFormData } from '../../redux/form/formSlice';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
 
 const NewAppFinHistory = () => {
   const [error, setError] = useState(null);
-  const [historyFormData, setHistoryFormData] = useState({});
-  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const { historyFormData, contactFormData, loanFormData } = useSelector(
+    (state) => state.form,
+  );
   const navigate = useNavigate();
-  const { state } = location;
-  const { mode, formData, LoanFormData } = state;
-  
+  const dispatch = useDispatch();
+  const url = '/api/applications/create';
+
   const handleChange = (e) => {
-    setHistoryFormData({
+    const updatedFormData = {
       ...historyFormData,
       [e.target.id]: e.target.value,
-    });
+    };
+
+    dispatch(setHistoryFormData(updatedFormData));
   };
 
-  const handleSubmit = (e) => {
+  const formData = { ...contactFormData, ...loanFormData, ...historyFormData };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setError(null);
-      navigate('/applications/overview');
-    } catch (error) {
-      console.log(error);
+    const { loanDuration } = loanFormData;
+    const selectedLoanDate = new Date(loanDuration);
+    const selectedDate = new Date(contactFormData.dob);
+    const eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+    const { phone, nextOfKinPhone, bvn } = contactFormData;
+    const pattern = /^\d{11}$/;
+    if (selectedLoanDate <= new Date()) {
+      setError('Loan duration must be a date after today.');
+    } else if (!pattern.test(phone)) {
+      setError('Invalid phone number!');
+    } else if (!pattern.test(nextOfKinPhone)) {
+      setError('Invalid next of kin phone number!');
+    } else if (bvn.length !== 11 && bvn.length !== 12) {
+      setError('Invalid bvn!');
+    } else if (selectedDate > eighteenYearsAgo) {
+      setError('Must be 18 years or older!');
+    } else {
+      try {
+        setError(null);
+        setLoading(true);
+        const response = await axios.post(url, formData);
+        setLoading(false);
+        dispatch(resetForm());
+        navigate(`/applications/overview/${response.data.applicationId}`);
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(message);
+        setLoading(false);
+      }
     }
   };
   return (
@@ -58,15 +97,21 @@ const NewAppFinHistory = () => {
         <h1 className="font-bold text-2xl text-[#2E3646]">New Application</h1>
       </div>
       <div className="flex gap-3 items-center text-xs border-t border-t-[#D1D9E2]">
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Contact Info</h3>
-        </div>
-        <div className=" border-b border-b-[#5F6D7E] py-3">
-          <h3>Loan Info</h3>
-        </div>
-        <div className=" border-b-[2px] border-b-[#2E3646] py-3">
-          <h3>Financial History</h3>
-        </div>
+        <Link to={'/applications/new-application/personalinfo'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Contact Info</h3>
+          </div>
+        </Link>
+        <Link to={'/applications/new-application/loaninfo'}>
+          <div className=" border-b border-b-[#5F6D7E] py-3">
+            <h3>Loan Info</h3>
+          </div>
+        </Link>
+        <Link to={'#'}>
+          <div className=" border-b-[2px] border-b-[#2E3646] py-3">
+            <h3>Financial History</h3>
+          </div>
+        </Link>
       </div>
       <div className="flex flex-col bg-[#F8F9FB]">
         <div className="p-3 flex justify-between items-center border-b border-b-[#D1D9E2]">
@@ -91,6 +136,7 @@ const NewAppFinHistory = () => {
                       id="creditScore"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.creditScore || ''}
                     />
                   </div>
                 </div>
@@ -108,6 +154,7 @@ const NewAppFinHistory = () => {
                       id="creditDebitRatio"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.creditDebitRatio || ''}
                     />
                   </div>
                 </div>
@@ -125,6 +172,7 @@ const NewAppFinHistory = () => {
                       id="salaryEarner"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.salaryEarner || ''}
                     >
                       <option className="text-[#5F6D7E] font-semibold" value="">
                         Please select an answer
@@ -158,6 +206,7 @@ const NewAppFinHistory = () => {
                       id="lastLoanAmount"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.lastLoanAmount || ''}
                     />
                   </div>
                 </div>
@@ -177,6 +226,7 @@ const NewAppFinHistory = () => {
                       id="creditBalance"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.creditBalance || ''}
                     />
                   </div>
                 </div>
@@ -194,6 +244,7 @@ const NewAppFinHistory = () => {
                       id="applicantIncome"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.applicantIncome || ''}
                     />
                   </div>
                 </div>
@@ -211,6 +262,7 @@ const NewAppFinHistory = () => {
                       id="coApplicantIncome"
                       required
                       onChange={handleChange}
+                      value={historyFormData?.coApplicantIncome || ''}
                     />
                   </div>
                 </div>
@@ -224,9 +276,10 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="date"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1.5 uppercase rounded-lg w-full h-8 mt-1 focus:outline-none"
                       id="lastLoanDate"
                       onChange={handleChange}
+                      value={historyFormData?.lastLoanDate || ''}
                     ></input>
                   </div>
                 </div>
@@ -236,9 +289,15 @@ const NewAppFinHistory = () => {
               className="bg-[#172233] w-1/4 h-8 mt-4 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
+              disabled={loading}
             >
-              Make Prediction
+              {loading ? (
+                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
+              ) : (
+                <>Make Prediction</>
+              )}
             </button>
+            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </form>
         </div>
       </div>

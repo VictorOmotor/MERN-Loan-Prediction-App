@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { HiArrowTrendingUp, HiOutlineHandThumbUp } from 'react-icons/hi2';
 import { MdOutlineDataExploration } from 'react-icons/md';
@@ -15,8 +15,37 @@ import {
   FairButton,
   GreenButton,
 } from '../../utils/Buttons';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const AppOverview = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [application, setApplication] = useState(null);
+  const params = useParams();
+  const url = `/api/applications/get/${params.applicationId}`;
+
+  useEffect(() => {
+    const fetchApplication = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(url);
+        setApplication(response.data);
+        setLoading(false);
+        setError(false);
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(message);
+        setLoading(false);
+      }
+    };
+    fetchApplication();
+  }, [params.applicationId]);
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex flex-col gap-3.5">
@@ -37,7 +66,7 @@ const AppOverview = () => {
           <div className="flex justify-between items-center">
             <div>
               <h1 className="font-bold text-2xl text-[#2E3646]">
-                Ogbeni Mallam
+                {application?.applicantName}
               </h1>
             </div>
             <div className="flex gap-2">
@@ -45,7 +74,7 @@ const AppOverview = () => {
               <BlueButton text="Review" />
             </div>
           </div>
-          <p className="text-sm">ID 20239076</p>
+          <p className="text-sm">ID {application?.applicationId}</p>
         </div>
       </div>
 

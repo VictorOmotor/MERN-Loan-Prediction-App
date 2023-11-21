@@ -79,7 +79,10 @@ const App = () => {
             element={<ApplicantsAnalytics />}
           />
           <Route path="/applications/all" element={<AllApplications />} />
-          <Route path="/applications/overview" element={<AppOverview />} />
+          <Route
+            path="/applications/overview/:applicationId"
+            element={<AppOverview />}
+          />
           <Route
             path="/applications/approved"
             element={<ApprovedApplications />}
