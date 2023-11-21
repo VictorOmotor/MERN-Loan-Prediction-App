@@ -1,3 +1,10 @@
+import {
+  formatDistanceStrict,
+  parseISO,
+  differenceInMonths,
+  formatDistanceToNow,
+} from 'date-fns';
+
 export const shortenText = (text, n) => {
   if (text.length > n) {
     const shoretenedText = text.substring(0, n).concat('...');
@@ -14,6 +21,57 @@ export const validateEmail = (email) => {
     );
 };
 
+export const formatDate = (dateString) => {
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    'en-US',
+    options,
+  );
+  return formattedDate;
+};
+
+export const calculatePastDuration = (loanDuration) => {
+  const currentDate = new Date();
+  const loanDate = parseISO(loanDuration);
+
+  if (isNaN(loanDate.getTime())) {
+    return 'Invalid Date';
+  }
+
+  const duration = formatDistanceStrict(currentDate, loanDate, {
+    addSuffix: true,
+  });
+  return duration;
+};
+
+export const calculateDuration = (loanDuration) => {
+  const currentDate = new Date();
+  const loanDate = new Date(loanDuration);
+
+  if (isNaN(loanDate.getTime())) {
+    return 'Invalid Date';
+  }
+
+  const monthsDifference = differenceInMonths(currentDate, loanDate);
+  return `${monthsDifference} months`;
+};
+
+export const getFormattedLoanDuration = (loanDuration) => {
+  try {
+    const loanDurationMonths = differenceInMonths(
+      new Date(loanDuration),
+      new Date(),
+    );
+    const formattedLoanDuration = formatDistanceToNow(new Date(loanDuration), {
+      addSuffix: true,
+    });
+
+    return formattedLoanDuration;
+  } catch (error) {
+    console.error('Error processing loan duration:', error);
+    return 'Invalid date';
+  }
+};
 // export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // // Extract id and cart quantity from cartItems

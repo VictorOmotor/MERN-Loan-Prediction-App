@@ -52,6 +52,16 @@ export const FairButton = ({ text }) => {
     </div>
   );
 };
+export const PoorButton = ({ text }) => {
+  return (
+    <div className="flex items-center text-xs gap-0.5 bg-[#FD3D39] rounded px-1 text-[#2E3847]">
+      <span>
+        <HiOutlineExclamationCircle />
+      </span>{' '}
+      <span className="font-semibold">{text}</span>
+    </div>
+  );
+};
 export const BlueButton = ({ text, onClick }) => {
   return (
     <button

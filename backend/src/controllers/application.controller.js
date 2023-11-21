@@ -170,4 +170,12 @@ export default class ApplicationController {
     if (!application) throw new NotFoundError('Application not found');
     res.status(200).json(application);
   }
+
+  static async getAllApplications(req, res) {
+    const userId = req.user._id;
+    const applications = await Application.find({ user: userId });
+    if (applications.length < 1)
+      throw new NotFoundError('Application not found');
+    res.status(200).json(applications);
+  }
 }

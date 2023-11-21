@@ -112,12 +112,12 @@ const App = () => {
             element={<NewAppFinHistory />}
           />
           <Route
-            path="/applications/applicant/contact"
+            path="/applications/applicant/contact/:applicationId"
             element={<ApplicantContactInfo />}
           />
 
           <Route
-            path="/applications/applicant/prediction"
+            path="/applications/applicant/prediction/:applicationId"
             element={<ApplicantPredInfo />}
           />
           <Route

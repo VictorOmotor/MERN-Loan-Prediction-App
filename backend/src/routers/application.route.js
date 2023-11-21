@@ -14,5 +14,10 @@ router.get(
   '/get/:applicationId',
   tryCatchHandler(ApplicationController.getApplication),
 );
+router.get(
+  '/get',
+  userAuthMiddleWare,
+  tryCatchHandler(ApplicationController.getAllApplications),
+);
 
 export { router };
