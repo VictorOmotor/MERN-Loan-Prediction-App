@@ -106,8 +106,8 @@ const ApplicationSchema = new Schema(
     applicationId: {
       type: Number,
       unique: true,
-      min: 100000000,
-      max: 999999999,
+      min: 1000000000,
+      max: 9999999999,
     },
     user: {
       type: Types.ObjectId,

@@ -16,17 +16,17 @@ import {
   GreenButton,
   PoorButton,
 } from '../../utils/Buttons';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { CreditScoreChart } from '../../components/Charts';
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const AppOverview = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [application, setApplication] = useState(null);
   const params = useParams();
+  const navigate = useNavigate();
   const url = `/api/applications/get/${params.applicationId}`;
+
   useEffect(() => {
     const fetchApplication = async () => {
       try {
@@ -66,7 +66,12 @@ const AppOverview = () => {
                 </span>
                 <span className="text-xs">Application Overview</span>{' '}
               </div>
-              <div className="flex gap-1 items-center">
+
+              <div
+                role="button"
+                onClick={() => navigate(-1)}
+                className="flex gap-1 items-center"
+              >
                 <BsArrowLeft />
                 <span className="text-xs">Back</span>
               </div>
@@ -206,10 +211,10 @@ const AppOverview = () => {
                 <div className="flex gap-2 items-center">
                   <span>
                     {+application.creditScore > 749
-                      ? 750 - 850
+                      ? '750 - 850'
                       : +application.creditScore < 750 &&
                         +application.creditScore > 500
-                      ? 500 - 750
+                      ? '500 - 750'
                       : ' < 500'}
                   </span>
                   {+application.creditScore > 749 ? (
@@ -253,7 +258,7 @@ const AppOverview = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col  bg-[#F7F7F7]">
+          {/* <div className="flex flex-col  bg-[#F7F7F7]">
             <div className=" flex justify-between items-center border-b p-2 border-b-[#D1D9E2]">
               <div className="flex flex-col">
                 <p className="text-[#2E3646] font-bold">
@@ -322,7 +327,7 @@ const AppOverview = () => {
                 <AiOutlineEllipsis />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </main>

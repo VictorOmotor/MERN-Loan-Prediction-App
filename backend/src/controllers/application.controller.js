@@ -63,7 +63,6 @@ export default class ApplicationController {
       parsedLastLoanAmount > parsedCreditBalance * 5 ||
       parsedCoApplicantIncome * 1.5 < parsedLoanAmount
     ) {
-      console.log("Condition is rejected. Setting status to 'rejected'");
       const application = new Application({
         applicantName,
         bvn,

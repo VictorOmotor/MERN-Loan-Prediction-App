@@ -1,6 +1,11 @@
-import React from 'react';
-import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { BsArrowDownShort, BsDownload } from 'react-icons/bs';
+import React, { useEffect, useState } from 'react';
+import { AiOutlineCheckCircle, AiOutlineEllipsis } from 'react-icons/ai';
+import {
+  BsArrowDownShort,
+  BsArrowLeft,
+  BsArrowRight,
+  BsDownload,
+} from 'react-icons/bs';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaUserCircle } from 'react-icons/fa';
 import { GoXCircle } from 'react-icons/go';
@@ -13,9 +18,50 @@ import {
   GreyButton,
 } from '../../utils/Buttons';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { formatDateWithSlash } from '../../utils';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [applications, setApplications] = useState(null);
+  const url = '/api/applications/get';
   const navigate = useNavigate();
+  const rejectedApplications = applications?.filter(
+    ({ status }) => status === 'rejected',
+  );
+  const approvedApplications = applications?.filter(
+    ({ status }) => status === 'approved',
+  );
+  const pendingApplications = applications?.filter(
+    ({ status }) => status === 'pending',
+  );
+  let fullName =
+    currentUser?.user?.firstName + ' ' + currentUser?.user?.surname;
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(url);
+        setApplications(response.data);
+        setLoading(false);
+        setError(false);
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(message);
+        setLoading(false);
+      }
+    };
+    fetchApplications();
+  }, []);
   return (
     <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="flex flex-col gap-3.5">
@@ -28,9 +74,7 @@ const Dashboard = () => {
         <div className="flex flex-col">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="font-bold text-2xl text-[#2E3646]">
-                Hello Gbenga,
-              </h1>
+              <h1 className="font-bold text-2xl text-[#2E3646]">{fullName},</h1>
             </div>
             <div className="flex gap-2">
               <Link to={'/applications/all'}>
@@ -44,9 +88,14 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          <p className="text-sm">
-            Welcome back, You have <span>13</span> new applications
-          </p>
+          {applications ? (
+            <p className="text-sm">
+              Welcome back, You have <span>{applications.length}</span> new
+              applications
+            </p>
+          ) : (
+            <p className="text-sm">Welcome, You have no applications</p>
+          )}
         </div>
       </div>
 
@@ -59,9 +108,15 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">104</span>
+            <span className="font-bold">
+              {approvedApplications ? approvedApplications.length : 0}
+            </span>
             <div className="flex gap-2 text-xs items-center">
-              <p>+10 From Yesterday</p>
+              {approvedApplications ? (
+                <p>+{approvedApplications?.length} From Yesterday</p>
+              ) : (
+                <p>No approved application</p>
+              )}
               <ApprovedButton />
             </div>
           </div>
@@ -77,9 +132,15 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">81</span>
+            <span className="font-bold">
+              {pendingApplications ? pendingApplications.length : 0}
+            </span>
             <div className="flex gap-2 text-xs items-center">
-              <p>+2 From Yesterday</p>
+              {pendingApplications ? (
+                <p>+{pendingApplications?.length} From Yesterday</p>
+              ) : (
+                <p>No pending application</p>
+              )}
               <PendingButton />
             </div>
           </div>
@@ -95,9 +156,15 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-bold">20</span>
+            <span className="font-bold">
+              {rejectedApplications ? rejectedApplications.length : 0}
+            </span>
             <div className="flex gap-2 text-xs items-center">
-              <p>+1 From Yesterday</p>
+              {rejectedApplications ? (
+                <p>+{rejectedApplications?.length} From Yesterday</p>
+              ) : (
+                <p>No rejected application</p>
+              )}
               <RejectedButton />
             </div>
           </div>
@@ -134,106 +201,78 @@ const Dashboard = () => {
             <p>Amount</p> <BsArrowDownShort />
           </div>
         </div>
-
-        <div className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 border-b-[#D1D9E2]">
-          <div className=" flex gap-2 items-center w-1/3">
-            <FaUserCircle size={25} />
-            <div>
-              <p className="text-[#2E3646]">Ogbeni Mallam</p>
-              <p className="text-xs">ID -20239078</p>
+        {applications ? (
+          applications
+            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            ?.map(
+              ({
+                _id,
+                loanAmount,
+                applicantName,
+                applicationId,
+                creditScore,
+                status,
+                createdAt,
+              }) => (
+                <Link to={`/applications/overview/${applicationId}`}>
+                  <div
+                    key={_id}
+                    className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 h-12 border-b-[#D1D9E2]"
+                  >
+                    <div className=" flex gap-2 items-center w-1/3">
+                      <FaUserCircle size={25} />
+                      <div>
+                        <p className="text-[#2E3646]">{applicantName}</p>
+                        <p className="text-xs">ID-{applicationId}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center text-xs px-1 w-1/6">
+                      <p>{formatDateWithSlash(createdAt)}</p>
+                    </div>
+                    <div className="flex items-center px-2 w-1/6">
+                      {status === 'approved' ? (
+                        <ApprovedButton />
+                      ) : status === 'pending' ? (
+                        <PendingButton />
+                      ) : (
+                        <RejectedButton />
+                      )}
+                    </div>
+                    <div className="flex items-center text-xs w-1/6 px-2.5">
+                      <p>{creditScore}</p>
+                    </div>
+                    <div className="flex items-center px-2.5 text-xs w-1/6">
+                      <p>₦{loanAmount.toLocaleString('en-US')}.00</p>
+                    </div>
+                    <div className="flex items-center">
+                      <BsDownload />
+                    </div>
+                  </div>
+                </Link>
+              ),
+            )
+        ) : (
+          <p className=" p-2">No loan application</p>
+        )}
+        {applications && applications?.length > 4 && (
+          <div className="flex justify-between bg-[#F7F7F7] items-center text-xs border-b py-1 px-2 border-b-[#D1D9E2]">
+            <div className=" flex gap-2 items-center">
+              <BsArrowLeft />
+              <span className="text-[#2E3646]">Prev</span>
+            </div>
+            <div className="flex items-center gap-4 text-xs px-1">
+              <span>1</span>
+              <span>2</span>
+              <AiOutlineEllipsis />
+              <span className="border bg-[#E6E9EC] p-2">5</span>
+              <span>6</span>
+            </div>
+            <div className=" flex gap-2 items-center">
+              <span className="text-[#2E3646]">Next</span>
+              <BsArrowRight />
             </div>
           </div>
-          <div className="flex items-center text-xs px-1 w-1/6">
-            <p>02/04/23</p>
-          </div>
-          <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
-          </div>
-          <div className="flex items-center text-xs w-1/6 px-2.5">
-            <p>810</p>
-          </div>
-          <div className="flex items-center px-2.5 text-xs w-1/6">
-            <p>N 35,000.00</p>
-          </div>
-          <div className="flex items-center">
-            <BsDownload />
-          </div>
-        </div>
-
-        <div className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 border-b-[#D1D9E2]">
-          <div className=" flex gap-2 items-center w-1/3">
-            <FaUserCircle size={25} />
-            <div>
-              <p className="text-[#2E3646]">Ogbeni Mallam</p>
-              <p className="text-xs">ID -20239078</p>
-            </div>
-          </div>
-          <div className="flex items-center text-xs px-1 w-1/6">
-            <p>02/04/23</p>
-          </div>
-          <div className="flex items-center px-2 w-1/6">
-            <PendingButton />
-          </div>
-          <div className="flex items-center text-xs w-1/6 px-2.5">
-            <p>810</p>
-          </div>
-          <div className="flex items-center px-2.5 text-xs w-1/6">
-            <p>N 35,000.00</p>
-          </div>
-          <div className="flex items-center">
-            <BsDownload />
-          </div>
-        </div>
-
-        <div className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 border-b-[#D1D9E2]">
-          <div className=" flex gap-2 items-center w-1/3">
-            <FaUserCircle size={25} />
-            <div>
-              <p className="text-[#2E3646]">Ogbeni Mallam</p>
-              <p className="text-xs">ID -20239078</p>
-            </div>
-          </div>
-          <div className="flex items-center text-xs px-1 w-1/6">
-            <p>02/04/23</p>
-          </div>
-          <div className="flex items-center px-2 w-1/6">
-            <RejectedButton />
-          </div>
-          <div className="flex items-center text-xs w-1/6 px-2.5">
-            <p>810</p>
-          </div>
-          <div className="flex items-center px-2.5 text-xs w-1/6">
-            <p>N 35,000.00</p>
-          </div>
-          <div className="flex items-center">
-            <BsDownload />
-          </div>
-        </div>
-
-        <div className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 border-b-[#D1D9E2]">
-          <div className=" flex gap-2 items-center w-1/3">
-            <FaUserCircle size={25} />
-            <div>
-              <p className="text-[#2E3646]">Ogbeni Mallam</p>
-              <p className="text-xs">ID -20239078</p>
-            </div>
-          </div>
-          <div className="flex items-center text-xs px-1 w-1/6">
-            <p>02/04/23</p>
-          </div>
-          <div className="flex items-center px-2 w-1/6">
-            <ApprovedButton />
-          </div>
-          <div className="flex items-center text-xs w-1/6 px-2.5">
-            <p>810</p>
-          </div>
-          <div className="flex items-center px-2.5 text-xs w-1/6">
-            <p>N 35,000.00</p>
-          </div>
-          <div className="flex items-center">
-            <BsDownload />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BsArrowLeft, BsDownload, BsArrowRight } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import { LiaPrintSolid } from 'react-icons/lia';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatDate, getFormattedLoanDuration } from '../../utils';
 
 const ApplicantPredInfo = () => {
@@ -12,6 +12,8 @@ const ApplicantPredInfo = () => {
   const [application, setApplication] = useState(null);
   const params = useParams();
   const url = `/api/applications/get/${params.applicationId}`;
+  const navigate = useNavigate();
+
   const formattedLoanDuration = getFormattedLoanDuration(
     application?.loanDuration,
   );
@@ -53,7 +55,11 @@ const ApplicantPredInfo = () => {
               </span>
               <span className="text-xs">Prediction Info</span>{' '}
             </div>
-            <div className="flex gap-1 items-center">
+            <div
+              role="button"
+              onClick={() => navigate(-1)}
+              className="flex gap-1 items-center"
+            >
               <BsArrowLeft />
               <span className="text-xs">Back</span>
             </div>
@@ -72,9 +78,13 @@ const ApplicantPredInfo = () => {
             </div>
           </div>
           <div className="flex gap-3 items-center text-xs border-t border-t-[#D1D9E2]">
-            <div className=" border-b-[2px] border-b-[#2E3646] py-3">
-              <h3>Prediction Info</h3>
-            </div>
+            <Link
+              to={`/applications/applicant/prediction/${application.applicationId}`}
+            >
+              <div className=" border-b-[2px] border-b-[#2E3646] py-3">
+                <h3>Prediction Info</h3>
+              </div>
+            </Link>
             <Link
               to={`/applications/applicant/contact/${application.applicationId}`}
             >
@@ -82,9 +92,11 @@ const ApplicantPredInfo = () => {
                 <h3>Contact Info</h3>
               </div>
             </Link>
-            <div className=" border-b border-b-[#5F6D7E] py-3">
-              <h3>Message</h3>
-            </div>
+            <Link to={'#'}>
+              <div className=" border-b border-b-[#5F6D7E] py-3">
+                <h3>Message</h3>
+              </div>
+            </Link>
           </div>
           <div className="flex flex-col border rounded-lg bg-[#F8F9FB]">
             <div className="flex p-2 border-b border-b-[#bdd1e9]">

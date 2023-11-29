@@ -93,3 +93,10 @@ export const HomeSignUp = () => {
     </button>
   );
 };
+export const HomeButton = ({ text }) => {
+  return (
+    <button className="bg-[#1436D9] px-3 font-semibold text-[#FFF] py-1 text-xs uppercase rounded-md">
+      {text}
+    </button>
+  );
+};

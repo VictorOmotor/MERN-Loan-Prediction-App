@@ -33,7 +33,11 @@ const InitialPredicion = () => {
             <HiOutlineChevronRight size={12} />
           </span>
         </div>
-        <div className="flex gap-1 items-center">
+        <div
+          role="button"
+          onClick={() => navigate(-1)}
+          className="flex gap-1 items-center"
+        >
           <BsArrowLeft />
           <span className="text-xs">Back</span>
         </div>

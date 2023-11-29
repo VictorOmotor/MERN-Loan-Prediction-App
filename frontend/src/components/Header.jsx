@@ -2,8 +2,12 @@ import React from 'react';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
 import { GoArrowRight } from 'react-icons/go';
 import { IoIosNotificationsOutline } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  let fullName =
+    currentUser?.user?.firstName + ' ' + currentUser?.user?.surname;
   return (
     <div className=" w-screen h-16 bg-[#172233] font-[Inter] text-[#A2A7AD] flex items-center max-w-6xl justify-between px-5">
       <div>
@@ -26,7 +30,7 @@ const Header = () => {
         <div className="flex items-center gap-1.5">
           <FaUserCircle size={35} />
           <div className="flex flex-col text-xs text-[#5F6D7E]">
-            <span>Gbenga Stutern</span>
+            <span>{fullName}</span>
             <span>Loan Analyst</span>
           </div>
         </div>

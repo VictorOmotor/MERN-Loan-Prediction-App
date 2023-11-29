@@ -40,45 +40,49 @@ const SideNav = () => {
           </div>
         </Link>
         <nav>
-          <ul className="flex flex-col gap-5 px-6">
-            <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
-              <RiDashboardFill />
-              <span>Dashboard</span>
-            </li>
-            <li className="flex gap-3 items-center">
-              <FaRegClone />
-              <span>Applications</span>
-            </li>
-            <li className="flex gap-3 items-center">
+          <ul className="flex flex-col gap-2 ">
+            <Link to={'/dashboard'}>
+              <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
+                <RiDashboardFill />
+                <span>Dashboard</span>
+              </li>
+            </Link>
+            <Link to={'/applications/all'}>
+              <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
+                <FaRegClone />
+                <span>Applications</span>
+              </li>
+            </Link>
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <SiSimpleanalytics />
               <span>Analytics</span>
             </li>
-            <li className="flex gap-3 items-center">
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <PiArrowsClockwiseDuotone />
               <span>Recovery</span>
             </li>
-            <li className="flex gap-3 items-center">
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <AiOutlineMail />
               <span>Messages</span>
             </li>
           </ul>
           <div className="border-b border-b-[#A2A7AD4D] py-5"></div>
-          <ul className="flex flex-col gap-5 px-6 pt-1">
-            <li className="flex gap-3 items-center">
+          <ul className="flex flex-col gap-3 pt-">
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <BsGlobe />
               <span>Resources</span>
             </li>
-            <li className="flex gap-3 items-center">
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <FiSettings />
               <span>Settings</span>
             </li>
-            <li className="flex gap-3 items-center">
+            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <MdOutlineHelpOutline />
               <span>Help Center</span>
             </li>
             <li
               onClick={handleLogout}
-              className="flex gap-3 cursor-pointer items-center my-14"
+              className="flex gap-3 cursor-pointer items-center px-6 py-1 hover:bg-[#5F6D7E] my-14"
             >
               <MdOutlinePowerSettingsNew />
               <span>Log out</span>

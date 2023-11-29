@@ -3,6 +3,7 @@ import {
   parseISO,
   differenceInMonths,
   formatDistanceToNow,
+  format,
 } from 'date-fns';
 
 export const shortenText = (text, n) => {
@@ -72,6 +73,26 @@ export const getFormattedLoanDuration = (loanDuration) => {
     return 'Invalid date';
   }
 };
+
+export const capitalizeWords = (input) => {
+  let words = input.split(/(?=[A-Z])/);
+
+  for (let i = 0; i < words.length; i++) {
+    words[i] =
+      words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+  }
+
+  let result = words.join(' ');
+
+  return result;
+};
+
+export const formatDateWithSlash = (inputDate) => {
+  const parsedDate = new Date(inputDate);
+  const formattedDate = format(parsedDate, 'dd/MM/yyyy');
+  return formattedDate;
+};
+
 // export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // // Extract id and cart quantity from cartItems
