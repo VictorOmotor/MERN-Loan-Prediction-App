@@ -5,7 +5,7 @@ import HeroSection from '../../components/HeroSection';
 
 const Landing = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-7">
       <LandingHeader />
       <HeroSection />
       <LandingFooter />

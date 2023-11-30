@@ -17,6 +17,7 @@ export default {
         fontBlue: '#121212',
         headerBackground: 'rgba(171, 209, 250, 0.30)',
         loginButtonBackground: 'rgba(171, 209, 250, 0.80)',
+        homeCardBackground: 'rgba(171, 209, 250, 0.50)',
         homeSignUp: '#1436D9',
         footerText: '#F5F7FA',
       },
