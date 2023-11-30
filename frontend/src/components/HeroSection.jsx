@@ -19,7 +19,6 @@ import DuplicateOutline from '../assets/images/DuplicateOutline.svg';
 import ViewGrid from '../assets/images/ViewGrid.svg';
 import InterestCalculator from '../assets/images/interest rate calculator.png';
 import InterestResume from '../assets/images/interest on resume.png';
-import { FaRegClone } from 'react-icons/fa';
 const HeroSection = () => {
   return (
     <div className=" container font-[Inter] p-5 flex flex-col gap-7">
@@ -36,8 +35,6 @@ const HeroSection = () => {
           </p>
           <HomeButton text="Get Started" />
         </div>
-
-        {/* <div className="flex justify-between"> */}
         <img
           src={Rectangle85}
           alt="image"
