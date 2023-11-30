@@ -19,6 +19,8 @@ import DuplicateOutline from '../assets/images/DuplicateOutline.svg';
 import ViewGrid from '../assets/images/ViewGrid.svg';
 import InterestCalculator from '../assets/images/interest rate calculator.png';
 import InterestResume from '../assets/images/interest on resume.png';
+import { HiOutlineDuplicate } from 'react-icons/hi';
+import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 const HeroSection = () => {
   return (
     <div className=" container font-[Inter] p-5 flex flex-col gap-7">
@@ -95,7 +97,10 @@ const HeroSection = () => {
       </section>
       <section className="flex py-7">
         <div className="flex flex-col gap-5 justify-center items-center bg-homeCardBackground my-8 w-3/5">
-          <img src={AdjustmentsOutline} alt="" className="" />
+          <HiOutlineAdjustmentsVertical
+                size={40}
+                className="text-[#006EFC]"
+              />
           <h1 className="text-fontBlue text-3xl font-semibold">
             Efficient Analysis
           </h1>
@@ -114,7 +119,7 @@ const HeroSection = () => {
           <img src={Rectangle91} alt="" className="" />
         </div>
         <div className="flex flex-col gap-5 justify-center items-center bg-homeCardBackground my-8 w-3/5">
-          <img src={DuplicateOutline} alt="" className="" />
+          <HiOutlineDuplicate size={36} className="text-[#006EFC]"  />
           <h1 className="text-fontBlue text-3xl font-semibold">
             Strong Prediction
           </h1>

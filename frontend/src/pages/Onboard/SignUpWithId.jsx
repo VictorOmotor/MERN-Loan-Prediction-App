@@ -76,15 +76,15 @@ const SignUpWithId = () => {
           email={email}
         />
       )}
-      <div className="h-screen flex flex-col w-1/2">
-        <div className="flex mt-auto ">
-          <div className="flex gap-1 mt-auto my-48 ml-28 ">
-            <img src={LogoImg} className="w-10" alt="Logo" />
+      <div className="h-screen flex flex-col w-1/2 relative">
+        <div className="absolute">
+          <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-96 lg:translate-x-32 ">
+            <img src={LogoImg} className=" w-10" alt="Logo" />
             <span className=" font-[Montserrat] font-semibold text-white text-[2rem]">
               Cash2Go
             </span>
           </div>
-          <div className="flex gap-2 mx-auto my-12 ml-28">
+          <div className="flex gap-2 mx-auto relative transform translate-x-4 translate-y-16 lg:translate-y-60 lg:translate-x-80 ">
             <div>
               <img src={checkedIcon} alt="" />
               <img src={vectorLine} alt="" className="ml-3 h-9 border" />
@@ -136,7 +136,7 @@ const SignUpWithId = () => {
         </div>
       </div>
       <div className="w-1/2 bg-white">
-        <div className="p-3 w-3/5 mx-auto font-[Inter]">
+        <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <h1 className="text-3xl text-center text-[#172233] font-semibold my-16">
             Sign Up
           </h1>
@@ -208,7 +208,7 @@ const SignUpWithId = () => {
           </form>
           <p className="text-red-500 text-sm my-2">{error ? error : ''}</p>
 
-          <div className="flex text-center justify-center gap-4 mt-20">
+          <div className="md:flex text-center justify-center gap-4 mt-10 md:mt-20">
             <p className="text-[#454E5C]">Term of use </p>
             <Link to="/sign-in">
               <p className="text-[#454E5C]">Privacy policy</p>
