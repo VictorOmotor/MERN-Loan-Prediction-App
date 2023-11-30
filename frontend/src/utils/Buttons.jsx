@@ -1,6 +1,7 @@
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { GoXCircle } from 'react-icons/go';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export const RejectedButton = () => {
   return (
@@ -81,22 +82,28 @@ export const GreyButton = ({ text }) => {
 };
 export const HomeLogin = () => {
   return (
-    <button className="bg-loginButtonBackground px-3 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
-      Login
-    </button>
+    <Link to={'/login'}>
+      <button className="bg-loginButtonBackground px-3 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
+        Login
+      </button>
+    </Link>
   );
 };
 export const HomeSignUp = () => {
   return (
-    <button className="bg-[#1436D9] px-3 font-semibold text-[#FFF] py-1 text-xs rounded-md">
-      Sign Up
-    </button>
+    <Link to={'/signup'}>
+      <button className="bg-[#1436D9] px-3 font-semibold text-[#FFF] py-1 text-xs rounded-md">
+        Sign Up
+      </button>
+    </Link>
   );
 };
 export const HomeButton = ({ text }) => {
   return (
-    <button className="bg-[#1436D9] font-semibold text-[#FFF] p-3 text-xs uppercase">
-      {text}
-    </button>
+    <Link to={'/signup'}>
+      <button className="bg-[#1436D9] font-semibold text-[#FFF] p-3 text-xs uppercase">
+        {text}
+      </button>
+    </Link>
   );
 };

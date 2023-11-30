@@ -31,17 +31,29 @@ const LandingFooter = () => {
           <div className="flex flex-col gap-3">
             <h1 className="text-base text-white font-bold">Quick Links</h1>
             <ul className="flex flex-col gap-1">
-              <li>Log in</li>
-              <li>Sign In</li>
-              <li>App Demo</li>
+              <Link to={'/login'}>
+                <li>Log in</li>
+              </Link>
+              <Link to={'/signup'}>
+                <li>Sign In</li>
+              </Link>
+              <Link to={'#'}>
+                <li>App Demo</li>
+              </Link>
             </ul>
           </div>
           <div className="flex flex-col gap-3">
             <h1 className="text-base text-white font-bold">Support</h1>
             <ul className="flex flex-col gap-1">
-              <li>About Us</li>
-              <li>Help Center</li>
-              <li>Privacy Policy</li>
+              <Link to={'/about'}>
+                <li>About Us</li>
+              </Link>
+              <Link to={'#'}>
+                <li>Help Center</li>
+              </Link>
+              <Link to={'#'}>
+                <li>Privacy Policy</li>
+              </Link>
             </ul>
           </div>
           <div className="flex flex-col gap-3">

@@ -14,9 +14,15 @@ const LandingHeader = () => {
           </div>
         </Link>
         <ul className="flex gap-7 text-sm items-center text-fontBlue">
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Help Center</li>
+          <Link to={'/'}>
+            <li>Home</li>
+          </Link>
+          <Link to={'/about'}>
+            <li>About Us</li>
+          </Link>
+          <Link to={'#'}>
+            <li>Help Center</li>
+          </Link>
         </ul>
         <ul className="flex items-center gap-3">
           <li>
