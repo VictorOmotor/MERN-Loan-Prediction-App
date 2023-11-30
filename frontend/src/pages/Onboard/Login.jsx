@@ -74,7 +74,7 @@ const Login = () => {
       {loading && <Loader />}
       <div className="h-screen flex flex-col w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
-          <img src={LaptopImg} className=" w-72" alt="laptop" />
+          <img src={LaptopImg} className=" w-48 sm:w-60 xl:w-72" alt="laptop" />
         </div>
         <div className="flex flex-col items-center p-3">
           <div className="flex gap-1 pb-2">
@@ -93,8 +93,8 @@ const Login = () => {
         </div>
       </div>
       <div className="w-1/2 bg-white">
-        <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <h1 className="text-3xl text-center text-[#172233] font-semibold pt-28 pb-8">
+        <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
+          <h1 className="text-3xl text-center text-[#172233] font-semibold pt-12 md:pt-28 pb-8">
             Log in
           </h1>
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>

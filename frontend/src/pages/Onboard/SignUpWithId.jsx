@@ -78,13 +78,13 @@ const SignUpWithId = () => {
       )}
       <div className="h-screen flex flex-col w-1/2 relative">
         <div className="absolute">
-          <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-96 lg:translate-x-32 ">
+          <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-80 lg:translate-x-24 xl:translate-y-96 xl:translate-x-36 ">
             <img src={LogoImg} className=" w-10" alt="Logo" />
             <span className=" font-[Montserrat] font-semibold text-white text-[2rem]">
               Cash2Go
             </span>
           </div>
-          <div className="flex gap-2 mx-auto relative transform translate-x-4 translate-y-16 lg:translate-y-60 lg:translate-x-80 ">
+          <div className="flex gap-2 mx-auto relative transform translate-x-4 translate-y-16 lg:translate-y-52 lg:translate-x-72 xl:translate-y-60 xl:translate-x-96 ">
             <div>
               <img src={checkedIcon} alt="" />
               <img src={vectorLine} alt="" className="ml-3 h-9 border" />
@@ -97,7 +97,7 @@ const SignUpWithId = () => {
               <img src={uncheckedIcon} alt="" />
             </div>
             <div>
-              <div className="mb-6">
+              <div className=" mb-5 sm:mb-6">
                 <span className="text-white font-[Zen Kaku Gothic Antique]">
                   STEP 1
                 </span>
@@ -105,7 +105,7 @@ const SignUpWithId = () => {
                   Fill your Work e-mail and Number
                 </p>
               </div>
-              <div className="mb-6">
+              <div className="mb-5 sm:mb-6">
                 <span className="text-white font-[Zen Kaku Gothic Antique]">
                   STEP 2
                 </span>
@@ -113,19 +113,19 @@ const SignUpWithId = () => {
                   Fill in the OTP sent to your mail
                 </p>
               </div>
-              <div className="mb-6">
+              <div className="mb-5 sm:mb-6">
                 <span className="text-white font-[Zen Kaku Gothic Antique]">
                   STEP 3
                 </span>
                 <p className="text-slate-400 text-xs">Create your password</p>
               </div>
-              <div className="mb-6">
+              <div className="mb-5 sm:mb-6">
                 <span className="text-white font-[Zen Kaku Gothic Antique]">
                   STEP 4
                 </span>
                 <p className="text-slate-400 text-xs">Security question</p>
               </div>
-              <div className="mb-6">
+              <div className="mb-5 sm:mb-6">
                 <span className="text-white font-[Zen Kaku Gothic Antique]">
                   FINAL STEP
                 </span>

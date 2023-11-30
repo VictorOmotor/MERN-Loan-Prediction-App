@@ -84,15 +84,15 @@ const Otp = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
-      <div className="h-screen flex flex-col w-1/2">
-        <div className="flex mt-auto ">
-          <div className="flex gap-1 mt-auto my-48 ml-28 ">
+      <div className="h-screen flex flex-col w-1/2 relative">
+        <div className="absolute ">
+          <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-80 lg:translate-x-24 xl:translate-y-96 xl:translate-x-36">
             <img src={LogoImg} className="w-10" alt="Logo" />
             <span className=" font-[Montserrat] font-semibold text-white text-[2rem]">
               Cash2Go
             </span>
           </div>
-          <div className="flex gap-2 mx-auto my-12 ml-28">
+          <div className="flex gap-2 mx-auto relative transform translate-x-4 translate-y-16 lg:translate-y-52 lg:translate-x-72 xl:translate-y-60 xl:translate-x-96">
             <div>
               <GoCheckCircleFill size={30} className="text-white" />
               <img src={vectorLine} alt="" className="ml-3 h-9" />
@@ -144,7 +144,7 @@ const Otp = () => {
         </div>
       </div>
       <div className="w-1/2 bg-white">
-        <div className="p-3 w-3/5 mx-auto font-[Inter]">
+        <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <div className="border bg-[#DFDEDE] p-10 mt-20">
             <OtpInput
               value={signUpOtp}

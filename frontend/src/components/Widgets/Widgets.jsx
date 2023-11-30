@@ -17,7 +17,7 @@ export const ResetPasswordWidget = ({
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50" />
       <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col w-1/3 h-44 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
+        <div className="flex flex-col w-2/3 sm:w-1/2 lg:w-1/3 xl:w-1/4 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
           <FaTimes
             className="cursor-pointer absolute top-2 right-2"
             onClick={onClose}
@@ -52,7 +52,7 @@ export const PasswordChangedWidget = ({ isVisible, onContinue, onClose }) => {
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50" />
       <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col w-1/3 h-44 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
+        <div className="flex flex-col w-2/3 sm:w-1/2 lg:w-1/3 xl:w-1/4 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
           <FaTimes
             className="cursor-pointer absolute top-2 right-2"
             onClick={onClose}
@@ -87,7 +87,7 @@ export const SignUpSuccessfulWidget = ({ isVisible, onContinue, onClose }) => {
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50" />
       <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col w-1/3 h-44 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
+        <div className="flex flex-col w-2/3 sm:w-1/2 lg:w-1/3 xl:w-1/4 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
           <FaTimes
             className="cursor-pointer absolute top-2 right-2"
             onClick={onClose}
@@ -98,7 +98,7 @@ export const SignUpSuccessfulWidget = ({ isVisible, onContinue, onClose }) => {
           </div>
 
           <p className="text-center text-xs flex flex-col text-slate-500">
-            Your signup for our Cassh2Go app is now complete. Get ready <br />{' '}
+            Your signup for our Cash2Go app is now complete. Get ready <br />{' '}
             to unlock great financial possibilities and achieve your goals.
           </p>
           <button
@@ -127,7 +127,7 @@ export const EmailVerificationWidget = ({
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50" />
       <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col w-1/3 h-44 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
+        <div className="flex flex-col w-2/3 sm:w-1/2 lg:w-1/3 xl:w-1/4 p-6 justify-center items-center text-[#5F6D7E] font-[Inter] gap-3 bg-[#E9EBF1] border border-gray-300 rounded-lg shadow-xsm relative">
           <FaTimes
             className="cursor-pointer absolute top-2 right-2"
             onClick={onClose}

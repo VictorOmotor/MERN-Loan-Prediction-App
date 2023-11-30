@@ -90,7 +90,7 @@ const ResetPassword = () => {
     >
       <div className="h-screen flex flex-col w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
-          <img src={LaptopImg} className=" w-72" alt="laptop" />
+          <img src={LaptopImg} className=" w-48 sm:w-60 xl:w-72" alt="laptop" />
         </div>
         <div className="flex flex-col items-center p-3">
           <div className="flex gap-1 pb-2">
@@ -109,8 +109,8 @@ const ResetPassword = () => {
         </div>
       </div>
       <div className="w-1/2 bg-white">
-        <div className="p-3 w-3/5 mx-auto font-[Inter]">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-44">
+        <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-20 md:mt-44">
             <h1 className="text-xl text-[#172233] font-semibold">
               Reset Password
             </h1>
