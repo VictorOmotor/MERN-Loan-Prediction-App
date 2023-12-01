@@ -38,7 +38,7 @@ const ApplicantContactInfo = () => {
   return (
     <main>
       {application && !error && !loading && (
-        <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+        <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex items-center justify-between">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Applications</span>{' '}
@@ -54,7 +54,7 @@ const ApplicantContactInfo = () => {
             <div
               role="button"
               onClick={() => navigate(-1)}
-              className="flex gap-1 items-center"
+              className="hidden md:flex gap-1 items-center"
             >
               <BsArrowLeft />
               <span className="text-xs">Back</span>
@@ -94,47 +94,47 @@ const ApplicantContactInfo = () => {
               <h3>Financial History</h3>
             </div>
           </div>
-          <div className="flex flex-col border rounded-lg bg-[#F8F9FB]">
+          <div className="flex flex-col border text-xs md:text-sm rounded-lg bg-[#F8F9FB]">
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Information</p>
+              <p className="w-2/5">Information</p>
               <p>Value</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Gender</p>
+              <p className="w-2/5">Gender</p>
               <p>{application.gender === 'male' ? 'Male' : 'Female'}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">D.O.B</p>
+              <p className="w-2/5">D.O.B</p>
               <p>{formatDate(application.dob)}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Contact information</p>
+              <p className="w-2/5">Contact information</p>
               <p>{application.contactAddress}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">State of Origin</p>
+              <p className="w-2/5">State of Origin</p>
               <p>{capitalizeWords(application.stateOfOrigin)}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Address of Employer</p>
+              <p className="w-2/5">Address of Employer</p>
               <p>{application.workAddress}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Phone Number</p>
+              <p className="w-2/5">Phone Number</p>
               <p>{application.phone}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Next of Kin's Phone</p>
+              <p className="w-2/5">Next of Kin's Phone</p>
               <p>{application.nextOfKinPhone}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5">Marital Status</p>
+              <p className="w-2/5">Marital Status</p>
               <p>
                 {application.maritalStatus === 'married' ? 'Married' : 'Single'}
               </p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/5"></p>
+              <p className="w-2/5"></p>
               <p></p>
             </div>
           </div>

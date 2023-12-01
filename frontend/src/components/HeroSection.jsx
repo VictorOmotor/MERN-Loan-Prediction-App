@@ -97,10 +97,7 @@ const HeroSection = () => {
       </section>
       <section className="flex py-7">
         <div className="flex flex-col gap-5 justify-center items-center bg-homeCardBackground my-8 w-3/5">
-          <HiOutlineAdjustmentsVertical
-                size={40}
-                className="text-[#006EFC]"
-              />
+          <HiOutlineAdjustmentsVertical size={40} className="text-[#006EFC]" />
           <h1 className="text-fontBlue text-3xl font-semibold">
             Efficient Analysis
           </h1>
@@ -119,7 +116,7 @@ const HeroSection = () => {
           <img src={Rectangle91} alt="" className="" />
         </div>
         <div className="flex flex-col gap-5 justify-center items-center bg-homeCardBackground my-8 w-3/5">
-          <HiOutlineDuplicate size={36} className="text-[#006EFC]"  />
+          <HiOutlineDuplicate size={36} className="text-[#006EFC]" />
           <h1 className="text-fontBlue text-3xl font-semibold">
             Strong Prediction
           </h1>

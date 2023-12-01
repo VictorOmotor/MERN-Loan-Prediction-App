@@ -98,8 +98,8 @@ export const SignUpSuccessfulWidget = ({ isVisible, onContinue, onClose }) => {
           </div>
 
           <p className="text-center text-xs flex flex-col text-slate-500">
-            Your signup for our Cash2Go app is now complete. Get ready <br />{' '}
-            to unlock great financial possibilities and achieve your goals.
+            Your signup for our Cash2Go app is now complete. Get ready <br /> to
+            unlock great financial possibilities and achieve your goals.
           </p>
           <button
             onClick={onContinue}

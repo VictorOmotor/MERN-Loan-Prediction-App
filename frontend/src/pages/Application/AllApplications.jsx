@@ -51,7 +51,7 @@ const AllApplications = () => {
   return (
     <main>
       {applications && !error && !loading && (
-        <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+        <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex flex-col gap-3.5">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Application</span>{' '}
@@ -114,16 +114,17 @@ const AllApplications = () => {
                 <p>Applicant's Info</p>
               </div>
               <div className="flex items-center gap-1 w-1/6">
-                <p>Date</p> <BsArrowDownShort />
+                <p>Date</p> <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="flex items-center gap-1 w-1/6">
-                <p>Status</p> <BsArrowDownShort />
+                <p>Status</p> <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="flex items-center gap-1 w-1/6">
-                <p>Credit Score</p> <BsArrowDownShort />
+                <p>Credit Score</p>{' '}
+                <BsArrowDownShort className="hidden md:block" />
               </div>
-              <div className="flex items-center gap-1">
-                <p>Amount</p> <BsArrowDownShort />
+              <div className="flex items-center gap-1 ml-3 md:ml-0">
+                <p>Amount</p> <BsArrowDownShort className="hidden md:block" />
               </div>
             </div>
             {applications
@@ -165,10 +166,11 @@ const AllApplications = () => {
                       <p>{creditScore}</p>
                     </div>
                     <div className="flex items-center px-2.5 text-xs w-1/6">
-                      <p>₦{loanAmount.toLocaleString('en-US')}.00</p>
+                      <p>₦{loanAmount.toLocaleString('en-US')}</p>
+                      <span className="hidden md:block">.00</span>
                     </div>
                     <div className="flex items-center">
-                      <BsDownload />
+                      <BsDownload className="hidden md:block" />
                     </div>
                   </div>
                 ),

@@ -31,7 +31,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className="h-screen w-1/6 bg-[#172233] border-r border-r-[#D1D9E2] bg-fixed">
+    <div className="hidden md:block md:h-screen md:w-1/5 xl:w-1/6 md:bg-[#172233] md:border-r border-r-[#D1D9E2] md:bg-fixed">
       <div className="flex flex-col gap-4 font-[Inter] text-[#A2A7AD]">
         <Link to={'/'}>
           <div className="flex gap-2 items-center pb-6  pt-4 px-6">
@@ -82,7 +82,7 @@ const SideNav = () => {
             </li>
             <li
               onClick={handleLogout}
-              className="flex gap-3 cursor-pointer items-center px-6 py-1 hover:bg-[#5F6D7E] my-14"
+              className="flex gap-3 cursor-pointer items-center px-6 py-1 hover:bg-[#5F6D7E] xl:my-14"
             >
               <MdOutlinePowerSettingsNew />
               <span>Log out</span>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { HiArrowTrendingUp, HiOutlineHandThumbUp } from 'react-icons/hi2';
-import { MdOutlineDataExploration, MdPending } from 'react-icons/md';
+import { MdPending } from 'react-icons/md';
 import { PiSortAscendingLight } from 'react-icons/pi';
-import { BsArrowDownShort, BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import { FaUserCircle } from 'react-icons/fa';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { HiOutlineChevronRight, HiOutlineThumbDown } from 'react-icons/hi';
 import {
   ApprovedButton,
@@ -52,11 +51,10 @@ const AppOverview = () => {
   let parsedCreditBalance = +application?.creditBalance;
   let parsedLastLoanAmount = +application?.lastLoanAmount;
   let debtLoanRatio = parsedCreditBalance / parsedLastLoanAmount;
-  // console.log(parsedCreditBalance, parsedLastLoanAmount)
   return (
     <main>
       {application && !error && !loading && (
-        <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+        <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex flex-col gap-3.5">
             <div className="flex items-center justify-between">
               <div className="flex gap-1 items-center">
@@ -70,7 +68,7 @@ const AppOverview = () => {
               <div
                 role="button"
                 onClick={() => navigate(-1)}
-                className="flex gap-1 items-center"
+                className="hidden md:flex gap-1 items-center"
               >
                 <BsArrowLeft />
                 <span className="text-xs">Back</span>
@@ -96,11 +94,11 @@ const AppOverview = () => {
             </div>
           </div>
 
-          <div className="flex gap-3 items-center  bg-[#F7F7F7] rounded-lg p-4">
+          <div className="flex gap-3 items-center text-xs lg:text-sm bg-[#F7F7F7] rounded-lg p-4">
             <div className="flex flex-col w-1/3">
               <div className="flex items-center justify-between">
                 <p>Loan Status</p>
-                <div className="bg-[#454E5C] p-2 text-white rounded-md">
+                <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
                   {application.status === 'approved' ? (
                     <HiOutlineHandThumbUp />
                   ) : application.status === 'pending' ? (
@@ -110,17 +108,17 @@ const AppOverview = () => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-1">
                 <span className="font-bold">
                   ₦{application.loanAmount.toLocaleString('en-US')}.00
                 </span>
                 <div className="flex gap-2 text-xs items-center">
                   <p>
                     {application.loanType === 'shortTerm'
-                      ? 'Short Term Loan'
+                      ? 'Short Term'
                       : application.loanType === 'mediumTerm'
-                      ? 'Medium Term Loan'
-                      : 'Long Term Loan'}
+                      ? 'Medium Term'
+                      : 'Long Term'}
                   </p>
                   {application.status === 'approved' ? (
                     <ApprovedButton />
@@ -133,16 +131,16 @@ const AppOverview = () => {
               </div>
             </div>
 
-            <div className="border-r border-r-[#5F6D7E] py-2 h-full"></div>
+            <div className="border-r border-r-[#5F6D7E] py-7 md:py-10 h-full"></div>
 
             <div className="flex flex-col w-1/3">
               <div className="flex items-center justify-between">
                 <p>Credit Utilization</p>
-                <div className="bg-[#454E5C] p-2 text-white rounded-md">
+                <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
                   <HiArrowTrendingUp />
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-1">
                 <span className="font-bold">
                   {application.creditDebitRatio}%
                 </span>
@@ -159,28 +157,28 @@ const AppOverview = () => {
               </div>
             </div>
 
-            <div className="border-r border-r-[#5F6D7E] py-2 h-full"></div>
+            <div className="border-r border-r-[#5F6D7E] py-7 md:py-10 h-full"></div>
 
             <div className="flex flex-col w-1/3">
               <div className="flex items-center justify-between">
                 <p>Outstanding Debt</p>
-                <div className="bg-[#454E5C] p-2 text-white rounded-md">
+                <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
                   <PiSortAscendingLight />
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-1">
                 <span className="font-bold">
                   ₦{application.creditBalance.toLocaleString('en-US')}.00
                 </span>
                 <div className="flex gap-2 text-xs items-center">
                   <p>
                     {parsedCreditBalance === 0 && parsedLastLoanAmount === 0
-                      ? '<20% Previous Debt'
+                      ? '<20%'
                       : debtLoanRatio < 20
-                      ? '<20% Previous Debt'
+                      ? '<20%'
                       : debtLoanRatio > 20 && debtLoanRatio < 50
-                      ? '>20% Previous Debt'
-                      : '>50% Previous Debt'}
+                      ? '>20%'
+                      : '>50%'}
                   </p>
                   {parsedCreditBalance === 0 && parsedLastLoanAmount === 0 ? (
                     <GreenButton text="Excellent" />

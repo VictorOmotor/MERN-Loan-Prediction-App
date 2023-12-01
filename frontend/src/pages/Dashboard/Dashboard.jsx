@@ -63,7 +63,7 @@ const Dashboard = () => {
     fetchApplications();
   }, []);
   return (
-    <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+    <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 text-xs lg:text-base font-[Inter] text-[#5F6D7E]">
       <div className="flex flex-col gap-3.5">
         <div className="flex gap-1 items-center">
           <span className="text-xs">Dashboard</span>{' '}
@@ -103,19 +103,21 @@ const Dashboard = () => {
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
             <p>Approved Loans</p>
-            <div className="bg-[#454E5C] p-2 text-white rounded-md">
+            <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
               <AiOutlineCheckCircle />
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1 lg:gap-0">
             <span className="font-bold">
               {approvedApplications ? approvedApplications.length : 0}
             </span>
             <div className="flex gap-2 text-xs items-center">
               {approvedApplications ? (
-                <p>+{approvedApplications?.length} From Yesterday</p>
+                <p className="hidden lg:block">
+                  +{approvedApplications?.length} From Yesterday
+                </p>
               ) : (
-                <p>No approved application</p>
+                <p className="hidden lg:block">No approved application</p>
               )}
               <ApprovedButton />
             </div>
@@ -127,19 +129,21 @@ const Dashboard = () => {
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
             <p>Pending Reviews</p>
-            <div className="bg-[#454E5C] p-2 text-white rounded-md">
+            <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
               <HiOutlineExclamationCircle />
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1 lg:gap-0">
             <span className="font-bold">
               {pendingApplications ? pendingApplications.length : 0}
             </span>
             <div className="flex gap-2 text-xs items-center">
               {pendingApplications ? (
-                <p>+{pendingApplications?.length} From Yesterday</p>
+                <p className="hidden lg:block">
+                  +{pendingApplications?.length} From Yesterday
+                </p>
               ) : (
-                <p>No pending application</p>
+                <p className="hidden lg:block">No pending application</p>
               )}
               <PendingButton />
             </div>
@@ -150,20 +154,22 @@ const Dashboard = () => {
 
         <div className="flex flex-col w-1/3">
           <div className="flex items-center justify-between">
-            <p>Rejected</p>
-            <div className="bg-[#454E5C] p-2 text-white rounded-md">
+            <p>Rejected Loans</p>
+            <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
               <GoXCircle />
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1 lg:gap-0">
             <span className="font-bold">
               {rejectedApplications ? rejectedApplications.length : 0}
             </span>
             <div className="flex gap-2 text-xs items-center">
               {rejectedApplications ? (
-                <p>+{rejectedApplications?.length} From Yesterday</p>
+                <p className="hidden lg:block">
+                  +{rejectedApplications?.length} From Yesterday
+                </p>
               ) : (
-                <p>No rejected application</p>
+                <p className="hidden lg:block">No rejected application</p>
               )}
               <RejectedButton />
             </div>
@@ -179,7 +185,7 @@ const Dashboard = () => {
               <p className=" text-xs">Sorted by Time</p>
             </div>
             <div>
-              <BsDownload />
+              <BsDownload className="hidden md:block" />
             </div>
           </div>
         </div>
@@ -189,16 +195,16 @@ const Dashboard = () => {
             <p>Product</p>
           </div>
           <div className="flex items-center gap-1 w-1/6">
-            <p>Date</p> <BsArrowDownShort />
+            <p>Date</p> <BsArrowDownShort className="hidden md:block" />
           </div>
           <div className="flex items-center gap-1 w-1/6">
-            <p>Status</p> <BsArrowDownShort />
+            <p>Status</p> <BsArrowDownShort className="hidden md:block" />
           </div>
-          <div className="flex items-center gap-1 w-1/6">
-            <p>Credit Score</p> <BsArrowDownShort />
+          <div className="flex items-center gap-1 w-1/6 md:w-1/5">
+            <p>Credit Score</p> <BsArrowDownShort className="hidden md:block" />
           </div>
-          <div className="flex items-center gap-1">
-            <p>Amount</p> <BsArrowDownShort />
+          <div className="flex items-center gap-1 ml-3 md:ml-0">
+            <p>Amount</p> <BsArrowDownShort className="hidden md:block" />
           </div>
         </div>
         {applications ? (
@@ -242,10 +248,11 @@ const Dashboard = () => {
                       <p>{creditScore}</p>
                     </div>
                     <div className="flex items-center px-2.5 text-xs w-1/6">
-                      <p>₦{loanAmount.toLocaleString('en-US')}.00</p>
+                      <p>₦{loanAmount.toLocaleString('en-US')}</p>
+                      <span className="hidden md:block">.00</span>
                     </div>
                     <div className="flex items-center">
-                      <BsDownload />
+                      <BsDownload className="hidden md:block" />
                     </div>
                   </div>
                 </Link>

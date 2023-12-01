@@ -7,7 +7,7 @@ import { CiGlobe, CiLocationArrow1 } from 'react-icons/ci';
 
 const LandingFooter = () => {
   return (
-    <footer className=" pt-10 px-20 pb-14 bg-logoBlue w-full h-auto text-xs font-[Inter] text-footerText">
+    <footer className=" hidden md:block pt-10 px-20 pb-14 bg-logoBlue w-full h-auto text-xs font-[Inter] text-footerText">
       <nav className="flex items-center h-32">
         <div className=" flex flex-col justify-between h-full w-1/3">
           <Link to={'/'}>

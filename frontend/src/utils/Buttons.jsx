@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 export const RejectedButton = () => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-[#FD3D39] rounded px-1 text-white">
+    <div className=" md:flex items-center text-xs gap-0.5 bg-[#FD3D39] rounded px-1 text-white">
       <span>
-        <GoXCircle />
+        <GoXCircle className="hidden md:block" />
       </span>{' '}
       <span>Rejected</span>
     </div>
@@ -15,9 +15,9 @@ export const RejectedButton = () => {
 };
 export const ApprovedButton = () => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-[#169872] rounded px-1 text-white">
+    <div className="md:flex items-center text-xs gap-0.5 bg-[#169872] rounded px-1 text-white">
       <span>
-        <AiOutlineCheckCircle />
+        <AiOutlineCheckCircle className="hidden md:block" />
       </span>{' '}
       <span>Approved</span>
     </div>
@@ -25,9 +25,9 @@ export const ApprovedButton = () => {
 };
 export const GreenButton = ({ text }) => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-[#169872] rounded px-1 text-white">
+    <div className="md:flex items-center text-xs gap-0.5 bg-[#169872] rounded px-1 text-white">
       <span>
-        <AiOutlineCheckCircle />
+        <AiOutlineCheckCircle className="hidden md:block" />
       </span>{' '}
       <span>{text}</span>
     </div>
@@ -35,9 +35,9 @@ export const GreenButton = ({ text }) => {
 };
 export const PendingButton = () => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-[#C0F5F9] rounded px-1 text-[#2E3847]">
+    <div className="md:flex items-center text-xs gap-0.5 bg-[#C0F5F9] rounded px-1 text-[#2E3847]">
       <span>
-        <HiOutlineExclamationCircle />
+        <HiOutlineExclamationCircle className="hidden md:block" />
       </span>{' '}
       <span className="font-semibold">Pending</span>
     </div>
@@ -45,7 +45,7 @@ export const PendingButton = () => {
 };
 export const FairButton = ({ text }) => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-fair rounded px-1 text-[#2E3847]">
+    <div className="md:flex items-center text-xs gap-0.5 bg-fair rounded px-1 text-[#2E3847]">
       <span>
         <HiOutlineExclamationCircle />
       </span>{' '}
@@ -55,9 +55,9 @@ export const FairButton = ({ text }) => {
 };
 export const PoorButton = ({ text }) => {
   return (
-    <div className="flex items-center text-xs gap-0.5 bg-[#FD3D39] rounded px-1 text-[#2E3847]">
+    <div className="md:flex items-center text-xs gap-0.5 bg-[#FD3D39] rounded px-1 text-[#2E3847]">
       <span>
-        <HiOutlineExclamationCircle />
+        <HiOutlineExclamationCircle className="hidden md:block" />
       </span>{' '}
       <span className="font-semibold">{text}</span>
     </div>

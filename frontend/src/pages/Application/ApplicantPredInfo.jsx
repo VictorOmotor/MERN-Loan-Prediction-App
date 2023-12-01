@@ -42,7 +42,7 @@ const ApplicantPredInfo = () => {
   return (
     <main>
       {application && !error && !loading && (
-        <div className="flex flex-col gap-4 px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+        <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex items-center justify-between">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Applications</span>{' '}
@@ -58,7 +58,7 @@ const ApplicantPredInfo = () => {
             <div
               role="button"
               onClick={() => navigate(-1)}
-              className="flex gap-1 items-center"
+              className="hidden md:flex gap-1 items-center"
             >
               <BsArrowLeft />
               <span className="text-xs">Back</span>
@@ -98,61 +98,61 @@ const ApplicantPredInfo = () => {
               </div>
             </Link>
           </div>
-          <div className="flex flex-col border rounded-lg bg-[#F8F9FB]">
+          <div className="flex flex-col border text-xs md:text-sm rounded-lg bg-[#F8F9FB]">
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Information</p>
-              <p className="w-1/3">Value</p>
-              <p className="w-1/3">Remarks</p>
+              <p className="w-2/5">Information</p>
+              <p className="w-2/5">Value</p>
+              <p className="w-1/5">Remarks</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Loan Request Amount</p>
-              <p className="w-1/3">{application.loanAmount}</p>
-              <p className="w-1/3">1234567890</p>
+              <p className="w-2/5">Loan Request Amount</p>
+              <p className="w-2/5">{application.loanAmount}</p>
+              <p className="w-1/5">1234567890</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Credit Score</p>
-              <p className="w-1/3">{application.creditScore}</p>
-              <p className="w-1/3">40,000.00</p>
+              <p className="w-2/5">Credit Score</p>
+              <p className="w-2/5">{application.creditScore}</p>
+              <p className="w-1/5">40,000.00</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Credit utilization</p>
-              <p className="w-1/3">{application.creditDebitRatio}</p>
-              <p className="w-1/3">&lt; 25,000.00</p>
+              <p className="w-2/5">Credit utilization</p>
+              <p className="w-2/5">{application.creditDebitRatio}</p>
+              <p className="w-1/5">&lt; 25,000.00</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Annual Income</p>
-              <p className="w-1/3">{application.applicantIncome}</p>
-              <p className="w-1/3">0</p>
+              <p className="w-2/5">Annual Income</p>
+              <p className="w-2/5">{application.applicantIncome}</p>
+              <p className="w-1/5">0</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Loan Duration</p>
-              <p className="w-1/3">{formattedLoanDuration}</p>
-              <p className="w-1/3">Self Employed</p>
+              <p className="w-2/5">Loan Duration</p>
+              <p className="w-2/5">{formattedLoanDuration}</p>
+              <p className="w-1/5">Self Employed</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Previous Loan Performance</p>
-              <p className="w-1/3">5/5</p>
-              <p className="w-1/3">Yes</p>
+              <p className="w-2/5">Previous Loan Performance</p>
+              <p className="w-2/5">5/5</p>
+              <p className="w-1/5">Yes</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Last Loan Date</p>
-              <p className="w-1/3">
+              <p className="w-2/5">Last Loan Date</p>
+              <p className="w-2/5">
                 {application.lastLoanDate === undefined
                   ? 'No Date Chosen'
                   : formatDate(application.lastLoanDate)}
               </p>
-              <p className="w-1/3">1</p>
+              <p className="w-1/5">1</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3">Gurantor's Credit Score</p>
-              <p className="w-1/3">500</p>
-              <p className="w-1/3">Graduate</p>
+              <p className="w-2/5">Gurantor's Credit Score</p>
+              <p className="w-2/5">500</p>
+              <p className="w-1/5">Graduate</p>
             </div>
 
             <div className="flex p- h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-1/3"></p>
-              <p className="w-1/3"></p>
-              <p className="w-1/3"></p>
+              <p className="w-2/5"></p>
+              <p className="w-2/5"></p>
+              <p className="w-1/5"></p>
             </div>
           </div>
         </div>
