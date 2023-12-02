@@ -15,8 +15,8 @@ import Ellipse18 from '../assets/images/Ellipse 18.png';
 import Ellipse19 from '../assets/images/Ellipse 19.png';
 import Ellipse21 from '../assets/images/Ellipse 21.png';
 import ViewGrid from '../assets/images/ViewGrid.svg';
-import InterestCalculator from '../assets/images/interest rate calculator.png';
-import InterestResume from '../assets/images/interest on resume.png';
+import InterestCalculator from '../assets/images/Interest rate calculator.png';
+import InterestResume from '../assets/images/Interest on resume.png';
 import { HiOutlineDuplicate } from 'react-icons/hi';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 const HeroSection = () => {
