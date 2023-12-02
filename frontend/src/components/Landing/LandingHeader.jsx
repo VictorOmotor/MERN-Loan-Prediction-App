@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { HomeLogin, HomeSignUp } from '../../utils/Buttons';
 import { RiMenu5Fill } from 'react-icons/ri';
 import LandingMenu from './LandingMenu';
+import { useSelector } from 'react-redux';
 
-const LandingHeader = ({ onClick }) => {
+const LandingHeader = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -27,9 +29,14 @@ const LandingHeader = ({ onClick }) => {
               </div>
             </Link>
             <ul className="flex gap-7 text-sm items-center text-fontBlue">
-              <Link to={'/'}>
-                <li className="hidden md:block">Home</li>
-              </Link>
+              {currentUser ? (
+                <Link to={'/dashboard'}>
+                  <li className="">Dashboard</li>
+                </Link>
+              ) : (
+                ''
+              )}
+
               <Link to={'/about'}>
                 <li>About Us</li>
               </Link>
@@ -37,14 +44,21 @@ const LandingHeader = ({ onClick }) => {
                 <li className="hidden md:block">Help Center</li>
               </Link>
             </ul>
-            <ul className="hidden md:flex items-center gap-3">
-              <li>
-                <HomeLogin />
-              </li>
-              <li>
-                <HomeSignUp />
-              </li>
-            </ul>
+            {currentUser ? (
+              ''
+            ) : (
+              <>
+                <ul className="hidden md:flex items-center gap-3">
+                  <li>
+                    <HomeLogin />
+                  </li>
+                  <li>
+                    <HomeSignUp />
+                  </li>
+                </ul>
+              </>
+            )}
+
             <RiMenu5Fill
               size={30}
               className="text-fontBlue md:hidden"

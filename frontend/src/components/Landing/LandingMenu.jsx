@@ -3,7 +3,7 @@ import LogoImg from '../../assets/images/LogoImg.png';
 import { Link } from 'react-router-dom';
 import { MdOutlinePowerSettingsNew } from 'react-icons/md';
 import { logOutStart, logOutSuccess } from '../../redux/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { FaInstagram, FaTimes, FaYoutube } from 'react-icons/fa';
 import { CiGlobe } from 'react-icons/ci';
@@ -11,6 +11,7 @@ import { FiTwitter } from 'react-icons/fi';
 
 const LandingMenu = ({ onClick }) => {
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
   const url = '/api/user/logout';
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const LandingMenu = ({ onClick }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-[#172233] bg-opacity-95 z-50 md:hidden "
+      className="fixed inset-0 bg-[#1436D9] bg-opacity-95 z-50 md:hidden "
       onClick={onClick}
     >
       <div className="flex flex-col gap-4 font-[Inter] text-white">
@@ -47,16 +48,30 @@ const LandingMenu = ({ onClick }) => {
 
         <nav>
           <ul className="flex flex-col gap-7 justify-center items-center ">
-            <Link to={'/login'}>
-              <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
-                Login
-              </li>
-            </Link>
-            <Link to={'/signup'}>
-              <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
-                Sign In
-              </li>
-            </Link>
+            {currentUser ? (
+              <Link to={'/dashboard'}>
+                <li className="">Dashboard</li>
+              </Link>
+            ) : (
+              ''
+            )}
+            {currentUser ? (
+              ''
+            ) : (
+              <>
+                <Link to={'/login'}>
+                  <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
+                    Login
+                  </li>
+                </Link>
+                <Link to={'/signup'}>
+                  <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
+                    Sign In
+                  </li>
+                </Link>
+              </>
+            )}
+
             {/* <Link to={'/about'}>
             <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
               About Us
@@ -77,14 +92,18 @@ const LandingMenu = ({ onClick }) => {
                 App Demo
               </li>
             </Link>
+            {currentUser ? (
+              <li
+                onClick={handleLogout}
+                className="flex gap-3 cursor-pointer items-center hover:bg-[#5F6D7E] my-3"
+              >
+                <MdOutlinePowerSettingsNew />
+                <span>Log out</span>
+              </li>
+            ) : (
+              ''
+            )}
 
-            <li
-              onClick={handleLogout}
-              className="flex gap-3 cursor-pointer items-center hover:bg-[#5F6D7E] my-3"
-            >
-              <MdOutlinePowerSettingsNew />
-              <span>Log out</span>
-            </li>
             <div className="flex flex-col items-center gap-2">
               <p>Copyright &copy; 2023 Cash2go Ltd</p>
               <p>All rights reserved</p>

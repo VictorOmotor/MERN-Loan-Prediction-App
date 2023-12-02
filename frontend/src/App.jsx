@@ -1,148 +1,669 @@
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing/Landing';
-import About from './pages/Landing/About';
-import HelpCentre from './pages/Landing/HelpCentre';
-import Onboarding from './pages/Onboard/Onboarding';
-import Otp from './pages/Onboard/Otp';
-import SignUpWithId from './pages/Onboard/SignUpWithId';
-import SignUpWithPassword from './pages/Onboard/SignUpWithPassword';
-import ResetPassSecQues from './pages/Onboard/ResetPassSecQues';
-import SignUpSecurityQuestion from './pages/Onboard/SignUpSecurityQuestion';
-import ForgotPassword from './pages/Onboard/ForgotPassword';
-import ResetPassword from './pages/Onboard/ResetPassword';
-import Login from './pages/Onboard/Login';
-import Dashboard from './pages/Dashboard/Dashboard';
-import ApplicationDetails from './pages/Dashboard/ApplicationDetails';
-import AllApplications from './pages/Application/AllApplications';
-import ApprovedApplications from './pages/Application/ApprovedApplications';
-import RejectedApplications from './pages/Application/RejectedApplications';
-import PendingApplications from './pages/Application/PendingApplications';
-import ApplicantContactInfo from './pages/Application/ApplicantContactInfo';
-import NewAppFinHistory from './pages/Application/NewAppFinHistory';
-import NewAppLoanInfo from './pages/Application/NewAppLoanInfo';
-import NewAppContact from './pages/Application/NewAppContact';
-import ApplicantPredInfo from './pages/Application/ApplicantPredInfo';
-import GeneralAnalytics from './pages/Analytics/GeneralAnalytics';
-import AppOverview from './pages/Application/AppOverview';
-import Cashflow from './pages/Application/Cashflow';
-import PreviousLoans from './pages/Application/PreviousLoans';
-import IncAndExp from './pages/Application/IncAndExp';
-import Inbox from './pages/Messages/Inbox';
-import NewMessage from './pages/Messages/NewMessage';
-import Thread from './pages/Messages/Thread';
-import Thrash from './pages/Messages/Thrash';
-import Notifications from './pages/Notification/Notifications';
-import LoanRecovery from './pages/Recovery/LoanRecovery';
-import Activity from './pages/Settings/Activity';
-import CreateModel from './pages/Settings/CreateModel';
-import Models from './pages/Settings/Models';
-import NotificationSettings from './pages/Settings/NotificationSettings';
-import Security from './pages/Settings/Security';
-import InitialPredicion from './pages/Application/InitialPredicion';
-import PrivateRoute from './components/PrivateRoute';
-import ApplicantsAnalytics from './pages/Analytics/ApplicantsAnalytics';
+import Loader from './components/Loader/Loader';
+
+const Landing = lazy(() => import('./pages/Landing/Landing'));
+const About = lazy(() => import('./pages/Landing/About'));
+const HelpCentre = lazy(() => import('./pages/Landing/HelpCentre'));
+const Onboarding = lazy(() => import('./pages/Onboard/Onboarding'));
+const Otp = lazy(() => import('./pages/Onboard/Otp'));
+const SignUpWithId = lazy(() => import('./pages/Onboard/SignUpWithId'));
+const SignUpWithPassword = lazy(() =>
+  import('./pages/Onboard/SignUpWithPassword'),
+);
+const ResetPassSecQues = lazy(() => import('./pages/Onboard/ResetPassSecQues'));
+const SignUpSecurityQuestion = lazy(() =>
+  import('./pages/Onboard/SignUpSecurityQuestion'),
+);
+const ForgotPassword = lazy(() => import('./pages/Onboard/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/Onboard/ResetPassword'));
+const Login = lazy(() => import('./pages/Onboard/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
+const ApplicationDetails = lazy(() =>
+  import('./pages/Dashboard/ApplicationDetails'),
+);
+const AllApplications = lazy(() =>
+  import('./pages/Application/AllApplications'),
+);
+const ApprovedApplications = lazy(() =>
+  import('./pages/Application/ApprovedApplications'),
+);
+const RejectedApplications = lazy(() =>
+  import('./pages/Application/RejectedApplications'),
+);
+const PendingApplications = lazy(() =>
+  import('./pages/Application/PendingApplications'),
+);
+const ApplicantContactInfo = lazy(() =>
+  import('./pages/Application/ApplicantContactInfo'),
+);
+const NewAppFinHistory = lazy(() =>
+  import('./pages/Application/NewAppFinHistory'),
+);
+const NewAppLoanInfo = lazy(() => import('./pages/Application/NewAppLoanInfo'));
+const NewAppContact = lazy(() => import('./pages/Application/NewAppContact'));
+const ApplicantPredInfo = lazy(() =>
+  import('./pages/Application/ApplicantPredInfo'),
+);
+const GeneralAnalytics = lazy(() =>
+  import('./pages/Analytics/GeneralAnalytics'),
+);
+const AppOverview = lazy(() => import('./pages/Application/AppOverview'));
+const Cashflow = lazy(() => import('./pages/Application/Cashflow'));
+const PreviousLoans = lazy(() => import('./pages/Application/PreviousLoans'));
+const IncAndExp = lazy(() => import('./pages/Application/IncAndExp'));
+const Inbox = lazy(() => import('./pages/Messages/Inbox'));
+const NewMessage = lazy(() => import('./pages/Messages/NewMessage'));
+const Thread = lazy(() => import('./pages/Messages/Thread'));
+const Thrash = lazy(() => import('./pages/Messages/Thrash'));
+const Notifications = lazy(() => import('./pages/Notification/Notifications'));
+const LoanRecovery = lazy(() => import('./pages/Recovery/LoanRecovery'));
+const Activity = lazy(() => import('./pages/Settings/Activity'));
+const CreateModel = lazy(() => import('./pages/Settings/CreateModel'));
+const Models = lazy(() => import('./pages/Settings/Models'));
+const NotificationSettings = lazy(() =>
+  import('./pages/Settings/NotificationSettings'),
+);
+const Security = lazy(() => import('./pages/Settings/Security'));
+const InitialPredicion = lazy(() =>
+  import('./pages/Application/InitialPredicion'),
+);
+const PrivateRoute = lazy(() => import('./components/PrivateRoute'));
+const ApplicantsAnalytics = lazy(() =>
+  import('./pages/Analytics/ApplicantsAnalytics'),
+);
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/help" element={<HelpCentre />} />
-        <Route path="/onboard" element={<Onboarding />} />
-        <Route path="/signup" element={<SignUpWithId />} />
-        <Route path="/signup/password-otp" element={<Otp />} />
-        <Route path="/register" element={<SignUpWithPassword />} />
+        <Route
+          path="/"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <Landing />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/help"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <HelpCentre />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/onboard"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <Onboarding />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <SignUpWithId />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup/password-otp"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <Otp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <SignUpWithPassword />
+            </Suspense>
+          }
+        />
         <Route
           path="/signup/security-question"
-          element={<SignUpSecurityQuestion />}
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <SignUpSecurityQuestion />
+            </Suspense>
+          }
         />
         <Route
           path="/resetpassword/security-question"
-          element={<ResetPassSecQues />}
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <ResetPassSecQues />
+            </Suspense>
+          }
         />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route
+          path="/forgotpassword"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <ForgotPassword />
+            </Suspense>
+          }
+        />
         <Route
           path="/resetpassword/verify/:resetPasswordToken"
-          element={<ResetPassword />}
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <ResetPassword />
+            </Suspense>
+          }
         />
-        <Route path="/login" element={<Login />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/analytics" element={<GeneralAnalytics />} />
+        <Route
+          path="/login"
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <Login />
+            </Suspense>
+          }
+        />
+        <Route
+          element={
+            <Suspense
+              fallback={
+                <div>
+                  <Loader />
+                </div>
+              }
+            >
+              <PrivateRoute />
+            </Suspense>
+          }
+        >
+          <Route
+            path="/dashboard"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Dashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/dashboard/analytics"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <GeneralAnalytics />
+              </Suspense>
+            }
+          />
           <Route
             path="/dashboard/application-details"
-            element={<ApplicationDetails />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <ApplicationDetails />
+              </Suspense>
+            }
           />
           <Route
             path="/dashboard/applicants-analytics"
-            element={<ApplicantsAnalytics />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <ApplicantsAnalytics />
+              </Suspense>
+            }
           />
-          <Route path="/applications/all" element={<AllApplications />} />
+          <Route
+            path="/applications/all"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <AllApplications />
+              </Suspense>
+            }
+          />
           <Route
             path="/applications/overview/:applicationId"
-            element={<AppOverview />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <AppOverview />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/approved"
-            element={<ApprovedApplications />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <ApprovedApplications />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/rejected"
-            element={<RejectedApplications />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <RejectedApplications />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/pending"
-            element={<PendingApplications />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <PendingApplications />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/new-application/prediction"
-            element={<InitialPredicion />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <InitialPredicion />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/new-application/personalinfo"
-            element={<NewAppContact />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <NewAppContact />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/new-application/loaninfo"
-            element={<NewAppLoanInfo />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <NewAppLoanInfo />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/new-application/history"
-            element={<NewAppFinHistory />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <NewAppFinHistory />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/applicant/contact/:applicationId"
-            element={<ApplicantContactInfo />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <ApplicantContactInfo />
+              </Suspense>
+            }
           />
-
           <Route
             path="/applications/applicant/prediction/:applicationId"
-            element={<ApplicantPredInfo />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <ApplicantPredInfo />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/applicant/cashflow"
-            element={<Cashflow />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Cashflow />
+              </Suspense>
+            }
           />
           <Route
             path="/applications/applicant/previousloans"
-            element={<PreviousLoans />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <PreviousLoans />
+              </Suspense>
+            }
           />
-          <Route path="/applications/applicant/iexp" element={<IncAndExp />} />
-          <Route path="/messages/inbox" element={<Inbox />} />
-          <Route path="/messages/new" element={<NewMessage />} />
-          <Route path="/messages/thread" element={<Thread />} />
-          <Route path="/messages/thrash" element={<Thrash />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/recovery" element={<LoanRecovery />} />
-          <Route path="/settings/activity" element={<Activity />} />
-          <Route path="/settings/create-model" element={<CreateModel />} />
-          <Route path="/settings/models" element={<Models />} />
+          <Route
+            path="/applications/applicant/iexp"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <IncAndExp />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/messages/inbox"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Inbox />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/messages/new"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <NewMessage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/messages/thread"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Thread />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/messages/thrash"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Thrash />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Notifications />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/recovery"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <LoanRecovery />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/settings/activity"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Activity />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/settings/create-model"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <CreateModel />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/settings/models"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Models />
+              </Suspense>
+            }
+          />
           <Route
             path="/settings/notification"
-            element={<NotificationSettings />}
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <NotificationSettings />
+              </Suspense>
+            }
           />
-          <Route path="/settings/security" element={<Security />} />
+          <Route
+            path="/settings/security"
+            element={
+              <Suspense
+                fallback={
+                  <div>
+                    <Loader />
+                  </div>
+                }
+              >
+                <Security />
+              </Suspense>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

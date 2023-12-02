@@ -100,8 +100,8 @@ export const HomeSignUp = () => {
 };
 export const HomeButton = ({ text }) => {
   return (
-    <Link to={'/signup'}>
-      <button className="bg-[#1436D9] font-semibold text-[#FFF] p-3 text-xs uppercase">
+    <Link to={'/onboard'}>
+      <button className="bg-[#1436D9] font-semibold text-[#FFF] p-2 md:p-3 text-xs uppercase">
         {text}
       </button>
     </Link>

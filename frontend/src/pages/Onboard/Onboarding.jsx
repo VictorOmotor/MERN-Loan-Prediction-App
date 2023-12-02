@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom';
 
 const Onboarding = () => {
   return (
-    <div>
-      <img
-        src={BgImg}
-        className="w-screen h-screen absolute"
-        alt="background"
-      />
+    <div
+      className="min-h-screen bg-cover bg-center fixed inset-0"
+      style={{ backgroundImage: `url(${BgImg})` }}
+    >
       <ul
-        className=" relative uppercase text-white font-[Inter]  
-       font-semibold flex justify-end gap-6 pt-8 pr-16"
+        className="flex gap-7 justify-end h-2/5 mr-10 mt-7 uppercase text-white font-[Inter]  
+       font-semibold "
       >
         <Link to={'/login'}>
           <li className="cursor-pointer">Login</li>
@@ -22,22 +20,20 @@ const Onboarding = () => {
           <li className="cursor-pointer">Sign Up</li>
         </Link>
       </ul>
-      <div className="absolute">
-        <img src={ellipseImg} className="w-[25rem] ml-96 mt-9" alt="ellipse" />
-      </div>
-      <div className="flex justify-center mt-56 -ml-48">
-        <div className="flex gap-2.5 relative">
-          <img src={LogoImg} className="w-10" alt="Logo" />
+      <div className="flex flex-col items-center relative">
+        <div className="flex items-center gap-2">
+          <img src={LogoImg} className="w-8 h-8" alt="Logo" />
           <span className=" font-[Montserrat] font-semibold text-white text-[2rem]">
             Cash2Go
           </span>
         </div>
+        <p className="text-[#A2A7AD] ml-11">Enabling Hassle-free lending....</p>
       </div>
-      <div className="flex justify-center">
-        <p className="text-[#A2A7AD] relative mt-1 -ml-40">
-          Enabling Hassle-free lending....
-        </p>
-      </div>
+      <img
+        src={ellipseImg}
+        className="absolute inset-0 w-3/5 sm:w-1/2 md:w-1/3 mx-auto my-auto z-50"
+        alt="ellipse"
+      />
     </div>
   );
 };
