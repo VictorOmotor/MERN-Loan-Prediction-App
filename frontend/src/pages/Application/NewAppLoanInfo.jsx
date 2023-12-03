@@ -90,8 +90,8 @@ const NewAppLoanInfo = () => {
         </div>
         <div className="p-2">
           <form onSubmit={handleSubmit} className="p-2">
-            <div className="flex gap-6 justify-between">
-              <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-6 justify-between">
+              <div className="flex flex-col gap-2 md:gap-4 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -102,7 +102,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="dependents"
                       onChange={handleChange}
                       required
@@ -120,7 +120,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="selfEmployed"
                       required
                       onChange={handleChange}
@@ -157,7 +157,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="maritalStatus"
                       onChange={handleChange}
                       required
@@ -194,7 +194,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="education"
                       onChange={handleChange}
                       required
@@ -228,7 +228,7 @@ const NewAppLoanInfo = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 w-1/2">
+              <div className="flex flex-col gap-2 md:gap-4 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -239,7 +239,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="loanAmount"
                       onChange={handleChange}
                       required
@@ -257,7 +257,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <input
                       type="Date"
-                      className="border border-[#5F6D7E] p-1 uppercase rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 uppercase rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="loanDuration"
                       onChange={handleChange}
                       required
@@ -275,7 +275,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="loanType"
                       onChange={handleChange}
                       required
@@ -318,7 +318,7 @@ const NewAppLoanInfo = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="creditHistory"
                       onChange={handleChange}
                       required
@@ -329,7 +329,7 @@ const NewAppLoanInfo = () => {
               </div>
             </div>
             <button
-              className="bg-[#172233] w-1/6 h-8 mt-4 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-full md:w-1/3 h-7 mt-4 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >

@@ -59,10 +59,10 @@ const InitialPredicion = () => {
               <label className="text-[#5F6D7E] font-semibold" htmlFor="mode">
                 Mode
               </label>
-              <div className="flex gap-10 items-center">
+              <div className="flex justify-between md:justify-start md:gap-10 items-center">
                 <select
                   type="text"
-                  className="border border-[#5F6D7E] p-2 rounded-lg w-1/3 h-10 mt-1 focus:outline-none"
+                  className="border border-[#5F6D7E] p-2 rounded-lg md:w-1/3 h-10 mt-1 focus:outline-none"
                   id="mode"
                   required
                   onChange={(e) => setMode(e.target.value)}
@@ -87,7 +87,7 @@ const InitialPredicion = () => {
                   </option>
                 </select>
                 <button
-                  className="bg-[#172233] flex items-center justify-center gap-2 w-1/6 text-white p-2
+                  className="bg-[#172233] flex items-center justify-center gap-2 md:w-1/6 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
                 >

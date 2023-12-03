@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSearch, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { GoArrowRight } from 'react-icons/go';
 import { IoIosNotificationsOutline } from 'react-icons/io';
@@ -13,6 +13,24 @@ const Header = () => {
   let fullName =
     currentUser?.user?.firstName + ' ' + currentUser?.user?.surname;
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [scrollPage, setScrollPage] = useState(false);
+
+  useEffect(() => {
+    const fixNavBar = () => {
+      if (window.scrollY > 50) {
+        setScrollPage(true);
+      } else {
+        setScrollPage(false);
+      }
+    };
+
+    window.addEventListener('scroll', fixNavBar);
+
+    // Cleanup: Remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('scroll', fixNavBar);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -23,7 +41,11 @@ const Header = () => {
       {isMenuOpen ? (
         <Menu onClick={toggleMenu} />
       ) : (
-        <div className=" xl:w-screen h-12 md:h-16 bg-[#172233] font-[Inter] text-[#A2A7AD] flex items-center md:max-w-6xl justify-between p-3 md:px-5">
+        <header
+          className={`xl:w-screen h-12 md:h-16 bg-[#172233] font-[Inter] text-[#A2A7AD] flex items-center md:max-w-6xl justify-between p-3 md:px-5 ${
+            scrollPage ? 'fixed top-0 w-full z-50' : ''
+          }`}
+        >
           <Link className="md:hidden" to={'/'}>
             <img src={LogoImg} alt="Logo" className="w-6" />
           </Link>
@@ -65,7 +87,7 @@ const Header = () => {
               onClick={toggleMenu}
             />
           )}
-        </div>
+        </header>
       )}
     </>
   );

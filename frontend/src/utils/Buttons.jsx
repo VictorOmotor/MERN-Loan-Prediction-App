@@ -67,7 +67,7 @@ export const BlueButton = ({ text, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="bg-[#2E3646] px-4 font-semibold text-white text-xs rounded-md"
+      className="bg-[#2E3646] px-4 py-1 font-semibold text-white text-xs rounded-md"
     >
       {text}
     </button>
@@ -75,7 +75,7 @@ export const BlueButton = ({ text, onClick }) => {
 };
 export const GreyButton = ({ text }) => {
   return (
-    <button className="bg-[#E6E9EC] px-2 font-semibold text-[#5F6D7E] py-1 text-xs rounded-md">
+    <button className="bg-[#E6E9EC] px-4 py-1 md:px-2 font-semibold text-[#5F6D7E] md:py-1 text-xs rounded-md">
       {text}
     </button>
   );

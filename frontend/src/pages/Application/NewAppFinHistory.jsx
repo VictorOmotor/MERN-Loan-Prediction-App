@@ -120,8 +120,8 @@ const NewAppFinHistory = () => {
         </div>
         <div className="p-2">
           <form onSubmit={handleSubmit} className="p-2">
-            <div className="flex gap-6 justify-between">
-              <div className="flex flex-col gap-3 w-1/2">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-6 justify-between">
+              <div className="flex flex-col gap-2 md:gap-3 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -132,7 +132,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="creditScore"
                       required
                       onChange={handleChange}
@@ -150,7 +150,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="creditDebitRatio"
                       required
                       onChange={handleChange}
@@ -168,7 +168,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <select
                       type="text"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="salaryEarner"
                       required
                       onChange={handleChange}
@@ -202,7 +202,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="lastLoanAmount"
                       required
                       onChange={handleChange}
@@ -211,7 +211,7 @@ const NewAppFinHistory = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-3 w-1/2">
+              <div className="flex flex-col gap-2 md:gap-3 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -222,7 +222,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="creditBalance"
                       required
                       onChange={handleChange}
@@ -240,7 +240,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="applicantIncome"
                       required
                       onChange={handleChange}
@@ -258,7 +258,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="number"
-                      className="border border-[#5F6D7E] p-1.5 rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="coApplicantIncome"
                       required
                       onChange={handleChange}
@@ -276,7 +276,7 @@ const NewAppFinHistory = () => {
                   <div>
                     <input
                       type="date"
-                      className="border border-[#5F6D7E] p-1.5 uppercase rounded-lg w-full h-8 mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-1 uppercase rounded-lg w-full h-7 mt-1 focus:outline-none"
                       id="lastLoanDate"
                       onChange={handleChange}
                       value={historyFormData?.lastLoanDate || ''}
@@ -286,7 +286,7 @@ const NewAppFinHistory = () => {
               </div>
             </div>
             <button
-              className="bg-[#172233] lg:w-1/4 h-8 mt-4 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-full md:w-1/3 h-7 mt-4 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
               disabled={loading}

@@ -68,24 +68,23 @@ const Dashboard = () => {
         <div className="flex gap-1 items-center">
           <span className="text-xs">Dashboard</span>{' '}
           <span>
-            <HiOutlineChevronRight size={12} />
+            <HiOutlineChevronRight size={12} className="hidden md:block" />
           </span>
         </div>
         <div className="flex flex-col">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="font-bold text-2xl text-[#2E3646]">{fullName},</h1>
+              <h1 className="font-bold text-xl truncate md:text-2xl text-[#2E3646]">
+                {fullName},
+              </h1>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-2">
               <Link to={'/applications/all'}>
                 <GreyButton text="Existing" />
               </Link>
-              <BlueButton
-                text="New"
-                onClick={() =>
-                  navigate('/applications/new-application/prediction')
-                }
-              />
+              <Link to={'/applications/new-application/prediction'}>
+                <BlueButton text="New" />
+              </Link>
             </div>
           </div>
           {applications ? (
@@ -122,7 +121,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className=" border-t border-t-[#5F6D7E] w-full md:border-r md:border-r-[#5F6D7E] md:py-2 md:h-full"></div>
+        <div className=" border-t border-t-[#5F6D7E] w-full md:w-0 md:border-r md:border-r-[#5F6D7E] md:py-10 md:h-full"></div>
 
         <div className="flex flex-col w-full md:w-1/3">
           <div className="flex items-center justify-between">
@@ -146,7 +145,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="border-t border-t-[#5F6D7E] w-full md:border-r md:border-r-[#5F6D7E] md:py-2 md:h-full"></div>
+        <div className="border-t border-t-[#5F6D7E] w-full md:w-0 md:border-r md:border-r-[#5F6D7E] md:py-10 md:h-full"></div>
 
         <div className="flex flex-col w-full md:w-1/3">
           <div className="flex items-center justify-between">
@@ -228,10 +227,10 @@ const Dashboard = () => {
                         <p className="text-xs">ID-{applicationId}</p>
                       </div>
                     </div>
-                    <div className="flex items-center text-xs px-1 w-1/6">
+                    <div className="flex items-center text-xs md:px-1 w-1/6">
                       <p>{formatDateWithSlash(createdAt)}</p>
                     </div>
-                    <div className="flex items-center px-2 w-1/6">
+                    <div className="flex items-center md:px-2 w-1/6">
                       {status === 'approved' ? (
                         <ApprovedButton />
                       ) : status === 'pending' ? (

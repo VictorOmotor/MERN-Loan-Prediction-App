@@ -66,7 +66,7 @@ const SideNav = () => {
               <span>Messages</span>
             </li>
           </ul>
-          <div className="border-b border-b-[#A2A7AD4D] py-5"></div>
+          <div className="border-b border-b-[#A2A7AD4D] md:py-1 lg:py-5"></div>
           <ul className="flex flex-col gap-3 pt-">
             <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
               <BsGlobe />
@@ -76,7 +76,7 @@ const SideNav = () => {
               <FiSettings />
               <span>Settings</span>
             </li>
-            <li className="flex gap-3 items-center px-6 py-2 hover:bg-[#5F6D7E]">
+            <li className="flex gap-3 items-center whitespace-nowrap px-6 py-2 hover:bg-[#5F6D7E]">
               <MdOutlineHelpOutline />
               <span>Help Center</span>
             </li>

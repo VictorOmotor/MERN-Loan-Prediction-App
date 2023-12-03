@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoImg from '../../assets/images/homeLogo.png';
 import { Link } from 'react-router-dom';
 import { HomeLogin, HomeSignUp } from '../../utils/Buttons';
@@ -9,7 +9,23 @@ import { useSelector } from 'react-redux';
 const LandingHeader = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const [scrollPage, setScrollPage] = useState(false);
 
+  useEffect(() => {
+    const fixNavBar = () => {
+      if (window.scrollY > 50) {
+        setScrollPage(true);
+      } else {
+        setScrollPage(false);
+      }
+    };
+
+    window.addEventListener('scroll', fixNavBar);
+
+    return () => {
+      window.removeEventListener('scroll', fixNavBar);
+    };
+  }, []);
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -18,7 +34,11 @@ const LandingHeader = () => {
       {isMenuOpen ? (
         <LandingMenu onClick={toggleMenu} />
       ) : (
-        <header className=" w-full h-auto border bg-headerBackground font-[Inter]">
+        <header
+          className={`w-full h-auto border bg-headerBackground font-[Inter] ${
+            scrollPage ? 'fixed top-0 w-full z-50' : ''
+          }`}
+        >
           <nav className="flex justify-between py-3 px-3 md:px-20 items-center">
             <Link to={'/'}>
               <div className="flex gap-1 text-logoBlue items-center">

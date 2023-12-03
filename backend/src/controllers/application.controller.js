@@ -57,10 +57,10 @@ export default class ApplicationController {
       parsedApplicantIncome > parsedCoApplicantIncome ||
       parsedApplicantIncome * 3 < parsedLoanAmount ||
       (parsedSalaryEarner === false && parsedSelfEmployed === false) ||
-      parsedCreditBalance * 5 > parsedLoanAmount ||
-      parsedCreditDebitRatio > 30 ||
+      // parsedCreditBalance * 5 > parsedLoanAmount ||
+      // parsedCreditDebitRatio > 30 ||
       (parsedCreditScore > 250 && parsedCreditScore < 700) ||
-      parsedLastLoanAmount > parsedCreditBalance * 5 ||
+      // parsedLastLoanAmount > parsedCreditBalance * 5 ||
       parsedCoApplicantIncome * 1.5 < parsedLoanAmount
     ) {
       const application = new Application({

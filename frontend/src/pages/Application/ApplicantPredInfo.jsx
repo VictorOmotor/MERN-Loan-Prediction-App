@@ -66,7 +66,7 @@ const ApplicantPredInfo = () => {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-bold text-2xl text-[#2E3646]">
+              <h1 className="font-bold text-xl md:text-2xl text-[#2E3646]">
                 {application.applicantName}
               </h1>
               <p className="text-xs">ID {application.applicationId}</p>
@@ -105,34 +105,34 @@ const ApplicantPredInfo = () => {
               <p className="w-1/5">Remarks</p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-2/5">Loan Request Amount</p>
+              <p className="w-2/5 truncate">Loan Request Amount</p>
               <p className="w-2/5">{application.loanAmount}</p>
-              <p className="w-1/5">1234567890</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Credit Score</p>
               <p className="w-2/5">{application.creditScore}</p>
-              <p className="w-1/5">40,000.00</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Credit utilization</p>
               <p className="w-2/5">{application.creditDebitRatio}</p>
-              <p className="w-1/5">&lt; 25,000.00</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Annual Income</p>
               <p className="w-2/5">{application.applicantIncome}</p>
-              <p className="w-1/5">0</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Loan Duration</p>
               <p className="w-2/5">{formattedLoanDuration}</p>
-              <p className="w-1/5">Self Employed</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-2/5">Previous Loan Performance</p>
+              <p className="w-2/5 truncate">Previous Loan Performance</p>
               <p className="w-2/5">5/5</p>
-              <p className="w-1/5">Yes</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Last Loan Date</p>
@@ -141,12 +141,12 @@ const ApplicantPredInfo = () => {
                   ? 'No Date Chosen'
                   : formatDate(application.lastLoanDate)}
               </p>
-              <p className="w-1/5">1</p>
+              <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
-              <p className="w-2/5">Gurantor's Credit Score</p>
+              <p className="w-2/5 truncate">Gurantor's Credit Score</p>
               <p className="w-2/5">500</p>
-              <p className="w-1/5">Graduate</p>
+              <p className="w-1/5"></p>
             </div>
 
             <div className="flex p- h-8 border-b border-b-[#bdd1e9]">

@@ -98,8 +98,8 @@ const NewAppContact = () => {
         </div>
         <div className="p-2">
           <form onSubmit={handleSubmit} className="px-2">
-            <div className="flex gap-6 justify-between">
-              <div className="flex flex-col gap-2 w-1/2">
+            <div className="flex flex-col md:flex-row md:gap-6 justify-between">
+              <div className="flex flex-col gap-2 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -203,7 +203,7 @@ const NewAppContact = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2 w-1/2">
+              <div className="flex flex-col gap-2 w-full md:w-1/2">
                 <div className="">
                   <label
                     className="text-[#5F6D7E] font-semibold"
@@ -274,7 +274,7 @@ const NewAppContact = () => {
                     <input
                       type="text"
                       placeholder="Employee's Address"
-                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-8 text-xs mt-1 focus:outline-none"
+                      className="border border-[#5F6D7E] p-2 rounded-lg w-full h-7 text-xs mt-1 focus:outline-none"
                       id="workAddress"
                       onChange={handleChange}
                       value={contactFormData?.workAddress || ''}
@@ -322,7 +322,7 @@ const NewAppContact = () => {
               </div>
             </div>
             <button
-              className="bg-[#172233] w-1/3 h-8 mt-1 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-full md:w-1/3 h-8 mt-5 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
             >

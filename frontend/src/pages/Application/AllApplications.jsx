@@ -63,18 +63,15 @@ const AllApplications = () => {
             <div className="flex flex-col">
               <div className="flex justify-between items-center">
                 <div>
-                  <h1 className="font-bold text-2xl text-[#2E3646]">
+                  <h1 className="font-bold text-xl md:text-2xl text-[#2E3646]">
                     Applications
                   </h1>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col items-center md:flex-row gap-2">
                   <GreyButton text="Analytics" />
-                  <BlueButton
-                    text="New"
-                    onClick={() =>
-                      navigate('/applications/new-application/prediction')
-                    }
-                  />
+                  <Link to={'/applications/new-application/prediction'}>
+                    <BlueButton text="New" />
+                  </Link>
                 </div>
               </div>
               <p className="text-sm">View all loan applications</p>
@@ -109,7 +106,7 @@ const AllApplications = () => {
               <p className="text-[#2E3646] font-bold">Recent Applications</p>
             </div>
 
-            <div className="flex bg-[#F7F7F7] items-center font-bold text-xs border-b p-2 border-b-[#D1D9E2]">
+            <div className="flex justify-between md:justify-start bg-[#F7F7F7] items-center font-bold text-xs border-b p-2 border-b-[#D1D9E2]">
               <div className="w-1/3">
                 <p>Applicant's Info</p>
               </div>
@@ -119,12 +116,11 @@ const AllApplications = () => {
               <div className="flex items-center gap-1 w-1/6">
                 <p>Status</p> <BsArrowDownShort className="hidden md:block" />
               </div>
-              <div className="flex items-center gap-1 w-1/6">
-                <p>Credit Score</p>{' '}
-                <BsArrowDownShort className="hidden md:block" />
+              <div className="hidden md:flex items-center gap-1 w-1/6">
+                <p>Credit Score</p> <BsArrowDownShort />
               </div>
-              <div className="flex items-center gap-1 ml-3 md:ml-0">
-                <p>Amount</p> <BsArrowDownShort className="hidden md:block" />
+              <div className="hidden md:flex items-center gap-1 ml-3 md:ml-0">
+                <p>Amount</p> <BsArrowDownShort />
               </div>
             </div>
             {applications
@@ -139,40 +135,44 @@ const AllApplications = () => {
                   status,
                   createdAt,
                 }) => (
-                  <div
-                    key={_id}
-                    className="flex bg-[#F7F7F7] items-center text-sm border-b py-1 px-2 border-b-[#D1D9E2]"
-                  >
-                    <div className=" flex gap-2 items-center w-1/3">
-                      <FaUserCircle size={25} />
-                      <div>
-                        <p className="text-[#2E3646]">{applicantName}</p>
-                        <p className="text-xs">ID-{applicationId}</p>
+                  <Link to={`/applications/overview/${applicationId}`}>
+                    <div
+                      key={_id}
+                      className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b py-1 px-2 border-b-[#D1D9E2]"
+                    >
+                      <div className=" flex gap-2 items-center w-1/3">
+                        <FaUserCircle size={25} className="hidden md:block" />
+                        <div>
+                          <p className="text-[#2E3646] truncate">
+                            {applicantName}
+                          </p>
+                          <p className="text-xs">ID-{applicationId}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center text-xs md:px-1 w-1/6">
+                        <p>{formatDateWithSlash(createdAt)}</p>
+                      </div>
+                      <div className="flex items-center md:px-2 w-1/6">
+                        {status === 'approved' ? (
+                          <ApprovedButton />
+                        ) : status === 'pending' ? (
+                          <PendingButton />
+                        ) : (
+                          <RejectedButton />
+                        )}
+                      </div>
+                      <div className="hidden md:flex items-center text-xs w-1/6 px-2.5">
+                        <p>{creditScore}</p>
+                      </div>
+                      <div className="hidden md:flex items-center px-2.5 text-xs w-1/6">
+                        <p>₦{loanAmount.toLocaleString('en-US')}</p>
+                        <span className="hidden md:block">.00</span>
+                      </div>
+                      <div className="hidden md:flex items-center">
+                        <BsDownload className="hidden md:block" />
                       </div>
                     </div>
-                    <div className="flex items-center text-xs px-1 w-1/6">
-                      <p>{formatDateWithSlash(createdAt)}</p>
-                    </div>
-                    <div className="flex items-center px-2 w-1/6">
-                      {status === 'approved' ? (
-                        <ApprovedButton />
-                      ) : status === 'pending' ? (
-                        <PendingButton />
-                      ) : (
-                        <RejectedButton />
-                      )}
-                    </div>
-                    <div className="flex items-center text-xs w-1/6 px-2.5">
-                      <p>{creditScore}</p>
-                    </div>
-                    <div className="flex items-center px-2.5 text-xs w-1/6">
-                      <p>₦{loanAmount.toLocaleString('en-US')}</p>
-                      <span className="hidden md:block">.00</span>
-                    </div>
-                    <div className="flex items-center">
-                      <BsDownload className="hidden md:block" />
-                    </div>
-                  </div>
+                  </Link>
                 ),
               )}
 
