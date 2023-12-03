@@ -99,8 +99,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex gap-3 items-center  bg-[#F7F7F7] rounded-lg p-4">
-        <div className="flex flex-col w-1/3">
+      <div className="flex flex-col md:flex-row gap-3 items-center  bg-[#F7F7F7] rounded-lg p-4">
+        <div className="flex flex-col w-full md:w-1/3">
           <div className="flex items-center justify-between">
             <p>Approved Loans</p>
             <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
@@ -113,20 +113,18 @@ const Dashboard = () => {
             </span>
             <div className="flex gap-2 text-xs items-center">
               {approvedApplications ? (
-                <p className="hidden lg:block">
-                  +{approvedApplications?.length} From Yesterday
-                </p>
+                <p>+{approvedApplications?.length} From Yesterday</p>
               ) : (
-                <p className="hidden lg:block">No approved application</p>
+                <p>No approved application</p>
               )}
               <ApprovedButton />
             </div>
           </div>
         </div>
 
-        <div className="border-r border-r-[#5F6D7E] py-2 h-full"></div>
+        <div className=" border-t border-t-[#5F6D7E] w-full md:border-r md:border-r-[#5F6D7E] md:py-2 md:h-full"></div>
 
-        <div className="flex flex-col w-1/3">
+        <div className="flex flex-col w-full md:w-1/3">
           <div className="flex items-center justify-between">
             <p>Pending Reviews</p>
             <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
@@ -139,20 +137,18 @@ const Dashboard = () => {
             </span>
             <div className="flex gap-2 text-xs items-center">
               {pendingApplications ? (
-                <p className="hidden lg:block">
-                  +{pendingApplications?.length} From Yesterday
-                </p>
+                <p>+{pendingApplications?.length} From Yesterday</p>
               ) : (
-                <p className="hidden lg:block">No pending application</p>
+                <p>No pending application</p>
               )}
               <PendingButton />
             </div>
           </div>
         </div>
 
-        <div className="border-r border-r-[#5F6D7E] py-2 h-full"></div>
+        <div className="border-t border-t-[#5F6D7E] w-full md:border-r md:border-r-[#5F6D7E] md:py-2 md:h-full"></div>
 
-        <div className="flex flex-col w-1/3">
+        <div className="flex flex-col w-full md:w-1/3">
           <div className="flex items-center justify-between">
             <p>Rejected Loans</p>
             <div className="bg-[#454E5C] p-1 md:p-2 text-white rounded-md">
@@ -165,11 +161,9 @@ const Dashboard = () => {
             </span>
             <div className="flex gap-2 text-xs items-center">
               {rejectedApplications ? (
-                <p className="hidden lg:block">
-                  +{rejectedApplications?.length} From Yesterday
-                </p>
+                <p>+{rejectedApplications?.length} From Yesterday</p>
               ) : (
-                <p className="hidden lg:block">No rejected application</p>
+                <p>No rejected application</p>
               )}
               <RejectedButton />
             </div>
@@ -190,7 +184,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex bg-[#F7F7F7] items-center font-bold text-xs border-b p-3 border-b-[#D1D9E2]">
+        <div className="flex justify-between md:justify-start bg-[#F7F7F7] items-center font-bold text-xs border-b p-3 border-b-[#D1D9E2]">
           <div className="w-1/3">
             <p>Product</p>
           </div>
@@ -200,10 +194,10 @@ const Dashboard = () => {
           <div className="flex items-center gap-1 w-1/6">
             <p>Status</p> <BsArrowDownShort className="hidden md:block" />
           </div>
-          <div className="flex items-center gap-1 w-1/6 md:w-1/5">
+          <div className="hidden md:flex items-center gap-1 w-1/6 md:w-1/5">
             <p>Credit Score</p> <BsArrowDownShort className="hidden md:block" />
           </div>
-          <div className="flex items-center gap-1 ml-3 md:ml-0">
+          <div className="hidden md:flex items-center gap-1 ml-3 md:ml-0">
             <p>Amount</p> <BsArrowDownShort className="hidden md:block" />
           </div>
         </div>
@@ -223,12 +217,14 @@ const Dashboard = () => {
                 <Link to={`/applications/overview/${applicationId}`}>
                   <div
                     key={_id}
-                    className="flex bg-[#F7F7F7] items-center text-sm border-b p-3 h-12 border-b-[#D1D9E2]"
+                    className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b p-3 h-12 border-b-[#D1D9E2]"
                   >
                     <div className=" flex gap-2 items-center w-1/3">
-                      <FaUserCircle size={25} />
+                      <FaUserCircle size={25} className="hidden md:block" />
                       <div>
-                        <p className="text-[#2E3646]">{applicantName}</p>
+                        <p className="text-[#2E3646] truncate">
+                          {applicantName}
+                        </p>
                         <p className="text-xs">ID-{applicationId}</p>
                       </div>
                     </div>
@@ -244,10 +240,10 @@ const Dashboard = () => {
                         <RejectedButton />
                       )}
                     </div>
-                    <div className="flex items-center text-xs w-1/6 px-2.5">
+                    <div className="hidden md:flex items-center text-xs w-1/6 px-2.5">
                       <p>{creditScore}</p>
                     </div>
-                    <div className="flex items-center px-2.5 text-xs w-1/6">
+                    <div className="hidden md:flex items-center px-2.5 text-xs w-1/6">
                       <p>₦{loanAmount.toLocaleString('en-US')}</p>
                       <span className="hidden md:block">.00</span>
                     </div>

@@ -38,13 +38,17 @@ const ForgotPassword = () => {
   };
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex "
+      className="md:min-h-screen md:bg-cover md:bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
-      <div className="h-screen flex flex-col justify-center items-end w-1/2">
-        <img src={ellipseImg} className=" w-4/6 " alt="ellipse" />
+      <div className="h-screen flex flex-col justify-center items-end md:w-1/2">
+        <img
+          src={ellipseImg}
+          className="hidden md:block md:w-4/6 "
+          alt="ellipse"
+        />
       </div>
-      <div className="w-1/2 bg-white">
+      <div className="w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <form
             onSubmit={handleSubmit}

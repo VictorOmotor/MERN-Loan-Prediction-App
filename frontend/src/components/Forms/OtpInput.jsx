@@ -13,7 +13,7 @@ const OtpInput = ({ value, onChange, error }) => {
           shouldAutoFocus={true}
           renderSeparator={<span className="mx-auto" />}
           containerStyle="border bg-[#DFDEDE] flex justify-center"
-          inputStyle={`p-2 text-3xl border ${
+          inputStyle={`p-2 text-4xl border ${
             error ? 'border-red-500' : 'border-[#169872]'
           } rounded focus:outline-none text-center`}
           renderInput={(props) => <input {...props} />}

@@ -76,7 +76,7 @@ const SignUpWithId = () => {
           email={email}
         />
       )}
-      <div className="h-screen flex flex-col w-1/2 relative">
+      <div className="hidden md:h-screen md:flex md:flex-col md:w-1/2 relative">
         <div className="absolute">
           <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-80 lg:translate-x-24 xl:translate-y-96 xl:translate-x-36 ">
             <img src={LogoImg} className=" w-10" alt="Logo" />
@@ -135,7 +135,7 @@ const SignUpWithId = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 bg-white">
+      <div className="w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <h1 className="text-3xl text-center text-[#172233] font-semibold my-16">
             Sign Up

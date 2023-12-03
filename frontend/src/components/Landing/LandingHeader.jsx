@@ -22,7 +22,7 @@ const LandingHeader = () => {
           <nav className="flex justify-between py-3 px-3 md:px-20 items-center">
             <Link to={'/'}>
               <div className="flex gap-1 text-logoBlue items-center">
-                <img src={LogoImg} alt="Logo" className=" w-7 md:w-5" />
+                <img src={LogoImg} alt="Logo" className=" w-6 md:w-5" />
                 <h1 className=" hidden md:block font-[Montserrat] font-bold">
                   Cash2Go
                 </h1>

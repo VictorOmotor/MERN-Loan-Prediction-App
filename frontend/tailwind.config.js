@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -24,7 +23,6 @@ export default {
       fontFamily: {
         body: ['Arial', 'sans-serif'],
         heading: ['Georgia', 'serif'],
-        // Add more fonts as needed
       },
     },
   },

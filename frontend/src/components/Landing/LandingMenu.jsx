@@ -30,7 +30,7 @@ const LandingMenu = ({ onClick }) => {
       onClick={onClick}
     >
       <div className="flex flex-col gap-4 font-[Inter] text-white">
-        <div className="flex items-center justify-between pb-6  pt-3 px-6">
+        <div className="flex items-center justify-between pb-6  pt-3 px-4">
           <Link to={'/'}>
             <div className="flex gap-2 items-center">
               <img src={LogoImg} alt="Logo" className="w-5" />
@@ -40,7 +40,7 @@ const LandingMenu = ({ onClick }) => {
             </div>
           </Link>
           <FaTimes
-            size={30}
+            size={28}
             className="text-white md:hidden"
             onClick={onClick}
           />

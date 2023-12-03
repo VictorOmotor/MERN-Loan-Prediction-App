@@ -31,7 +31,7 @@ const Onboarding = () => {
       </div>
       <img
         src={ellipseImg}
-        className="absolute inset-0 w-3/5 sm:w-1/2 md:w-1/3 mx-auto my-auto z-50"
+        className="absolute inset-0 w-5/6 sm:w-1/2 md:w-1/2 lg:w-1/3 mx-auto my-auto z-50"
         alt="ellipse"
       />
     </div>

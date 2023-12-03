@@ -27,7 +27,7 @@ const Header = () => {
           <Link className="md:hidden" to={'/'}>
             <img src={LogoImg} alt="Logo" className="w-6" />
           </Link>
-          <div>
+          <div className="hidden md:block">
             <div className="flex items-center bg-[#F8F9FB] h-4 md:h-8 w-36 sm:w-60 rounded-lg p-3 text-[#5F6D7E]">
               <button>
                 <FaSearch />

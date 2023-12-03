@@ -78,7 +78,7 @@ const SignUpSecurityQuestion = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex "
+      className="md:min-h-screen md:bg-cover md:bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
       {loading && <Loader />}
@@ -89,8 +89,8 @@ const SignUpSecurityQuestion = () => {
           isVisible={isVisible}
         />
       )}
-      <div className="h-screen flex flex-col w-1/2 relative">
-        <div className="absolute">
+      <div className="md:h-screen md:flex md:flex-col md:w-1/2 relative">
+        <div className="hidden md:block absolute">
           <div className="flex items-center gap-1 absolute transform translate-x-5 translate-y-96 sm:translate-y-96 sm:translate-x-8 lg:translate-y-80 lg:translate-x-24 xl:translate-y-96 xl:translate-x-36 ">
             <img src={LogoImg} className="w-10" alt="Logo" />
             <span className=" font-[Montserrat] font-semibold text-white text-[2rem]">
@@ -148,9 +148,12 @@ const SignUpSecurityQuestion = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 bg-white">
+      <div className="w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-40" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-5 mt-20 md:mt-40"
+            onSubmit={handleSubmit}
+          >
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"

@@ -30,7 +30,7 @@ const HeroSection = () => {
           <h1 className="text-[#0A1C6B] text-3xl font-semibold md:text-6xl xl:text-8xl">
             Predict the loans
           </h1>
-          <p className="text-[#121212] text-xl">
+          <p className="text-[#121212] md:text-xl">
             Cash2go is a web application for credit analyst, risk analyst, bank
             officers and other loan officers, used to predict the loans of their
             respective customer’s loan application.
@@ -83,7 +83,7 @@ const HeroSection = () => {
         />
       </section>
       <section className="flex md:py-0 xl:py-7">
-        <div className=" w-72 md:w-96 xl:w-2/5">
+        <div className="hidden md:block md:w-96 xl:w-2/5">
           <img src={Rectangle90} alt="" className="" />
         </div>
         <div className="flex flex-col gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-80 md:w-3/5">
@@ -98,7 +98,7 @@ const HeroSection = () => {
           <HomeButton text="Start here" />
         </div>
       </section>
-      <section className="flex py-4 md:py-7">
+      <section className="flex md:py-7">
         <div className="flex flex-col gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-80 md:w-3/5">
           <HiOutlineAdjustmentsVertical size={40} className="text-[#006EFC]" />
           <h1 className="text-fontBlue md:text-3xl font-semibold">
@@ -110,12 +110,12 @@ const HeroSection = () => {
           </p>
           <HomeButton text="Start here" />
         </div>
-        <div className=" w-72 md:w-96 xl:w-2/5">
+        <div className="hidden md:block w-72 md:w-96 xl:w-2/5">
           <img src={Rectangle92} alt="" className="" />
         </div>
       </section>
-      <section className="flex py-4 md:py-7">
-        <div className=" w-72 md:w-96 xl:w-2/5">
+      <section className="flex md:py-7">
+        <div className="hidden md:block w-72 md:w-96 xl:w-2/5">
           <img src={Rectangle91} alt="" className="" />
         </div>
         <div className="flex flex-col gap-2 w-80 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 md:w-3/5">
@@ -130,8 +130,8 @@ const HeroSection = () => {
           <HomeButton text="Start here" />
         </div>
       </section>
-      <section className="flex flex-col relative justify-center items-center py-4 md:py-7">
-        <div className="flex flex-col gap-5 justify-center items-center bg-homeCardBackground py-2 md:py-7 w-1/2 border-2 border-[#006EFC]">
+      <section className="flex flex-col relative justify-center items-center md:py-7">
+        <div className="flex flex-col gap-2 md:gap-5 justify-center items-center bg-homeCardBackground py-2 md:py-7 w-full md:w-1/2 border-2 border-[#006EFC]">
           <h2 className="text-[#006EFC] font-semibold uppercase">
             coming soon!!!
           </h2>

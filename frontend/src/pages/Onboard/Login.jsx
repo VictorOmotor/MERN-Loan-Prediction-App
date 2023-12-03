@@ -72,14 +72,14 @@ const Login = () => {
       style={{ backgroundImage: `url(${BgImg})` }}
     >
       {loading && <Loader />}
-      <div className="h-screen flex flex-col w-1/2">
+      <div className=" hidden md:h-screen md:flex md:flex-col md:w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
           <img src={LaptopImg} className=" w-48 sm:w-60 xl:w-72" alt="laptop" />
         </div>
         <div className="flex flex-col items-center p-3">
-          <div className="flex gap-1 pb-2">
+          <div className="flex gap-1 items-center pb-2">
             <img src={LogoImg} className=" w-8" alt="Logo" />
-            <span className=" font-[Montserrat] font-semibold text-white text-3xl">
+            <span className=" font-[Montserrat] font-semibold text-white xs:text-3xl">
               Cash2Go
             </span>
           </div>
@@ -92,7 +92,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 bg-white">
+      <div className="w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <h1 className="text-3xl text-center text-[#172233] font-semibold pt-12 md:pt-28 pb-8">
             Log in

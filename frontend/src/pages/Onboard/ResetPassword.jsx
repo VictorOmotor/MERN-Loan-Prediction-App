@@ -88,7 +88,7 @@ const ResetPassword = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
-      <div className="h-screen flex flex-col w-1/2">
+      <div className="hidden md:h-screen md:flex flex-col w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
           <img src={LaptopImg} className=" w-48 sm:w-60 xl:w-72" alt="laptop" />
         </div>
@@ -108,7 +108,7 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 bg-white">
+      <div className="w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <form
             onSubmit={handleSubmit}
