@@ -49,7 +49,7 @@ const RejectedApplications = () => {
     <main>
       {applications && !error && !loading && (
         <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
-          <div className="flex items-center justify-between">
+          <div className="hidden md:flex items-center justify-between">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Applications</span>{' '}
               <span>
@@ -130,7 +130,7 @@ const RejectedApplications = () => {
                   <Link to={`/applications/overview/${applicationId}`}>
                     <div
                       key={_id}
-                      className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b py-1 px-2 border-b-[#D1D9E2]"
+                      className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b md:py-1 px-2 border-b-[#D1D9E2]"
                     >
                       <div className=" flex gap-2 items-center w-1/3">
                         <FaUserCircle size={25} className="hidden md:block" />
@@ -144,7 +144,7 @@ const RejectedApplications = () => {
                       <div className="flex items-center text-xs md:px-1 w-1/6">
                         <p>{formatDateWithSlash(createdAt)}</p>
                       </div>
-                      <div className="flex items-center md:px-2 w-1/6">
+                      <div className="flex items-center mr-3 md:px-2 w-1/6">
                         <RejectedButton />
                       </div>
                       <div className="hidden md:flex items-center text-xs w-1/6 px-2.5">

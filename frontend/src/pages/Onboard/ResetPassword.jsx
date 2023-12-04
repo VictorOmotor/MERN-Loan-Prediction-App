@@ -108,7 +108,7 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <form
             onSubmit={handleSubmit}
@@ -165,7 +165,7 @@ const ResetPassword = () => {
                   onChange={handleChange}
                   required
                 />
-                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                <div className="absolute top-1/2 right-3 transform -translate-y-3/4 cursor-pointer">
                   {showVerifyPassword ? (
                     <FaEyeSlash
                       onClick={handleVerifyPasswordVisiblity}
@@ -195,7 +195,7 @@ const ResetPassword = () => {
             </button>
           </form>
           <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
-          <div className="flex text-center justify-center text-[#000] gap-4 py-16">
+          <div className="flex text-center justify-center text-[#000] gap-4 py-7 md:py-16">
             <span>Term of use </span>
             <Link to="/sign-in">
               <span>Privacy policy</span>

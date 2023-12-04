@@ -53,7 +53,7 @@ const AllApplications = () => {
       {applications && !error && !loading && (
         <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex flex-col gap-3.5">
-            <div className="flex gap-1 items-center">
+            <div className="hidden md:flex gap-1 items-center">
               <span className="text-xs">Application</span>{' '}
               <span>
                 <HiOutlineChevronRight size={12} />
@@ -152,7 +152,7 @@ const AllApplications = () => {
                       <div className="flex items-center text-xs md:px-1 w-1/6">
                         <p>{formatDateWithSlash(createdAt)}</p>
                       </div>
-                      <div className="flex items-center md:px-2 w-1/6">
+                      <div className="flex items-center mr-3 md:px-2 w-1/6">
                         {status === 'approved' ? (
                           <ApprovedButton />
                         ) : status === 'pending' ? (

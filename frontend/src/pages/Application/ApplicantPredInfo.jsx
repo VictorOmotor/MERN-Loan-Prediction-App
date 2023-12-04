@@ -43,7 +43,7 @@ const ApplicantPredInfo = () => {
     <main>
       {application && !error && !loading && (
         <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
-          <div className="flex items-center justify-between">
+          <div className="hidden md:flex items-center justify-between">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Applications</span>{' '}
               <span>

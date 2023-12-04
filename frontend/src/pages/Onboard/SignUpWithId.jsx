@@ -135,7 +135,7 @@ const SignUpWithId = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <h1 className="text-3xl text-center text-[#172233] font-semibold my-16">
             Sign Up
@@ -174,7 +174,7 @@ const SignUpWithId = () => {
                   id="companyId"
                   onChange={(e) => setCompanyId(e.target.value)}
                 />
-                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                <div className="absolute top-1/2 right-3 transform -translate-y-3/4 cursor-pointer">
                   {showId ? (
                     <FaEyeSlash
                       onClick={handleToggleVisiblity}
@@ -208,7 +208,7 @@ const SignUpWithId = () => {
           </form>
           <p className="text-red-500 text-sm my-2">{error ? error : ''}</p>
 
-          <div className="md:flex text-center justify-center gap-4 mt-10 md:mt-20">
+          <div className="flex flex-col md:flex-row text-center justify-center gap-4 mt-7 md:mt-20">
             <p className="text-[#454E5C]">Term of use </p>
             <Link to="/sign-in">
               <p className="text-[#454E5C]">Privacy policy</p>

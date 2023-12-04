@@ -58,11 +58,17 @@ const AppOverview = () => {
           <div className="flex flex-col gap-3.5">
             <div className="flex items-center justify-between">
               <div className="flex gap-1 items-center">
-                <span className="text-xs">Applications</span>{' '}
-                <span>
-                  <HiOutlineChevronRight size={12} />
-                </span>
+                <span className="hidden md:block text-xs">Applications</span>{' '}
+                <HiOutlineChevronRight size={12} className="hidden md:block" />
                 <span className="text-xs">Application Overview</span>{' '}
+              </div>
+              <div className="md:hidden flex items-center gap-2">
+                <Link
+                  to={`/applications/applicant/prediction/${application.applicationId}`}
+                >
+                  <GreyButton text="Info" />
+                </Link>
+                <BlueButton text="Review" />
               </div>
 
               <div
@@ -81,7 +87,7 @@ const AppOverview = () => {
                     {application.applicantName}
                   </h1>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-2">
+                <div className="hidden md:flex items-center gap-2">
                   <Link
                     to={`/applications/applicant/prediction/${application.applicationId}`}
                   >

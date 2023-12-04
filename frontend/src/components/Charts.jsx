@@ -1,7 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = ['#5F6D7E', '#169872'];
+const COLORS = ['#169872', '#5F6D7E'];
 
 export const CreditScoreChart = ({ creditScore }) => {
   const data = [

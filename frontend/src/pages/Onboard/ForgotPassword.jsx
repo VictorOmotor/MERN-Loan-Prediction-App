@@ -48,7 +48,7 @@ const ForgotPassword = () => {
           alt="ellipse"
         />
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <form
             onSubmit={handleSubmit}

@@ -39,7 +39,7 @@ const ApplicantContactInfo = () => {
     <main>
       {application && !error && !loading && (
         <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
-          <div className="flex items-center justify-between">
+          <div className="hidden md:flex items-center justify-between">
             <div className="flex gap-1 items-center">
               <span className="text-xs">Applications</span>{' '}
               <span>
@@ -109,15 +109,15 @@ const ApplicantContactInfo = () => {
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
               <p className="w-1/2 lg:w-1/3">Contact information</p>
-              <p>{application.contactAddress}</p>
+              <p className="w-1/2">{application.contactAddress}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
               <p className="w-1/2 lg:w-1/3">State of Origin</p>
               <p>{capitalizeWords(application.stateOfOrigin)}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
-              <p className="w-1/2 lg:w-1/3">Address of Employer</p>
-              <p>{application.workAddress}</p>
+              <p className="w-1/2 truncate lg:w-1/3">Address of Employer</p>
+              <p className="w-1/2">{application.workAddress}</p>
             </div>
             <div className="flex p-2 border-b border-b-[#bdd1e9]">
               <p className="w-1/2 lg:w-1/3">Phone Number</p>

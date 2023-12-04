@@ -74,7 +74,7 @@ const ResetPassSecQues = () => {
       className="min-h-screen bg-cover bg-center flex "
       style={{ backgroundImage: `url(${BgImg})` }}
     >
-      <div className="hidden md:h-screen md:flex flex-col w-1/2">
+      <div className="hidden h-screen md:flex flex-col w-1/2">
         <div className="flex flex-col items-end h-2/3 pt-36">
           <img src={LaptopImg} className="w-48 sm:w-60 xl:w-72" alt="laptop" />
         </div>
@@ -94,8 +94,8 @@ const ResetPassSecQues = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
-        <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
+      <div className="flex w-full md:w-1/2 bg-white">
+        <div className="p-3 w-2/3 md:w-3/5 mx-auto font-[Inter]">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-5 mt-20 md:mt-44"
@@ -203,7 +203,7 @@ const ResetPassSecQues = () => {
             </button>
           </form>
           <p className="text-red-500 text-xs mt-2">{error ? error : ''}</p>
-          <div className="flex text-center justify-center text-[#000] gap-4 py-16">
+          <div className="flex text-center justify-center text-[#000] gap-4 py-7 md:py-16">
             <span>Term of use </span>
             <Link to="/sign-in">
               <span>Privacy policy</span>

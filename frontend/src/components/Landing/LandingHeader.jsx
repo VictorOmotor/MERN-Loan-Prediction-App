@@ -9,36 +9,17 @@ import { useSelector } from 'react-redux';
 const LandingHeader = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const [scrollPage, setScrollPage] = useState(false);
 
-  useEffect(() => {
-    const fixNavBar = () => {
-      if (window.scrollY > 50) {
-        setScrollPage(true);
-      } else {
-        setScrollPage(false);
-      }
-    };
-
-    window.addEventListener('scroll', fixNavBar);
-
-    return () => {
-      window.removeEventListener('scroll', fixNavBar);
-    };
-  }, []);
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
   return (
     <>
       {isMenuOpen ? (
         <LandingMenu onClick={toggleMenu} />
       ) : (
-        <header
-          className={`w-full h-auto border bg-headerBackground font-[Inter] ${
-            scrollPage ? 'fixed top-0 w-full z-50' : ''
-          }`}
-        >
+        <header className="w-full h-auto border bg-headerBackground font-[Inter]">
           <nav className="flex justify-between py-3 px-3 md:px-20 items-center">
             <Link to={'/'}>
               <div className="flex gap-1 text-logoBlue items-center">
@@ -54,21 +35,21 @@ const LandingHeader = () => {
                   <li className="">Dashboard</li>
                 </Link>
               ) : (
-                ''
+                <>
+                  <Link to={'/about'}>
+                    <li className="hidden md:block">About Us</li>
+                  </Link>
+                  <Link to={'#'}>
+                    <li className="hidden md:block">Help Center</li>
+                  </Link>
+                </>
               )}
-
-              <Link to={'/about'}>
-                <li>About Us</li>
-              </Link>
-              <Link to={'#'}>
-                <li className="hidden md:block">Help Center</li>
-              </Link>
             </ul>
             {currentUser ? (
               ''
             ) : (
               <>
-                <ul className="hidden md:flex items-center gap-3">
+                <ul className="flex items-center gap-3">
                   <li>
                     <HomeLogin />
                   </li>

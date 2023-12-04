@@ -143,9 +143,9 @@ const Otp = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex items-center justify-center w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
-          <div className="border bg-[#DFDEDE] p-10 mt-20">
+          <div className="border bg-[#DFDEDE] p-7">
             <OtpInput
               value={signUpOtp}
               onChange={handleOtpChange}

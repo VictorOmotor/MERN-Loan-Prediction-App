@@ -52,7 +52,7 @@ export default class ApplicationController {
     const parsedLoanAmount = +loanAmount;
     const parsedLastLoanAmount = +lastLoanAmount;
     const parsedCreditDebitRatio = +creditDebitRatio;
-
+    
     if (
       parsedApplicantIncome > parsedCoApplicantIncome ||
       parsedApplicantIncome * 3 < parsedLoanAmount ||

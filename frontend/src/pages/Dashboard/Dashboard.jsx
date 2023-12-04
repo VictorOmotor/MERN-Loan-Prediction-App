@@ -63,13 +63,21 @@ const Dashboard = () => {
     fetchApplications();
   }, []);
   return (
-    <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 text-xs lg:text-base font-[Inter] text-[#5F6D7E]">
+    <div className="flex flex-col gap-4 px-5 md:px-24 py-4 text-xs lg:text-base font-[Inter] text-[#5F6D7E]">
       <div className="flex flex-col gap-3.5">
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center justify-between md:justify-start">
           <span className="text-xs">Dashboard</span>{' '}
           <span>
             <HiOutlineChevronRight size={12} className="hidden md:block" />
           </span>
+          <div className="md:hidden flex items-center gap-2">
+            <Link to={'/applications/all'}>
+              <GreyButton text="Existing" />
+            </Link>
+            <Link to={'/applications/new-application/prediction'}>
+              <BlueButton text="New" />
+            </Link>
+          </div>
         </div>
         <div className="flex flex-col">
           <div className="flex justify-between items-center">
@@ -78,7 +86,7 @@ const Dashboard = () => {
                 {fullName},
               </h1>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               <Link to={'/applications/all'}>
                 <GreyButton text="Existing" />
               </Link>
@@ -216,7 +224,7 @@ const Dashboard = () => {
                 <Link to={`/applications/overview/${applicationId}`}>
                   <div
                     key={_id}
-                    className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b p-3 h-12 border-b-[#D1D9E2]"
+                    className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b px-2 h-12 border-b-[#D1D9E2]"
                   >
                     <div className=" flex gap-2 items-center w-1/3">
                       <FaUserCircle size={25} className="hidden md:block" />

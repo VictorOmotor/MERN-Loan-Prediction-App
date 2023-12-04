@@ -19,9 +19,13 @@ import InterestCalculator from '../assets/images/Interest rate calculator.png';
 import InterestResume from '../assets/images/Interest on resume.png';
 import { HiOutlineDuplicate } from 'react-icons/hi';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
+import { useSelector } from 'react-redux';
+
 const HeroSection = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
-    <div className=" container font-[Inter] p-3 flex flex-col gap-4 xl:gap-7">
+    <div className=" container font-[Inter] p-7 flex flex-col gap-4 xl:gap-7">
       <section className="flex md:h-screen relative">
         <div className=" flex flex-col items-start gap-3 md:gap-1 md:pt-8 xl:pt-24 md:pl-6 md:w-2/5">
           <h2 className="text-[#006EFC] font-semibold uppercase text-xs">
@@ -35,7 +39,7 @@ const HeroSection = () => {
             officers and other loan officers, used to predict the loans of their
             respective customer’s loan application.
           </p>
-          <HomeButton text="Get Started" />
+          {currentUser ? '' : <HomeButton text="Get Started" />}
         </div>
         <img
           src={Rectangle85}
@@ -86,7 +90,7 @@ const HeroSection = () => {
         <div className="hidden md:block md:w-96 xl:w-2/5">
           <img src={Rectangle90} alt="" className="" />
         </div>
-        <div className="flex flex-col gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-80 md:w-3/5">
+        <div className="flex flex-col py-2 gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-full md:w-3/5">
           <img src={ViewGrid} alt="" className="" />
           <h1 className=" text-fontBlue md:text-3xl font-semibold">
             Intuitive Dashboard
@@ -95,11 +99,11 @@ const HeroSection = () => {
             A user friendly and visually organised interface that <br />{' '}
             presents key data and insights of loan application.
           </p>
-          <HomeButton text="Start here" />
+          {currentUser ? '' : <HomeButton text="Start here" />}
         </div>
       </section>
       <section className="flex md:py-7">
-        <div className="flex flex-col gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-80 md:w-3/5">
+        <div className="flex flex-col py-2 gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-full md:w-3/5">
           <HiOutlineAdjustmentsVertical size={40} className="text-[#006EFC]" />
           <h1 className="text-fontBlue md:text-3xl font-semibold">
             Efficient Analysis
@@ -108,7 +112,7 @@ const HeroSection = () => {
             A streamlined and effective process of examining and <br />{' '}
             interpreting data of loan applications.
           </p>
-          <HomeButton text="Start here" />
+          {currentUser ? '' : <HomeButton text="Start here" />}
         </div>
         <div className="hidden md:block w-72 md:w-96 xl:w-2/5">
           <img src={Rectangle92} alt="" className="" />
@@ -118,7 +122,7 @@ const HeroSection = () => {
         <div className="hidden md:block w-72 md:w-96 xl:w-2/5">
           <img src={Rectangle91} alt="" className="" />
         </div>
-        <div className="flex flex-col gap-2 w-80 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 md:w-3/5">
+        <div className="flex flex-col py-2 gap-2 w-full xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 md:w-3/5">
           <HiOutlineDuplicate size={36} className="text-[#006EFC]" />
           <h1 className="text-fontBlue md:text-3xl font-semibold">
             Strong Prediction
@@ -127,7 +131,7 @@ const HeroSection = () => {
             Almost 100% accurate estimation of loan application <br /> outcome
             based on reliable predictive model.
           </p>
-          <HomeButton text="Start here" />
+          {currentUser ? '' : <HomeButton text="Start here" />}
         </div>
       </section>
       <section className="flex flex-col relative justify-center items-center md:py-7">

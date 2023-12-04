@@ -14,7 +14,7 @@ const InitialPredicion = () => {
     if (!mode) {
       setError('Please select an option!');
     } else if (mode !== 'manual') {
-      setError('That option is not available at the moment!');
+      setError('Not available at the moment!');
     } else {
       setError(null);
       navigate('/applications/new-application/personalinfo', {
@@ -59,7 +59,7 @@ const InitialPredicion = () => {
               <label className="text-[#5F6D7E] font-semibold" htmlFor="mode">
                 Mode
               </label>
-              <div className="flex justify-between md:justify-start md:gap-10 items-center">
+              <div className="flex flex-col md:flex-row gap-4 w-4/5 md:w-full md:gap-10 md:items-center">
                 <select
                   type="text"
                   className="border border-[#5F6D7E] p-2 rounded-lg md:w-1/3 h-10 mt-1 focus:outline-none"

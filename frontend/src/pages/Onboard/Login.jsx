@@ -92,7 +92,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
           <h1 className="text-3xl text-center text-[#172233] font-semibold pt-12 md:pt-28 pb-8">
             Log in
@@ -130,7 +130,7 @@ const Login = () => {
                   onChange={handleChange}
                   required
                 />
-                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                <div className="absolute top-1/2 right-3 transform -translate-y-3/4 cursor-pointer">
                   {showPassword ? (
                     <FaEyeSlash
                       onClick={handleToggleVisiblity}
@@ -164,7 +164,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <div className="flex text-center justify-center text-[#000] gap-4 pt-12">
+          <div className="flex text-center justify-center text-[#000] gap-4 pt-7 md:pt-12">
             <span>Term of use </span>
 
             <span>Privacy policy</span>

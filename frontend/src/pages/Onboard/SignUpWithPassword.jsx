@@ -134,9 +134,9 @@ const SignUpWithPassword = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5 mt-16" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"
@@ -184,7 +184,7 @@ const SignUpWithPassword = () => {
                   id="password"
                   onChange={handleChange}
                 />
-                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                <div className="absolute top-1/2 right-3 transform -translate-y-3/4 cursor-pointer">
                   {showPassword ? (
                     <FaEyeSlash
                       onClick={handleToggleVisiblity}
@@ -214,7 +214,7 @@ const SignUpWithPassword = () => {
                   id="confirmPassword"
                   onChange={handleChange}
                 />
-                <div className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer">
+                <div className="absolute top-1/2 right-3 transform -translate-y-3/4 cursor-pointer">
                   {showVerifyPassword ? (
                     <FaEyeSlash
                       onClick={handleVerifyPasswordVisiblity}
