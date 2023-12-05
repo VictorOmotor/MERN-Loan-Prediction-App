@@ -68,7 +68,7 @@ const NewAppFinHistory = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
+    <div className="flex flex-col gap-4 px-7 pb-3 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
       <div className="hidden md:flex items-center justify-between">
         <div className="flex gap-1 items-center">
           <span className="text-xs">Applications</span>{' '}
@@ -286,7 +286,7 @@ const NewAppFinHistory = () => {
               </div>
             </div>
             <button
-              className="bg-[#172233] w-full md:w-1/3 h-7 mt-4 flex items-center justify-center gap-2 text-white p-2
+              className="bg-[#172233] w-full md:w-1/3 h-7 mt-5 flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
               disabled={loading}

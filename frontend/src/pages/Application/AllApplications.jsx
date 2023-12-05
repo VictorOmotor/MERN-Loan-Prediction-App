@@ -7,7 +7,9 @@ import {
   BsDownload,
 } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
-import { HiOutlineChevronRight } from 'react-icons/hi';
+import {
+  HiOutlineChevronRight,
+} from 'react-icons/hi';
 import {
   ApprovedButton,
   PendingButton,
@@ -16,8 +18,14 @@ import {
   GreyButton,
 } from '../../utils/Buttons';
 import axios from 'axios';
-import { formatDateWithSlash } from '../../utils';
+import { formatDateWithSlash, shortenText } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
+import { GoXCircle } from 'react-icons/go';
+import {
+  ApprovedIcon,
+  PendingIcon,
+  RejectedIcon,
+} from '../../components/Icons';
 
 const AllApplications = () => {
   const [error, setError] = useState(null);
@@ -53,12 +61,16 @@ const AllApplications = () => {
       {applications && !error && !loading && (
         <div className="flex flex-col gap-4 px-5 md:px-24 pt-4 font-[Inter] text-[#5F6D7E]">
           <div className="flex flex-col gap-3.5">
-            <div className="hidden md:flex gap-1 items-center">
-              <span className="text-xs">Application</span>{' '}
-              <span>
-                <HiOutlineChevronRight size={12} />
-              </span>
-              <span className="text-xs">All Applications</span>{' '}
+            <div className="md:hidden flex justify-between gap-1 items-center">
+              <span className="text-xs"> </span>{' '}
+              <HiOutlineChevronRight className="hidden md:block" size={12} />
+              <span className="text-xs"> </span>{' '}
+              <div className="flex items-center gap-2">
+                <GreyButton text="Analytics" />
+                <Link to={'/applications/new-application/prediction'}>
+                  <BlueButton text="New" />
+                </Link>
+              </div>
             </div>
             <div className="flex flex-col">
               <div className="flex justify-between items-center">
@@ -67,7 +79,7 @@ const AllApplications = () => {
                     Applications
                   </h1>
                 </div>
-                <div className="flex flex-col items-center md:flex-row gap-2">
+                <div className="hidden md:flex flex-col items-center md:flex-row gap-2">
                   <GreyButton text="Analytics" />
                   <Link to={'/applications/new-application/prediction'}>
                     <BlueButton text="New" />
@@ -114,7 +126,9 @@ const AllApplications = () => {
                 <p>Date</p> <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="flex items-center gap-1 w-1/6">
-                <p>Status</p> <BsArrowDownShort className="hidden md:block" />
+                <p className="hidden md:block">Status</p>{' '}
+                <p className="md:hidden"> </p>{' '}
+                <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="hidden md:flex items-center gap-1 w-1/6">
                 <p>Credit Score</p> <BsArrowDownShort />
@@ -144,15 +158,17 @@ const AllApplications = () => {
                         <FaUserCircle size={25} className="hidden md:block" />
                         <div>
                           <p className="text-[#2E3646] truncate">
-                            {applicantName}
+                            {shortenText(applicantName, 10)}
                           </p>
-                          <p className="text-xs">ID-{applicationId}</p>
+                          <p className="hidden md:block text-xs">
+                            ID-{applicationId}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center text-xs md:px-1 w-1/6">
                         <p>{formatDateWithSlash(createdAt)}</p>
                       </div>
-                      <div className="flex items-center mr-3 md:px-2 w-1/6">
+                      <div className="hidden md:flex items-center mr-3 md:px-2 w-1/6">
                         {status === 'approved' ? (
                           <ApprovedButton />
                         ) : status === 'pending' ? (
@@ -161,6 +177,16 @@ const AllApplications = () => {
                           <RejectedButton />
                         )}
                       </div>
+                      <div className="md:hidden">
+                        {status === 'approved' ? (
+                          <ApprovedIcon />
+                        ) : status === 'pending' ? (
+                          <PendingIcon />
+                        ) : (
+                          <RejectedIcon />
+                        )}
+                      </div>
+                      <p className="text-xs underline md:hidden">View</p>
                       <div className="hidden md:flex items-center text-xs w-1/6 px-2.5">
                         <p>{creditScore}</p>
                       </div>

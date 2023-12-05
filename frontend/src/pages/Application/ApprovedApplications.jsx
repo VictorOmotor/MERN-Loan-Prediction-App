@@ -12,6 +12,7 @@ import { ApprovedButton } from '../../utils/Buttons';
 import axios from 'axios';
 import { formatDateWithSlash } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
+import { ApprovedIcon } from '../../components/Icons';
 
 const ApprovedApplications = () => {
   const [error, setError] = useState(null);
@@ -102,7 +103,9 @@ const ApprovedApplications = () => {
                 <p>Date</p> <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="flex items-center gap-1 w-1/6">
-                <p>Status</p> <BsArrowDownShort className="hidden md:block" />
+                <p className="hidden md:block">Status</p>
+                <p className="md:hidden"> </p>{' '}
+                <BsArrowDownShort className="hidden md:block" />
               </div>
               <div className="hidden md:flex items-center gap-1 w-1/6">
                 <p>Credit Score</p>{' '}
@@ -123,27 +126,32 @@ const ApprovedApplications = () => {
                   applicantName,
                   applicationId,
                   creditScore,
-                  status,
                   createdAt,
                 }) => (
                   <Link to={`/applications/overview/${applicationId}`}>
                     <div
                       key={_id}
-                      className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b md:py-1 px-2 border-b-[#D1D9E2]"
+                      className="flex justify-between md:justify-start bg-[#F7F7F7] items-center text-sm border-b py-1 px-2 border-b-[#D1D9E2]"
                     >
                       <div className=" flex gap-2 items-center w-1/3">
                         <FaUserCircle size={25} className="hidden md:block" />
                         <div>
                           <p className="text-[#2E3646]">{applicantName}</p>
-                          <p className="text-xs">ID-{applicationId}</p>
+                          <p className="text-xs hidden md:block">
+                            ID-{applicationId}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center text-xs md:px-1 w-1/6">
                         <p>{formatDateWithSlash(createdAt)}</p>
                       </div>
-                      <div className="flex items-center mr-3 md:px-2 w-1/6">
+                      <div className="hidden md:flex items-center mr-3 md:px-2 w-1/6">
                         <ApprovedButton />
                       </div>
+                      <div className="md:hidden">
+                        <ApprovedIcon />
+                      </div>
+                      <p className="text-xs underline md:hidden">View</p>
                       <div className="hidden md:flex items-center text-xs w-1/6 px-2.5">
                         <p>{creditScore}</p>
                       </div>

@@ -28,7 +28,7 @@ const About = () => {
           </p>
         </div>
       </section>
-      <section className=" p-9 md:pt-4 md:pb-7 md:px-12">
+      <section className="px-9 py-3 md:p-9 md:pt-4 md:pb-7 md:px-12">
         <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 md:p-7 md:h-80 text-xs md:text-sm">
           <div className="flex bg-homeCardBackground h-full gap-2 p-2 md:py-4">
             <div>

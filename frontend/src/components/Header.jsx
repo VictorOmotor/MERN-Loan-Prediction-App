@@ -5,7 +5,7 @@ import { IoIosNotificationsOutline } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoImg from '../assets/images/LogoImg.png';
-import { RiMenu5Fill } from 'react-icons/ri';
+import { RiMenuLine } from 'react-icons/ri';
 import Menu from './Menu';
 
 const Header = () => {
@@ -42,7 +42,7 @@ const Header = () => {
         <Menu onClick={toggleMenu} />
       ) : (
         <header
-          className={`xl:w-screen h-12 md:h-16 bg-[#172233] font-[Inter] text-[#A2A7AD] flex items-center md:max-w-6xl justify-between p-3 md:px-5 ${
+          className={`xl:w-screen h-12 md:h-16 bg-[#172233] font-[Inter] text-[#A2A7AD] flex items-center md:max-w-6xl justify-between p-5 md:px-5 ${
             scrollPage ? 'fixed top-0 w-full z-50' : ''
           }`}
         >
@@ -75,7 +75,7 @@ const Header = () => {
             </div>
           </div>
           {!isMenuOpen ? (
-            <RiMenu5Fill
+            <RiMenuLine
               size={30}
               className="text-white md:hidden"
               onClick={toggleMenu}

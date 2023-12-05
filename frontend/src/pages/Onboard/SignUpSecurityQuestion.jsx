@@ -8,7 +8,6 @@ import { GoArrowRight } from 'react-icons/go';
 import { GoCheckCircleFill } from 'react-icons/go';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Spinner from '../../components/Spinner/Spinner';
 import { SignUpSuccessfulWidget } from '../../components/Widgets/Widgets';
 import Loader from '../../components/Loader/Loader';
 
@@ -148,9 +147,12 @@ const SignUpSecurityQuestion = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center w-full md:w-1/2 bg-white">
+      <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 w-2/3 md:w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-5 mt-20 md:mt-40"
+            onSubmit={handleSubmit}
+          >
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"
@@ -241,16 +243,8 @@ const SignUpSecurityQuestion = () => {
               className="bg-[#172233] flex items-center justify-center gap-2 text-white p-2
         rounded-lg hover:opacity-80
         disabled:opacity-50"
-              // disabled={loading}
             >
               Sign up <GoArrowRight />
-              {/* {loading ? (
-                <Spinner className="w-6 h-6 animate-spin rounded-full border-4 border-t-[#5F6D7E]" />
-              ) : (
-                <>
-                  Sign up <GoArrowRight />
-                </>
-              )} */}
             </button>
           </form>
           <p className="text-red-500 text-sm mt-2">{error ? error : ''}</p>

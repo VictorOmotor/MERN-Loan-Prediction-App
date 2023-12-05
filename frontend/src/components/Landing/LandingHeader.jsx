@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LogoImg from '../../assets/images/homeLogo.png';
 import { Link } from 'react-router-dom';
 import { HomeLogin, HomeSignUp } from '../../utils/Buttons';
-import { RiMenu5Fill } from 'react-icons/ri';
+import { RiMenuLine } from 'react-icons/ri';
 import LandingMenu from './LandingMenu';
 import { useSelector } from 'react-redux';
 
@@ -20,7 +20,7 @@ const LandingHeader = () => {
         <LandingMenu onClick={toggleMenu} />
       ) : (
         <header className="w-full h-auto border bg-headerBackground font-[Inter]">
-          <nav className="flex justify-between py-3 px-3 md:px-20 items-center">
+          <nav className="flex justify-between py-3 px-6 md:px-20 items-center">
             <Link to={'/'}>
               <div className="flex gap-1 text-logoBlue items-center">
                 <img src={LogoImg} alt="Logo" className=" w-6 md:w-5" />
@@ -36,14 +36,14 @@ const LandingHeader = () => {
                 </Link>
               ) : (
                 <>
-                  <Link to={'/about'}>
-                    <li className="hidden md:block">About Us</li>
-                  </Link>
                   <Link to={'#'}>
                     <li className="hidden md:block">Help Center</li>
                   </Link>
                 </>
               )}
+              <Link to={'/about'}>
+                <li className="hidden md:block">About Us</li>
+              </Link>
             </ul>
             {currentUser ? (
               ''
@@ -60,7 +60,7 @@ const LandingHeader = () => {
               </>
             )}
 
-            <RiMenu5Fill
+            <RiMenuLine
               size={30}
               className="text-fontBlue md:hidden"
               onClick={toggleMenu}

@@ -4,7 +4,7 @@ import { BsArrowLeft, BsDownload, BsArrowRight } from 'react-icons/bs';
 import { HiOutlineChevronRight } from 'react-icons/hi';
 import { LiaPrintSolid } from 'react-icons/lia';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { formatDate, getFormattedLoanDuration } from '../../utils';
+import { calculateDuration, formatDate } from '../../utils';
 
 const ApplicantPredInfo = () => {
   const [error, setError] = useState(null);
@@ -14,9 +14,9 @@ const ApplicantPredInfo = () => {
   const url = `/api/applications/get/${params.applicationId}`;
   const navigate = useNavigate();
 
-  const formattedLoanDuration = getFormattedLoanDuration(
-    application?.loanDuration,
-  );
+  const loanDuration = application?.loanDuration;
+  const loanTime = application?.createdAt;
+  // console.log(application?.lastLoanDate)
 
   useEffect(() => {
     const fetchApplication = async () => {
@@ -126,7 +126,9 @@ const ApplicantPredInfo = () => {
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
               <p className="w-2/5">Loan Duration</p>
-              <p className="w-2/5">{formattedLoanDuration}</p>
+              <p className="w-2/5">
+                {calculateDuration(loanDuration, loanTime)}
+              </p>
               <p className="w-1/5"></p>
             </div>
             <div className="flex p-2 h-8 border-b border-b-[#bdd1e9]">
@@ -138,7 +140,7 @@ const ApplicantPredInfo = () => {
               <p className="w-2/5">Last Loan Date</p>
               <p className="w-2/5">
                 {application.lastLoanDate === undefined
-                  ? 'No Date Chosen'
+                  ? 'NIL'
                   : formatDate(application.lastLoanDate)}
               </p>
               <p className="w-1/5"></p>

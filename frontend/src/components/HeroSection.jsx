@@ -49,18 +49,18 @@ const HeroSection = () => {
         <img
           src={Rectangle87}
           alt="hero image"
-          className=" hidden md:block h-20 absolute md:top-20 md:right-3 lg:right-28 lg:top-16"
+          className=" hidden md:block h-20 absolute md:top-20 md:right-3 lg:right-28 lg:top-16 xl:right-32"
         />
 
         <img
           src={Rectangle88}
           alt=""
-          className=" hidden md:block h-20 absolute md:right-72 md:bottom-32 lg:left-1/2 lg:bottom-24"
+          className=" hidden md:block h-20 absolute md:right-72 md:bottom-32 lg:left-1/2 lg:bottom-24 xl:bottom-44"
         />
         <img
           src={Rectangle86}
           alt=""
-          className=" hidden md:block h-20 absolute md:bottom-32 md:right-3 lg:right-28 lg:bottom-24"
+          className=" hidden md:block h-20 absolute md:bottom-32 md:right-3 lg:right-28 lg:bottom-24 xl:bottom-44 xl:right-32"
         />
 
         <div>
@@ -72,27 +72,27 @@ const HeroSection = () => {
           <img
             src={Ellipse8}
             alt=""
-            className=" hidden md:block absolute md:w-28 md:right-32 md:bottom-20 xl:w-32 lg:right-1/4 lg:bottom-8 xl:bottom-4"
+            className=" hidden md:block absolute md:w-28 md:right-32 md:bottom-20 xl:w-32 lg:right-1/4 lg:bottom-8 xl:bottom-20"
           />
           <img
             src={Ellipse9}
             alt=""
-            className=" hidden md:block absolute md:w-28 md:top-52 md:left-80 lg:top-52 xl:w-32 xl:top-60 transform lg:translate-x-[100%] xl:ml-24"
+            className=" hidden md:block absolute md:w-28 md:top-52 md:left-72 lg:top-52 xl:w-32 xl:top-60 transform lg:translate-x-[100%] xl:ml-24"
           />
         </div>
         <img
           src={Rectangle84}
           alt=""
-          className="absolute hidden md:block md:w-1/4 lg:w-56 xl:w-80 lg:h-60 xl:h-1/2  md:top-40 lg:top-36 lg:right-48 xl:right-52 md:right-24 md:h-1/3"
+          className="absolute hidden md:block lg:w-52 xl:w-80 lg:h-60 xl:h-1/2  md:top-40 lg:top-36 lg:right-48 xl:right-52 md:right-24 md:h-1/3"
         />
       </section>
-      <section className="flex md:py-0 xl:py-7">
+      <section className="flex">
         <div className="hidden md:block md:w-96 xl:w-2/5">
           <img src={Rectangle90} alt="" className="" />
         </div>
         <div className="flex flex-col py-2 gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-full md:w-3/5">
-          <img src={ViewGrid} alt="" className="" />
-          <h1 className=" text-fontBlue md:text-3xl font-semibold">
+          <img src={ViewGrid} alt="" className="w-5 md:w-8" />
+          <h1 className=" text-fontBlue text-2xl md:text-3xl font-semibold">
             Intuitive Dashboard
           </h1>
           <p className="text-fontBlue text-xs text-center">
@@ -104,7 +104,7 @@ const HeroSection = () => {
       </section>
       <section className="flex md:py-7">
         <div className="flex flex-col py-2 gap-2 xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 w-full md:w-3/5">
-          <HiOutlineAdjustmentsVertical size={40} className="text-[#006EFC]" />
+          <HiOutlineAdjustmentsVertical className="text-[#006EFC] text-2xl md:text-3xl" />
           <h1 className="text-fontBlue md:text-3xl font-semibold">
             Efficient Analysis
           </h1>
@@ -123,7 +123,7 @@ const HeroSection = () => {
           <img src={Rectangle91} alt="" className="" />
         </div>
         <div className="flex flex-col py-2 gap-2 w-full xl:gap-5 justify-center items-center bg-homeCardBackground md:my-8 md:w-3/5">
-          <HiOutlineDuplicate size={36} className="text-[#006EFC]" />
+          <HiOutlineDuplicate className="text-[#006EFC] text-2xl md:text-3xl" />
           <h1 className="text-fontBlue md:text-3xl font-semibold">
             Strong Prediction
           </h1>

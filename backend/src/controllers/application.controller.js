@@ -90,6 +90,7 @@ export default class ApplicationController {
         applicantIncome,
         user: userId,
         status: 'rejected',
+        lastLoanDate: req.body.lastLoanDate
       });
       await application.save();
       res.status(201).json(application);
@@ -126,6 +127,7 @@ export default class ApplicationController {
         applicantIncome,
         user: userId,
         status: 'pending',
+        lastLoanDate: req.body.lastLoanDate
       });
       await application.save();
       res.status(201).json(application);
@@ -157,6 +159,7 @@ export default class ApplicationController {
         applicantIncome,
         user: userId,
         status: 'approved',
+        lastLoanDate: req.body.lastLoanDate
       });
       await application.save();
       res.status(201).json(application);

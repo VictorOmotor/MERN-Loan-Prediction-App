@@ -79,7 +79,7 @@ const Menu = ({ onClick }) => {
               <span>Messages</span>
             </li>
           </ul>
-          <ul className="flex flex-col gap-3 pt-">
+          <ul className="flex flex-col gap-3 pt-3">
             <li className="flex gap-3 items-center px-6 py-1 hover:bg-[#5F6D7E]">
               <BsGlobe />
               <span>Resources</span>

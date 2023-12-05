@@ -3,7 +3,7 @@ import SideNav from './SideNav';
 import Header from './Header';
 const Layout = ({ children }) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen">
       <SideNav />
       <div className="flex flex-col flex-1 overflow-y-auto ">
         <Header />

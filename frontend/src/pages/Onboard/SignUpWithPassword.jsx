@@ -136,7 +136,7 @@ const SignUpWithPassword = () => {
       </div>
       <div className="flex w-full md:w-1/2 bg-white">
         <div className="p-3 md:w-3/5 mx-auto font-[Inter]">
-          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-5 mt-20" onSubmit={handleSubmit}>
             <div className="">
               <label
                 className="text-[#5F6D7E] font-semibold"

@@ -13,6 +13,8 @@ const LandingMenu = ({ onClick }) => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const url = '/api/user/logout';
+  const date = new Date();
+  const year = date.getFullYear();
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -72,11 +74,11 @@ const LandingMenu = ({ onClick }) => {
               </>
             )}
 
-            {/* <Link to={'/about'}>
-            <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
-              About Us
-            </li>
-            </Link> */}
+            <Link to={'/about'}>
+              <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
+                About Us
+              </li>
+            </Link>
             <Link to={'#'}>
               <li className="flex gap-3 items-center hover:bg-[#5F6D7E]">
                 Privacy Policy
@@ -105,7 +107,7 @@ const LandingMenu = ({ onClick }) => {
             )}
 
             <div className="flex flex-col items-center gap-2">
-              <p>Copyright &copy; 2023 Cash2go Ltd</p>
+              <p>Copyright &copy; {year} Cash2go Ltd</p>
               <p>All rights reserved</p>
             </div>
             <div className="flex items-center gap-4">

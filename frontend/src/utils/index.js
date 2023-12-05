@@ -31,47 +31,18 @@ export const formatDate = (dateString) => {
   return formattedDate;
 };
 
-export const calculatePastDuration = (loanDuration) => {
-  const currentDate = new Date();
+export const calculateDuration = (loanDuration, loanTime) => {
+  const applicationDate = parseISO(loanTime);
   const loanDate = parseISO(loanDuration);
 
   if (isNaN(loanDate.getTime())) {
     return 'Invalid Date';
   }
 
-  const duration = formatDistanceStrict(currentDate, loanDate, {
-    addSuffix: true,
+  const duration = formatDistanceStrict(applicationDate, loanDate, {
+    addSuffix: false,
   });
   return duration;
-};
-
-export const calculateDuration = (loanDuration) => {
-  const currentDate = new Date();
-  const loanDate = new Date(loanDuration);
-
-  if (isNaN(loanDate.getTime())) {
-    return 'Invalid Date';
-  }
-
-  const monthsDifference = differenceInMonths(currentDate, loanDate);
-  return `${monthsDifference} months`;
-};
-
-export const getFormattedLoanDuration = (loanDuration) => {
-  try {
-    const loanDurationMonths = differenceInMonths(
-      new Date(loanDuration),
-      new Date(),
-    );
-    const formattedLoanDuration = formatDistanceToNow(new Date(loanDuration), {
-      addSuffix: true,
-    });
-
-    return formattedLoanDuration;
-  } catch (error) {
-    console.error('Error processing loan duration:', error);
-    return 'Invalid date';
-  }
 };
 
 export const capitalizeWords = (input) => {
@@ -92,41 +63,3 @@ export const formatDateWithSlash = (inputDate) => {
   const formattedDate = format(parsedDate, 'dd/MM/yyyy');
   return formattedDate;
 };
-
-// export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-
-// // Extract id and cart quantity from cartItems
-// export function extractIdAndCartQuantity(products) {
-//   return products.map(function (product) {
-//     return {
-//       _id: product._id,
-//       cartQuantity: product.cartQuantity,
-//     };
-//   });
-// }
-
-// // Calculate average Product rating
-// export function calculateAverageRating(ratings) {
-//   if (!Array.isArray(ratings) || ratings.length === 0) {
-//     return 0; // Return 0 if the ratings array is empty or not an array
-//   }
-
-//   var totalStars = 0;
-//   for (var i = 0; i < ratings.length; i++) {
-//     var rating = ratings[i];
-//     if (rating.hasOwnProperty("star")) {
-//       totalStars += rating.star;
-//     }
-//   }
-
-//   return totalStars / ratings.length;
-// }
-
-// export function getCartQuantityById(products, id) {
-//   for (let i = 0; i < products.length; i++) {
-//     if (products[i]._id === id) {
-//       return products[i].cartQuantity;
-//     }
-//   }
-//   return 0; // If the _id is not found, return 0 or any default value
-// }

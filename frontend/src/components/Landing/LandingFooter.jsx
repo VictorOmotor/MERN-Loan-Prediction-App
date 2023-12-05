@@ -12,6 +12,8 @@ const LandingFooter = () => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const url = '/api/user/logout';
+  const date = new Date();
+  const year = date.getFullYear();
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -34,7 +36,7 @@ const LandingFooter = () => {
             </div>
           </Link>
           <div className="">
-            <p>Copyright &copy; 2023 Cash2go Ltd</p>
+            <p>Copyright &copy; {year} Cash2go Ltd</p>
             <p>All rights reserved</p>
           </div>
           <div className="flex items-center gap-4">
