@@ -79,7 +79,7 @@ const Login = () => {
         <div className="flex flex-col items-center p-3">
           <div className="flex gap-1 items-center pb-2">
             <img src={LogoImg} className=" w-8" alt="Logo" />
-            <span className=" font-[Montserrat] font-semibold text-white xs:text-3xl">
+            <span className=" font-[Montserrat] font-semibold text-white md:text-3xl">
               Cash2Go
             </span>
           </div>

@@ -15,6 +15,8 @@ import { config } from '../config/index.js';
 import { generateToken, verifyToken } from '../utils/jwt.utils.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import crypto from 'crypto';
+import useragent from 'express-useragent'
+import geoip from 'geoip-lite'
 
 export default class UserController {
   static async registerUserWithId(req, res) {
@@ -79,6 +81,10 @@ export default class UserController {
     const saltRounds = config.bycrypt_salt_round;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
     const token = generateToken(validUser);
+    const device = useragent.parse(req.headers["user-agent"]);
+    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    const location = geoip.lookup(ip);
+    const locationInfo = location ? `${location.country}, ${location.city}` : null;
     validUser.signUpOtp = null;
     validUser.isVerified = true;
     validUser.accessToken = token;
@@ -87,6 +93,9 @@ export default class UserController {
     validUser.firstName = firstName;
     validUser.surname = surname;
     validUser.password = hashedPassword;
+    validUser.device = device.source,
+    validUser.ip = ip,
+    validUser.location = locationInfo,
     await validUser.save();
     const user = validUser.toObject();
     delete user.password;
@@ -112,6 +121,28 @@ export default class UserController {
     if (!isMatch) throw new UnAuthorizedError('Invalid login details');
     const token = generateToken(validUser);
     validUser.accessToken = token;
+    const device = useragent.parse(req.headers["user-agent"]);
+    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    const location = geoip.lookup(ip);
+    const locationInfo = location ? `${location.country}, ${location.city}` : null;
+    const userDevice = validUser?.device 
+    const userLocation = validUser?.location
+    if (userDevice !== device.source || userLocation !== locationInfo) {
+    const message = `Hello ${validUser.firstName} ${validUser.surname},\n\n A new login was detected for your account with ${device.source} from ${locationInfo}.\n\nPlease ignore this message if this activity emanated from you.\n\nThank you.`;
+
+    const mailSent = await sendEmail({
+      email: validUser.email,
+      subject: 'New Device Login Notification',
+      message,
+    });
+    if (mailSent === false)
+      throw new NotFoundError(
+        `${email} cannot be reached. Please provide a valid email address`,
+      );
+    }
+    validUser.device = device.source,
+    validUser.ip = ip,
+    validUser.location = locationInfo
     await validUser.save();
     const user = validUser.toObject();
     delete user.password;
